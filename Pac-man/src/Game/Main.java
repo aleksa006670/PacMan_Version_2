@@ -9,14 +9,34 @@ public class Main {
 		
 		Game game = Game.getInstance();
 		// Starting the game loop
-		boolean repeat=true;
+		boolean repeat = true;
 		Scanner s = new Scanner(System.in);
 		System.out.println("Please, specify your name:");
 		String name = s.next();
 		while(repeat) {
-			System.out.println("Please, specify the difficulty:");
+			System.out.println("Please specify the difficulty (Easy, Medium, Hard):");
 			String difficulty = s.next();
-			game.gameInit(difficulty, "Scatter");
+			
+			int res = game.gameInit(difficulty, "Scatter");
+			while(res != 0) {
+				if(res == 1) { // Handling Difficulty error
+					System.out.println("Please specify the difficulty properly (Easy, Medium, Hard):");
+					difficulty = s.next();
+					res = game.gameInit(difficulty, "Scatter");
+				} else if(res == 2) { // Handling Ghost init error
+					System.out.println("Ghost init failed! Ghost file not found or cannot be opened!");
+					s.close();
+					return;
+				} else if(res == 3) { // Handling Pacman init error
+					System.out.println("Pacman init failed! Pacman file not found or cannot be opened!");
+					s.close();
+					return;
+				} else if(res == 4) { // Handling Maze init error
+					System.out.println("Maze init failed!");
+					s.close();
+					return;
+				}
+			}
 			
 			while (game.isGameOver()==false) {
 				game.printMaze();

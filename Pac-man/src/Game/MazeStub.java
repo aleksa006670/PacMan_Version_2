@@ -1,8 +1,4 @@
 package Game;
-import java.util.Scanner;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
 
 public class MazeStub extends Maze{
     /* By convention the size of the PacMan game board is 31 * 28 */
@@ -46,10 +42,10 @@ public class MazeStub extends Maze{
 		matrix[i][j]=null;
 	}
 
-    @Override
-    public void generateMaze(String file){
-        super.generateMaze("map/map1.txt");
-    }
+//    @Override
+//    public void generateMaze(String file){
+//        super.generateMaze("map/map1.txt");
+//    }
 
     /**
      * Creates a GameObject 2D array based on the map file

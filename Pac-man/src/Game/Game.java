@@ -23,14 +23,27 @@ public class Game {
 		//Difficulty.setMazeArray();
 	}
 
-	public void gameInit(String difficultyStr, String mode) {
-		setDifficulty(difficultyStr);
-		Ghost.initGhosts(difficulty.getGhostFile());
-		PacMan.initPacMan(difficulty.getPacMan());
-		Maze.initMaze(difficulty.getMaze());
+	public int gameInit(String difficultyStr, String mode) {
+		boolean state = setDifficulty(difficultyStr);
+		if(!state) {
+			return 1; // Difficulty Init failed
+		}
+		state = Ghost.initGhosts(difficulty.getGhostFile());
+		if(!state) {
+			return 2; // Ghost Init failed
+		}
+		state = PacMan.initPacMan(difficulty.getPacMan());
+		if(!state) {
+			return 3; // Pacman Init failed
+		}
+		state = Maze.initMaze(difficulty.getMaze());
+		if(!state) {
+			return 4; // Maze Init failed
+		}
 		Mode.initModes(difficulty.getAlgorithm());
 		
 		setMode(mode);
+		return 0; // Success
 	}
 
 	public void gameTick(String cmd) {
@@ -111,18 +124,19 @@ public class Game {
 		
 	}
 	
-	public void setDifficulty(String difficultyStr) {
-		if(difficultyStr.equals("Easy")) {
+	public boolean setDifficulty(String difficultyStr) {
+		if(difficultyStr == null) {
+			return false;
+		} else if(difficultyStr.equals("Easy")) {
 			this.difficulty = Easy.getInstance();
-		}
-		
-		else if(difficultyStr.equals("Medium")) {
+		} else if(difficultyStr.equals("Medium")) {
 			this.difficulty = Medium.getInstance();
-		}
-		
-		else if(difficultyStr.equals("Hard")) {
+		} else if(difficultyStr.equals("Hard")) {
 			this.difficulty = Hard.getInstance();
+		} else {
+			return false;
 		}
+		return true;
 	}
 
 	public void resetGame() {
