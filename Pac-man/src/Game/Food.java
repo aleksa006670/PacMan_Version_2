@@ -1,8 +1,7 @@
 package Game;
 
 /**
- * kaylee's  dummy comment
- * will be deleted
+ * hii
  * */
 
 public class Food extends GameObject {
