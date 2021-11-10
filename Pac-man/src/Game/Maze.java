@@ -34,15 +34,13 @@ public class Maze {
 	
 	
 	//read m and n from the file, as well as the maze structure
-	public static void initMaze(String file) {
-		
+	public static boolean initMaze(String file) {
 		if(instance!=null) {
 			System.out.println("Maze has already been generated!");
-		}
-		
-		else {
+			return true;
+		} else {
 			instance = new Maze();
-			instance.generateMaze(file);
+			return instance.generateMaze(file);
 		}
 		
 	}
@@ -130,7 +128,7 @@ public class Maze {
 
 
 	//Set the minCornerHouse and maxCornerHouse in this method
-	public void generateMaze(String mapFile){
+	public boolean generateMaze(String mapFile){
         // Scanner object to read from map file
         Scanner           fileReader;
         ArrayList<String> lineList = new ArrayList<String>();
@@ -145,13 +143,13 @@ public class Maze {
                 } catch (Exception eof) {
                     // throw new A5FatalException("Could not read resource");
                     System.out.printf("Could not read the file %s further", mapFile);
+                    return false;
                 }
 
-                if (line.trim().equals("")) {
+                if (line.trim().equals(""))
                     continue;    //skip dummy lines
-                } else{
+                else
                     lineList.add(line);
-                }
             }
 
             int tileHeight = lineList.size();
@@ -192,18 +190,21 @@ public class Maze {
 					}
                 }
             }
+            
             if(gHouseCount > 2)
             	System.out.println("The maze contains more than 1 Ghost House.\n Only the coordinates of the first Ghost House are kept");
             else if(gHouseCount < 2) {
             	System.out.println("The maze contains less than 1 Ghost House.\n Ghosts cannot start the game without their House");
             	// Throw an exception and close the game
-            	return;
+            	return false;
             }
+            
+            return true;
         } catch (FileNotFoundException e) {
         	e.printStackTrace();
             System.out.printf("Maze map file %s not found\n", mapFile);
+            return false;
         }
-
     }
 	
 }

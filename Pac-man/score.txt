@@ -1,3 +1,6 @@
 Difficulty:Hard Name:Alkesa Score:100 
 Difficulty:Medium Name:Omar Score:170 
 Difficulty:Hard Name:Anushka Score:100 
+Difficulty:Easy Name:Easy Score:70 
+Difficulty:Easy Name:Legenda Score:280 
+Difficulty:Easy Name:omar Score:50 

@@ -11,7 +11,7 @@ public class Ghost extends  Moveable {
 	 * @param filepath the path to the ghostStartData file
 	 * @return void
 	 */
-	public static void initGhosts(String filepath) {
+	public static boolean initGhosts(String filepath) {
 
 		try {
 			File file = new File(filepath);
@@ -28,11 +28,11 @@ public class Ghost extends  Moveable {
 			}
 
 			scanner.close();
-
+			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return false;
 		}
-
 	}
 	
 	public static void destroyGhosts() {

@@ -20,7 +20,7 @@ public class PacMan extends Moveable {
 
 	
 	
-	public static void initPacMan(String filepath) {
+	public static boolean initPacMan(String filepath) {
 		if(instance == null) {
 			try {
 				File file = new File(filepath);
@@ -31,15 +31,14 @@ public class PacMan extends Moveable {
 				int lives = Integer.parseInt(scanner.nextLine());
 				instance = new PacMan(x, y, lives);
 				scanner.close();
-
+				return true;
 			} catch (Exception e) {
 				e.printStackTrace();
-			}	
-			
-		}
-		
-		else {
+				return false;
+			}		
+		} else {
 			System.out.println("PacMan has already been initiliazed");
+			return true;
 		}
 		
 	}
