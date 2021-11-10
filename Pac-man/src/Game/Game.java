@@ -13,6 +13,7 @@ public class Game {
 	
 	private int totalTicks = 0;
 	private int totalModeChanges = 0;
+	private int totalFrightenedTicks = 0;
 
 	public static Game getInstance() {
 		return instance;
@@ -64,15 +65,21 @@ public class Game {
 			handleMovements(pacPotDir);
 		}
 		
-		totalTicks++;
-		if(totalTicks % 10 == 0 && totalModeChanges < 7) {
-			if(mode.getModeName().equals("Scatter"))
+		if(mode.getModeName().equals("Frightened")) {
+			totalFrightenedTicks++;
+			if(totalFrightenedTicks % 10 == 0) {
 				setMode("Chase");
-			else
-				setMode("Scatter");
-			totalModeChanges++;
+			}
+		} else {
+			totalTicks++;
+			if(totalTicks % 10 == 0 && totalModeChanges < 7) {
+				if(mode.getModeName().equals("Scatter"))
+					setMode("Chase");
+				else
+					setMode("Scatter");
+				totalModeChanges++;
+			}
 		}
-		
 	}
 
 
