@@ -1,8 +1,5 @@
 package Game;
 
-/**
- * hii
- * */
 
 public class Food extends GameObject {
 	public Food(int x_coordinate, int y_coordinate) {
