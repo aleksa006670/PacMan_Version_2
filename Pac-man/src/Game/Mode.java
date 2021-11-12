@@ -54,9 +54,9 @@ public abstract class Mode {
 					break;
 
 				case "AStar":
-				A_star.setA_star();
-				tempSearch = A_star.getInstance();
-				break;
+					A_star.setA_star();
+					tempSearch = A_star.getInstance();
+					break;
 					
 				default:
 					tempSearch = RandomSearch.getInstance();
