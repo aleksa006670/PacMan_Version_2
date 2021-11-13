@@ -27,8 +27,11 @@ public abstract class GameObject {
 
 	
 	
-	public void setPosition(Tuple t) {
+	public boolean setPosition(Tuple t) {
+		if(t == null)
+			return false;
 		position = t;
+		return true;
 	}
 
 	// Alex and Anushka will write methods using Assets

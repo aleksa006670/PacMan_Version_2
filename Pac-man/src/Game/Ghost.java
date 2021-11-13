@@ -87,11 +87,14 @@ public class Ghost extends  Moveable {
 	}
 	
 	
-	public static void resetGhosts() {
+	public static boolean resetGhosts() { // This is stupid but the requirement is stupid
+		if(ghosts == null)
+			return false;
 		for(Ghost g: ghosts) {
-			g.resetPosition();
-			g.resetDirection();
+			if(!g.resetPosition() || !g.resetDirection())
+				return false;
 		}
+		return true;
 	}
 
 	public void moveToTarget(SearchAlgorithm sa, Tuple targetTile, boolean doReverse){

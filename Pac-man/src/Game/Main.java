@@ -35,6 +35,14 @@ public class Main {
 					System.out.println("Maze init failed!");
 					s.close();
 					return;
+				} else if(res == 5) { // Handling Algorithm init error
+					System.out.println("Ghost algorithms init failed!");
+					s.close();
+					return;
+				} else if(res == 6) {
+					System.out.println("Game mode init failed!");
+					s.close();
+					return;	
 				}
 			}
 			
@@ -44,7 +52,26 @@ public class Main {
 				System.out.println("\nType in a command (Up, Down, Left, Right, Reset): ");
 				
 				String cmd = s.next();
-				game.gameTick(cmd);
+				int val = game.gameTick(cmd);
+				if(val == 0) {
+					System.out.println("Move successful");
+				} else if(val == 1) {
+					System.out.println("A problem has occurred with Game reset");
+					s.close();
+					return;
+				} else if(val == 2) {
+					System.out.println("A problem has occurred with Pacman's movement");
+					s.close();
+					return;
+				} else if(val == 3) { // Problem with Setting mode to Chase after Frightened
+					System.out.println("A problem has occurred with setting mode to Chase after Frightened");
+					s.close();
+					return;
+				} else if(val == 4) {
+					System.out.println("A problem has occurred with alternating Chase and Scatter modes");
+					s.close();
+					return;
+				}
 			}
 			printScore("score.txt", PacMan.getInstance().getScore(), name, difficulty);
 			System.out.println("Do you want to play again?");

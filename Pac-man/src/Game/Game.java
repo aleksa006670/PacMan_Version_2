@@ -40,15 +40,20 @@ public class Game {
 		if(!state) {
 			return 4; // Maze Init failed
 		}
-		Mode.initModes(difficulty.getAlgorithm());
-		
-		setMode(mode);
+		state = Mode.initModes(difficulty.getAlgorithm());
+		if(!state) {
+			return 5; // Algorithm Init failed
+		}
+		state = setMode(mode);
+		if(!state) {
+			return 6; // Game mode Init failed
+		}
 		return 0; // Success
 	}
 
-	public void gameTick(String cmd) {
+	public int gameTick(String cmd) {
 		//s.close(); solution to bug 8)
-		Direction pacPotDir = null;
+		Direction pacPotDir = Direction.RIGHT;
 		switch (cmd) {
 		case "Up":
 			pacPotDir = Direction.UP;
@@ -60,44 +65,48 @@ public class Game {
 			break;
 		case "Left":
 			//pac.setDirection(Direction.LEFT);
-			pacPotDir=Direction.LEFT;
+			pacPotDir = Direction.LEFT;
 			break;
 		case "Right":
 			//pac.setDirection(Direction.RIGHT);
 			pacPotDir = Direction.RIGHT;
 			break;
 		case "Reset":
-			resetGame();
+			if(!resetGame()) // Return after this
+				return 1; // Problem with Game Reset
 			break;
 		default:
 			pacPotDir = PacMan.getInstance().getDirection();
 			break;
 		}
 		
-		if(pacPotDir!=null) {
-			handleMovements(pacPotDir);
-		}
+		if(!handleMovements(pacPotDir)) // Check return of this
+			return 2; // Problem with the regular movement handling
 		
 		if(mode.getModeName().equals("Frightened")) {
 			totalFrightenedTicks++;
-			if(totalFrightenedTicks % 10 == 0) {
-				setMode("Chase");
-			}
+			if(totalFrightenedTicks % 10 == 0)
+				if(!setMode("Chase"))
+					return 3; // Problem with Setting mode to Chase after Frightened
 		} else {
 			totalTicks++;
 			if(totalTicks % 10 == 0 && totalModeChanges < 7) {
+				boolean s;
 				if(mode.getModeName().equals("Scatter"))
-					setMode("Chase");
+					s = setMode("Chase");
 				else
-					setMode("Scatter");
-				totalModeChanges++;
+					s = setMode("Scatter");
+				if(s)
+					totalModeChanges++;
+				if(!s)
+					return 4; // Problem with alternating Chase and Scatter modes
 			}
 		}
+		return 0;
 	}
 
 
-	public void setMode(String mode) {
-		
+	public boolean setMode(String mode) {
 		if (mode != null) {
 			// if mode is changed, revere ghosts' direction
 			if (this.mode != null && !this.mode.getModeName().equals(mode) && (
@@ -115,13 +124,15 @@ public class Game {
 				this.mode = Frightened.getInstance();
 			else {
 				// handle the exception in the testing phase
-
+				System.out.println("Mode selected is invalid!");
+				return false;
 			}
-			
-			return;
+			// Success
+			return true;
 		}
 		// handle the exception in the testing phase
-		
+		System.out.println("Mode selected is null!");
+		return false;
 	}
 	
 	public boolean setDifficulty(String difficultyStr) {
@@ -139,54 +150,71 @@ public class Game {
 		return true;
 	}
 
-	public void resetGame() {
-		PacMan.getInstance().resetPacMan();
-		Ghost.resetGhosts();
-		Maze.getInstance().resetMaze();		
-		/* Start debugging */
+	public boolean resetGame() {
+		PacMan pac = PacMan.getInstance();
+		Maze maze = Maze.getInstance();
+		if(pac == null || maze == null)
+			return false;
+		if(!pac.resetPacMan() || !Ghost.resetGhosts() || !maze.resetMaze())
+			return false;
 		System.out.println("Game is reset");
-		/* End debugging */
+		return true;
 	}
 
-	
-	public void handleMovements(Direction pacPotDir) {
+	public boolean handleMovements(Direction pacPotDir) {
 		moveGhosts();
 		char symbol = movePacMan(pacPotDir);
 		int ghost_eaten_num = 1;
+		
 		ArrayList<Ghost> ghosts = Ghost.getGhosts();
-		boolean pacmanNoLose=true;
+		PacMan pac = PacMan.getInstance();
+		Maze maze = Maze.getInstance();
+		
+		if(ghosts == null || pac == null || maze == null) {
+//			System.out.println("Instances are empty");
+			return false;
+		}
+			
+		
+		boolean pacmanNoLose = true;
 		
 		for(int i=0;i<ghosts.size();i++) {
-			
 			if(this.isCollision(ghosts.get(i))) {
 				pacmanNoLose  = mode.resolveCollision();
 				if(pacmanNoLose) {
-					this.PacDefeatGhost(ghosts.get(i), ghost_eaten_num);
+					if(!this.PacDefeatGhost(ghosts.get(i), ghost_eaten_num)) {
+//						System.out.println("Pac cant defeat Ghosts");
+						return false; 
+					}
 					ghost_eaten_num *= 2;
-				}
-				
-				else {
-					this.GhostDefeatPac();
+				} else {
+					if(!this.GhostDefeatPac()) {
+//						System.out.println("Ghosts cant defeat Pac");
+						return false; 
+					}
 					// No score given to Pacman
 					break;
 				}
+				return true;
 			}
 		}
 			
 		if(pacmanNoLose && symbol!='W') {
 			if(symbol=='U') {
-				setMode("Frightened");
-				PacMan.getInstance().changeScore(50);
+				if(!setMode("Frightened") || !pac.changeScore(50)) {
+//					System.out.println("Can't switch the mode");
+					return false;
+				}
+			} else if(symbol=='F') {
+				if(!pac.incrementFood() || !pac.changeScore(10)) {
+//					System.out.println("Can't eat food");
+					return false;
+				}
 			}
-			
-			else if(symbol=='F') {
-				PacMan.getInstance().incrementFood();
-				PacMan.getInstance().changeScore(10);
-			}
-			Maze.getInstance().removeObject(PacMan.getInstance().getTuple());
-			
+			maze.removeObject(PacMan.getInstance().getTuple());
 		}
-			
+		System.out.println("movement successful");
+		return true;
 	}
 	
 		
@@ -244,16 +272,17 @@ public class Game {
 		return PacMan.getInstance().getLives()<1 || PacMan.getInstance().getFood()==Maze.getInstance().getTotalNumOfFood();
 	}
 	
-	public void PacDefeatGhost(Ghost g, int ghost_eaten_num) {
-		g.resetPosition();
-		PacMan.getInstance().changeScore(200 * ghost_eaten_num);
+	public boolean PacDefeatGhost(Ghost g, int ghost_eaten_num) {
+		if(g == null || !g.resetPosition() || !PacMan.getInstance().changeScore(200 * ghost_eaten_num))
+			return false;
+		return true;
 	}
 	
-	public void GhostDefeatPac() {
+	public boolean GhostDefeatPac() {
 		PacMan pac = PacMan.getInstance();
-
-		pac.resetPosition();
-		pac.changeLives(-1);
+		if(pac == null || !pac.resetPosition() || !pac.changeLives(-1))
+			return false;
+		return true;
 	}
 	
 	public void printMaze() {

@@ -25,11 +25,12 @@ public abstract class Moveable extends GameObject {
 		this.direction = d;
 	}
 	
-	public void resetDirection() {
+	public boolean resetDirection() {
 		direction = init_direction;
+		return true;
 	}
 	
-	public void resetPosition() {		
-		this.setPosition(init_position);
+	public boolean resetPosition() {		
+		return this.setPosition(init_position);
 	}
 }

@@ -17,7 +17,7 @@ public class Maze {
 	
 	
 	private GameObject[][] matrix;
-	private final ArrayList<GameObject> resetObjectList=new ArrayList<GameObject>();
+	private final ArrayList<GameObject> resetObjectList = new ArrayList<GameObject>();
 	private static Maze instance;
 	private int totalFood = 0; 
 	private Tuple minCornerHouse;
@@ -87,15 +87,18 @@ public class Maze {
 		instance = null;
 	}
 	
-	public void resetMaze() {
+	public boolean resetMaze() {
 		//use resetGameObject to reset the maze to its original position
-		for(GameObject go:resetObjectList) {
-			Tuple position = go.getTuple();
+		if(resetObjectList == null)
+			return false;
+		for(GameObject go : resetObjectList) {
+			Tuple position = go.getTuple(); // Always a success
 			int i = position.getSecond();
 			int j= position.getFirst();
-			matrix[i][j]=go;
+			matrix[i][j] = go;
 		}
 		resetObjectList.clear();
+		return true;
 	}
 	
 	public Tuple getBottomLeftCorner() {

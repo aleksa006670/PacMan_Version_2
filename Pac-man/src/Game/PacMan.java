@@ -47,20 +47,22 @@ public class PacMan extends Moveable {
 		instance = null;
 	}
 	
-	public void resetPacMan() {
-		this.resetPosition();
-		this.resetDirection();
+	public boolean resetPacMan() {
+		if(!this.resetPosition() || !this.resetDirection())
+			return false;
 		lives = init_lives;
 		food = 0;
 		score = 0;
+		return true;
 	}
 
 	public static PacMan getInstance() {
 		return instance;
 	}
 
-	public void changeScore(int change) {
+	public boolean changeScore(int change) {
 		score += change;
+		return true;
 	}
 
 	public int getFood() {
@@ -68,8 +70,9 @@ public class PacMan extends Moveable {
 	}
 
 
-	public void changeLives(int deltaLife) {
+	public boolean changeLives(int deltaLife) {
 		lives += deltaLife;
+		return true;
 	}
 	
 	public int getLives() {
@@ -80,8 +83,9 @@ public class PacMan extends Moveable {
 		return score;
 	}
 	
-	public void incrementFood() {
+	public boolean incrementFood() {
 		food++;
+		return true;
 	}
 
 
