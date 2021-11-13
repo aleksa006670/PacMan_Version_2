@@ -1,10 +1,12 @@
 package GameTest;
 
 import Game.Game;
+
 import Game.Ghost;
 import Game.Greedy_Search;
 import Game.PacMan;
 import Game.Tuple;
+import Game.Maze;
 
 import org.junit.Test;
 
@@ -14,6 +16,7 @@ import Game.A_star;
 import Game.ChaseAggressive;
 import Game.ChaseAmbush;
 import Game.ChasePatrol;
+import Game.ChaseRandom;
 import Game.Direction;
 
 public class GhostAlgorithmTest {
@@ -25,6 +28,7 @@ public class GhostAlgorithmTest {
 	 * chase aggressive: 1
 	 * chase ambush: 2
 	 * chase patrol: 3
+	 * chase random: 3
 	 * */
 	
 //	test chase aggressive----------------------------------------------------------------------------
@@ -330,8 +334,85 @@ public class GhostAlgorithmTest {
 //	}
 	
 	
+//	test chase random-------------------------------------------------------------------------------------------
 	
-
+	/**
+	 * not enough food
+	 * */
+	@Test
+	public void TestChaseRandom01() {
+		Game game = Game.getInstance();
+		int res = game.gameInit("Medium", "Chase");
+		PacMan pacman = PacMan.getInstance();
+		Ghost orange = Ghost.getGhostByName('O');
+		
+		orange.setPosition(new Tuple(19,7)); //
+		orange.setDirection(Direction.DOWN);
+		
+		pacman.setPosition(new Tuple(15,11)); 
+		pacman.setDirection(Direction.LEFT);
+		
+		Tuple orangeTargetTile = new ChaseRandom().behave(orange, Greedy_Search.getInstance(), false);
+		Tuple expectedTargetTile = new Tuple(19,7);
+		game.gameOver();
+		assertEquals(expectedTargetTile, orangeTargetTile);
+	}
+	
+	/**
+	 *  enough food
+	 *  distance >= 8 tiles
+	 * */
+	@Test
+	public void TestChaseRandom02() {
+		Game game = Game.getInstance();
+		int res = game.gameInit("Medium", "Chase");
+		PacMan pacman = PacMan.getInstance();
+		Ghost orange = Ghost.getGhostByName('O');
+		
+		orange.setPosition(new Tuple(19,7)); //
+		orange.setDirection(Direction.DOWN);
+		
+		pacman.setPosition(new Tuple(9,17)); 
+		pacman.setDirection(Direction.LEFT);
+		
+		//pacman ate enough food
+		Maze maze = Maze.getInstance();
+		int enoughFood = maze.getTotalNumOfFood()/3 + 1;
+		pacman.setFood(enoughFood);
+		
+		Tuple orangeTargetTile = new ChaseRandom().behave(orange, Greedy_Search.getInstance(), false);
+		Tuple expectedTargetTile = new Tuple(9,17);
+		game.gameOver();
+		assertEquals(expectedTargetTile, orangeTargetTile);
+	}
+	
+	/**
+	 *  enough food
+	 *  distance < 8 tiles
+	 * */
+	@Test
+	public void TestChaseRandom03() {
+		Game game = Game.getInstance();
+		int res = game.gameInit("Medium", "Chase");
+		PacMan pacman = PacMan.getInstance();
+		Ghost orange = Ghost.getGhostByName('O');
+		
+		orange.setPosition(new Tuple(19,7)); //
+		orange.setDirection(Direction.DOWN);
+		
+		pacman.setPosition(new Tuple(19,10)); 
+		pacman.setDirection(Direction.UP);
+		
+		//pacman ate enough food
+		Maze maze = Maze.getInstance();
+		int enoughFood = maze.getTotalNumOfFood()/3 + 1;
+		pacman.setFood(enoughFood);
+		
+		Tuple orangeTargetTile = new ChaseRandom().behave(orange, Greedy_Search.getInstance(), false);
+		Tuple expectedTargetTile = new Tuple(0,31);
+		game.gameOver();
+		assertEquals(expectedTargetTile, orangeTargetTile);
+	}
 }
 
 
