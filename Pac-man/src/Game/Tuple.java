@@ -35,6 +35,7 @@ public class Tuple {
 	public Tuple sum(Tuple t) {
 		return new Tuple(this.first + t.first, this.second + t.second);
 	}
+	
 	/**
 	 * return position that is x tiles a head of PacMan
 	 * */
