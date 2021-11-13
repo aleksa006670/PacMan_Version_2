@@ -4,9 +4,16 @@ import Game.Game;
 
 import Game.Ghost;
 import Game.Greedy_Search;
+import Game.Hard;
 import Game.PacMan;
+import Game.RandomSearch;
+import Game.ScatterBottomLeftCorner;
+import Game.ScatterBottomRightCorner;
+import Game.ScatterTopLeftCorner;
+import Game.ScatterTopRightCorner;
 import Game.Tuple;
 import Game.Maze;
+import Game.Medium;
 
 import org.junit.Test;
 
@@ -18,6 +25,8 @@ import Game.ChaseAmbush;
 import Game.ChasePatrol;
 import Game.ChaseRandom;
 import Game.Direction;
+import Game.Easy;
+import Game.FrightenedWandering;
 
 public class GhostAlgorithmTest {
 	/**
@@ -29,6 +38,10 @@ public class GhostAlgorithmTest {
 	 * chase ambush: 2
 	 * chase patrol: 3
 	 * chase random: 3
+	 * 
+	 * frightened wandering: 1
+	 * 
+	 * 
 	 * */
 	
 //	test chase aggressive----------------------------------------------------------------------------
@@ -51,7 +64,7 @@ public class GhostAlgorithmTest {
 		pacman.setPosition(new Tuple(12,4));
 		pacman.setDirection(Direction.UP);
 		
-		Tuple redTargetTile = new ChaseAggressive().behave(red, Greedy_Search.getInstance(), false);
+		Tuple redTargetTile = new ChaseAggressive().behave(red, Greedy_Search.getInstance(), Easy.getInstance().doReverse());
 		Tuple expectedTargetTile = new Tuple(12,4);
 		game.gameOver();
 		assertEquals(expectedTargetTile, redTargetTile);
@@ -128,7 +141,7 @@ public class GhostAlgorithmTest {
 		pacman.setPosition(new Tuple(15,11)); //11,11
 		pacman.setDirection(Direction.LEFT);
 		
-		Tuple pinkTargetTile = new ChaseAmbush().behave(pink, Greedy_Search.getInstance(), false);
+		Tuple pinkTargetTile = new ChaseAmbush().behave(pink, Greedy_Search.getInstance(), Medium.getInstance().doReverse());
 		Tuple expectedTargetTile = new Tuple(11,11);
 		game.gameOver();
 		assertEquals(expectedTargetTile, pinkTargetTile);
@@ -153,7 +166,7 @@ public class GhostAlgorithmTest {
 		pacman.setPosition(new Tuple(19,11)); // -> 19,7 -> 15,7
 		pacman.setDirection(Direction.UP);
 		
-		Tuple pinkTargetTile = new ChaseAmbush().behave(pink, Greedy_Search.getInstance(), false);
+		Tuple pinkTargetTile = new ChaseAmbush().behave(pink, Greedy_Search.getInstance(), Medium.getInstance().doReverse());
 		Tuple expectedTargetTile = new Tuple(15,7);
 		game.gameOver();
 		assertEquals(expectedTargetTile, pinkTargetTile);
@@ -231,7 +244,7 @@ public class GhostAlgorithmTest {
 		pacman.setPosition(new Tuple(18,21)); // -> 20,21
 		pacman.setDirection(Direction.RIGHT); 
 		
-		Tuple blueTargetTile = new ChasePatrol().behave(blue, Greedy_Search.getInstance(), false);
+		Tuple blueTargetTile = new ChasePatrol().behave(blue, Greedy_Search.getInstance(), Easy.getInstance().doReverse());
 		Tuple expectedTargetTile = new Tuple(17,18);
 		game.gameOver();
 		assertEquals(expectedTargetTile, blueTargetTile);
@@ -263,7 +276,7 @@ public class GhostAlgorithmTest {
 		pacman.setDirection(Direction.RIGHT); 
 		pacman.setFood(30);//blue will not move unless pacman has eaten at least 30 food items
 		
-		Tuple blueTargetTile = new ChasePatrol().behave(blue, Greedy_Search.getInstance(), false);
+		Tuple blueTargetTile = new ChasePatrol().behave(blue, Greedy_Search.getInstance(), Easy.getInstance().doReverse());
 		Tuple expectedTargetTile = new Tuple(24,18);
 		game.gameOver();
 		assertEquals(expectedTargetTile, blueTargetTile);
@@ -295,7 +308,7 @@ public class GhostAlgorithmTest {
 		pacman.setDirection(Direction.UP);  
 		pacman.setFood(30);//blue will not move unless pacman has eaten at least 30 food items
 		
-		Tuple blueTargetTile = new ChasePatrol().behave(blue, A_star.getInstance(), true);
+		Tuple blueTargetTile = new ChasePatrol().behave(blue, A_star.getInstance(), Hard.getInstance().doReverse());
 		Tuple expectedTargetTile = new Tuple(18,5);
 		game.gameOver();
 		assertEquals(expectedTargetTile, blueTargetTile);
@@ -352,7 +365,7 @@ public class GhostAlgorithmTest {
 		pacman.setPosition(new Tuple(15,11)); 
 		pacman.setDirection(Direction.LEFT);
 		
-		Tuple orangeTargetTile = new ChaseRandom().behave(orange, Greedy_Search.getInstance(), false);
+		Tuple orangeTargetTile = new ChaseRandom().behave(orange, Greedy_Search.getInstance(), Medium.getInstance().doReverse());
 		Tuple expectedTargetTile = new Tuple(19,7);
 		game.gameOver();
 		assertEquals(expectedTargetTile, orangeTargetTile);
@@ -380,7 +393,7 @@ public class GhostAlgorithmTest {
 		int enoughFood = maze.getTotalNumOfFood()/3 + 1;
 		pacman.setFood(enoughFood);
 		
-		Tuple orangeTargetTile = new ChaseRandom().behave(orange, Greedy_Search.getInstance(), false);
+		Tuple orangeTargetTile = new ChaseRandom().behave(orange, Greedy_Search.getInstance(), Medium.getInstance().doReverse());
 		Tuple expectedTargetTile = new Tuple(9,17);
 		game.gameOver();
 		assertEquals(expectedTargetTile, orangeTargetTile);
@@ -408,10 +421,153 @@ public class GhostAlgorithmTest {
 		int enoughFood = maze.getTotalNumOfFood()/3 + 1;
 		pacman.setFood(enoughFood);
 		
-		Tuple orangeTargetTile = new ChaseRandom().behave(orange, Greedy_Search.getInstance(), false);
+		Tuple orangeTargetTile = new ChaseRandom().behave(orange, Greedy_Search.getInstance(), Medium.getInstance().doReverse());
 		Tuple expectedTargetTile = new Tuple(0,31);
 		game.gameOver();
 		assertEquals(expectedTargetTile, orangeTargetTile);
+	}
+	
+//	test frightened wandering-------------------------------------------------------------------------------------------
+	
+	/**
+	 * method .behave() return frightened ghost's new position
+	 * */
+	@Test
+	public void TestFrightenedWandering01() {
+		Game game = Game.getInstance();
+		int res = game.gameInit("Easy", "Frightened");
+		Ghost orange = Ghost.getGhostByName('O');
+		
+		orange.setPosition(new Tuple(20,8)); 
+		orange.setDirection(Direction.RIGHT);
+		
+		Tuple orangeNewPosition = new FrightenedWandering().behave(orange, RandomSearch.getInstance(), Easy.getInstance().doReverse());
+		Boolean doGhostReverse = orangeNewPosition.equals(new Tuple(18,8));
+		game.gameOver();
+		assertEquals(false, doGhostReverse);
+	}
+	
+//	test scatter-------------------------------------------------------------------------------------------------------
+	
+	/**
+	 * orange - bottom left
+	 * not enough food
+	 * */
+	@Test
+	public void TestScatterBottomLeft01() {
+		Game game = Game.getInstance();
+		int res = game.gameInit("Easy", "Scatter");
+		Ghost orange = Ghost.getGhostByName('O');
+		
+		orange.setPosition(new Tuple(19,8)); 
+		orange.setDirection(Direction.RIGHT);
+		
+		Tuple orangeTargetTile = new ScatterBottomLeftCorner().behave(orange, Greedy_Search.getInstance(), Easy.getInstance().doReverse());
+		Tuple expectedTargetTile = new Tuple(19,8);
+		game.gameOver();
+		assertEquals(expectedTargetTile, orangeTargetTile);
+	}
+	
+	/**
+	 * orange - bottom left
+	 * enough food
+	 * */
+	@Test
+	public void TestScatterBottomLeft02() {
+		Game game = Game.getInstance();
+		int res = game.gameInit("Easy", "Scatter");
+		Ghost orange = Ghost.getGhostByName('O');
+		PacMan pacman = PacMan.getInstance();
+		
+		orange.setPosition(new Tuple(19,8)); 
+		orange.setDirection(Direction.RIGHT);
+		
+		//pacman ate enough food
+		Maze maze = Maze.getInstance();
+		int enoughFood = maze.getTotalNumOfFood()/3 + 1;
+		pacman.setFood(enoughFood);
+		
+		Tuple orangeTargetTile = new ScatterBottomLeftCorner().behave(orange, Greedy_Search.getInstance(), Easy.getInstance().doReverse());
+		Tuple expectedTargetTile = new Tuple(0,31);
+		game.gameOver();
+		assertEquals(expectedTargetTile, orangeTargetTile);
+	}
+	
+	/**
+	 * blue - bottom right
+	 * not enough food
+	 * */
+	@Test
+	public void TestScatterBottomRight01() {
+		Game game = Game.getInstance();
+		int res = game.gameInit("Hard", "Scatter");
+		Ghost blue = Ghost.getGhostByName('B');
+		
+		blue.setPosition(new Tuple(17,8)); 
+		blue.setDirection(Direction.RIGHT);
+		
+		Tuple blueTargetTile = new ScatterBottomRightCorner().behave(blue, A_star.getInstance(), Hard.getInstance().doReverse());
+		Tuple expectedTargetTile = new Tuple(17,8);
+		game.gameOver();
+		assertEquals(expectedTargetTile, blueTargetTile);
+	}
+	
+	/**
+	 * blue - bottom right
+	 * enough food
+	 * */
+	@Test
+	public void TestScatterBottomRight02() {
+		Game game = Game.getInstance();
+		int res = game.gameInit("Hard", "Scatter");
+		Ghost blue = Ghost.getGhostByName('B');
+		PacMan pacman = PacMan.getInstance();
+		
+		blue.setPosition(new Tuple(17,8)); 
+		blue.setDirection(Direction.RIGHT);
+		
+		pacman.setFood(30);//blue will not move unless pacman has eaten at least 30 food items
+		
+		Tuple blueTargetTile = new ScatterBottomRightCorner().behave(blue, A_star.getInstance(), Hard.getInstance().doReverse());
+		Tuple expectedTargetTile = new Tuple(28,31);
+		game.gameOver();
+		assertEquals(expectedTargetTile, blueTargetTile);
+	}
+	
+	/**
+	 * pink - top left
+	 * */
+	@Test
+	public void TestScatterTopLeft01() {
+		Game game = Game.getInstance();
+		int res = game.gameInit("Medium", "Scatter");
+		Ghost pink = Ghost.getGhostByName('P');
+		
+		pink.setPosition(new Tuple(11,23)); 
+		pink.setDirection(Direction.RIGHT);
+		
+		Tuple pinkTargetTile = new ScatterTopLeftCorner().behave(pink, Greedy_Search.getInstance(), Medium.getInstance().doReverse());
+		Tuple expectedTargetTile = new Tuple(0,0);
+		game.gameOver();
+		assertEquals(expectedTargetTile, pinkTargetTile);
+	}
+	
+	/**
+	 * red - top right
+	 * */
+	@Test
+	public void TestScatterTopRight01() {
+		Game game = Game.getInstance();
+		int res = game.gameInit("Medium", "Scatter");
+		Ghost red = Ghost.getGhostByName('P');
+		
+		red.setPosition(new Tuple(11,23)); 
+		red.setDirection(Direction.RIGHT);
+		
+		Tuple redTargetTile = new ScatterTopRightCorner().behave(red, Greedy_Search.getInstance(), Medium.getInstance().doReverse());
+		Tuple expectedTargetTile = new Tuple(28,0);
+		game.gameOver();
+		assertEquals(expectedTargetTile, redTargetTile);
 	}
 }
 

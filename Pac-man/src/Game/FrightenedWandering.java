@@ -10,7 +10,7 @@ public class FrightenedWandering implements GhostAlgorithm {
 		Tuple targetTile = null;
 		g.moveToTarget(sa, targetTile, doReverse);
 		
-		return null;
+		return g.getTuple();
 	}
 
 }

@@ -5,6 +5,10 @@ public class ScatterBottomRightCorner implements GhostAlgorithm {
 	@Override
 	public Tuple behave(Ghost g, SearchAlgorithm sa, boolean doReverse) {
 		
+		/**
+		 * blue ghost behavior
+		 * */
+		
 		PacMan pacman = PacMan.getInstance();
 		if (pacman.getFood() < 30) {
 			return g.getTuple();
