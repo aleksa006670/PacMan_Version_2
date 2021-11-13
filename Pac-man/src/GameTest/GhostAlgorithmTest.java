@@ -12,7 +12,9 @@ import static org.junit.Assert.*;
 import Game.Direction;
 
 public class GhostAlgorithmTest {
-
+	
+	
+//	test chase aggressive----------------------------------------------------------------------------
 	/**
 	 * ghost (9,8) RIGHT
 	 * pacman (12,4) UP
@@ -36,6 +38,7 @@ public class GhostAlgorithmTest {
 		Tuple redNewPosition = red.getTuple();
 		Tuple expectedRedPosition = new Tuple(9,7);
 		assertEquals(expectedRedPosition, redNewPosition);
+		game.gameOver();
 	}
 	
 	/**
@@ -61,6 +64,7 @@ public class GhostAlgorithmTest {
 		Tuple redNewPosition = red.getTuple();
 		Tuple expectedRedPosition = new Tuple(11,8);
 		assertEquals(expectedRedPosition, redNewPosition);
+		game.gameOver();
 	}
 	
 	/**
@@ -85,9 +89,9 @@ public class GhostAlgorithmTest {
 		game.moveGhosts();
 		Tuple redNewPosition = red.getTuple();
 		Tuple expectedRedPosition = new Tuple(14,11);
-		System.out.println(redNewPosition.getFirst() + " " + redNewPosition.getSecond());
-		game.printMaze();
 		assertEquals(expectedRedPosition, redNewPosition);
+		game.gameOver();
 	}
+	
 	
 }
