@@ -9,7 +9,7 @@ public class ChaseAmbush implements GhostAlgorithm {
 	 * @return void
 	 */
 	@Override
-	public void behave(Ghost g, SearchAlgorithm sa, boolean doReverse) {
+	public Tuple behave(Ghost g, SearchAlgorithm sa, boolean doReverse) {
 		
 		// Get 4 Tiles ahead of Pacman
 		PacMan pacman = PacMan.getInstance();
@@ -26,6 +26,8 @@ public class ChaseAmbush implements GhostAlgorithm {
 		}
 		
 		g.moveToTarget(sa, targetTile, doReverse);
+		
+		return targetTile;
 
 	}
 

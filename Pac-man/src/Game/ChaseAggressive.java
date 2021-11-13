@@ -3,7 +3,7 @@ package Game;
 public class ChaseAggressive implements GhostAlgorithm {
 
 	@Override
-	public void behave(Ghost g, SearchAlgorithm sa, boolean doReverse) {
+	public Tuple behave(Ghost g, SearchAlgorithm sa, boolean doReverse) {
 
 		// The target tile is: pacman's position
 		
@@ -14,10 +14,7 @@ public class ChaseAggressive implements GhostAlgorithm {
 		
 		g.moveToTarget(sa, targetTile, doReverse);
 		
-		//this is red ghost 
-		//so we need to update red ghost's position in maze
-//		Maze maze = Maze.getInstance();
-//		maze.setRedGhostPosition(g.getTuple());
+		return targetTile;
 
 	}
 
