@@ -37,8 +37,8 @@ public class GhostAlgorithmTest {
 		game.moveGhosts();
 		Tuple redNewPosition = red.getTuple();
 		Tuple expectedRedPosition = new Tuple(9,7);
-		assertEquals(expectedRedPosition, redNewPosition);
 		game.gameOver();
+		assertEquals(expectedRedPosition, redNewPosition);
 	}
 	
 	/**
@@ -63,8 +63,8 @@ public class GhostAlgorithmTest {
 		game.moveGhosts();
 		Tuple redNewPosition = red.getTuple();
 		Tuple expectedRedPosition = new Tuple(11,8);
-		assertEquals(expectedRedPosition, redNewPosition);
 		game.gameOver();
+		assertEquals(expectedRedPosition, redNewPosition);
 	}
 	
 	/**
@@ -89,8 +89,8 @@ public class GhostAlgorithmTest {
 		game.moveGhosts();
 		Tuple redNewPosition = red.getTuple();
 		Tuple expectedRedPosition = new Tuple(14,11);
-		assertEquals(expectedRedPosition, redNewPosition);
 		game.gameOver();
+		assertEquals(expectedRedPosition, redNewPosition);
 	}
 	
 //	test chase ambush---------------------------------------------------------------------------
@@ -108,17 +108,17 @@ public class GhostAlgorithmTest {
 		PacMan pacman = PacMan.getInstance();
 		Ghost pink = Ghost.getGhostByName('P');
 		
-		pink.setPosition(new Tuple(19,7));
-		pink.setDirection(Direction.LEFT);
+		pink.setPosition(new Tuple(19,7)); //18,7 or 19,8
+		pink.setDirection(Direction.DOWN);
 		
-		pacman.setPosition(new Tuple(15,11));
+		pacman.setPosition(new Tuple(15,11)); //11,11
 		pacman.setDirection(Direction.LEFT);
 		
 		game.moveGhosts();
 		Tuple pinkNewPosition = pink.getTuple();
 		Tuple expectedPinkPosition = new Tuple(18,7);
-		assertEquals(expectedPinkPosition, pinkNewPosition);
 		game.gameOver();
+		assertEquals(expectedPinkPosition, pinkNewPosition);
 	}
 	
 	/**
@@ -143,8 +143,8 @@ public class GhostAlgorithmTest {
 		game.moveGhosts();
 		Tuple pinkNewPosition = pink.getTuple();
 		Tuple expectedPinkPosition = new Tuple(18,7);
-		assertEquals(expectedPinkPosition, pinkNewPosition);
 		game.gameOver();
+		assertEquals(expectedPinkPosition, pinkNewPosition);
 	}
 	
 	/**
@@ -169,7 +169,109 @@ public class GhostAlgorithmTest {
 		game.moveGhosts();
 		Tuple pinkNewPosition = pink.getTuple();
 		Tuple expectedPinkPosition = new Tuple(19,8);
-		assertEquals(expectedPinkPosition, pinkNewPosition);
 		game.gameOver();
+		assertEquals(expectedPinkPosition, pinkNewPosition);
 	}
+	
+//	test chase patrol-------------------------------------------------------------------
+	
+	/**
+	 * blue (17,18) RIGHT (intersection)
+	 * red (16,24) LEFT
+	 * pacman (18,21) RIGHT
+	 * GreedySearch
+	 * easy - no reverse
+	 * */
+	@Test
+	public void TestChasePatrol01() {
+		Game game = Game.getInstance();
+		int res = game.gameInit("Easy", "Chase");
+		PacMan pacman = PacMan.getInstance();
+		Ghost blue = Ghost.getGhostByName('B');
+		Ghost red = Ghost.getGhostByName('R');
+
+		blue.setPosition(new Tuple(17,18));
+		blue.setDirection(Direction.RIGHT);
+		
+		red.setPosition(new Tuple(16,24));
+		red.setDirection(Direction.LEFT);
+		
+		pacman.setPosition(new Tuple(18,21));
+		pacman.setDirection(Direction.RIGHT); 
+		pacman.setFood(30);//blue will not move unless pacman has eaten at least 30 food items
+		
+		game.moveGhosts();
+		Tuple blueNewPosition = blue.getTuple();
+		Tuple expectedBluePosition = new Tuple(18,18);
+		game.gameOver();
+		assertEquals(expectedBluePosition, blueNewPosition);
+	}
+	
+	/**
+	 * blue (17,19) DOWN (not intersection)
+	 * red (16,24) LEFT
+	 * pacman (18,21) RIGHT
+	 * GreedySearch
+	 * easy - no reverse
+	 * */
+	@Test
+	public void TestChasePatrol02() {
+		Game game = Game.getInstance();
+		int res = game.gameInit("Easy", "Chase");
+		PacMan pacman = PacMan.getInstance();
+		Ghost blue = Ghost.getGhostByName('B');
+		Ghost red = Ghost.getGhostByName('R');
+
+		blue.setPosition(new Tuple(17,19));
+		blue.setDirection(Direction.DOWN);
+		
+		red.setPosition(new Tuple(16,24));
+		red.setDirection(Direction.LEFT);
+		
+		pacman.setPosition(new Tuple(18,21));
+		pacman.setDirection(Direction.RIGHT); 
+		pacman.setFood(30);//blue will not move unless pacman has eaten at least 30 food items
+		
+		game.moveGhosts();
+		Tuple blueNewPosition = blue.getTuple();
+		Tuple expectedBluePosition = new Tuple(17,20);
+		game.gameOver();
+		assertEquals(expectedBluePosition, blueNewPosition);
+	}
+	
+	/**
+	 * blue (19,6) DOWN (not intersection)
+	 * red (16,11) LEFT
+	 * pacman (19,10) UP
+	 * AStar
+	 * hard -  reverse
+	 * */
+	@Test
+	public void TestChasePatrol03() {
+		Game game = Game.getInstance();
+		int res = game.gameInit("Hard", "Chase");
+		PacMan pacman = PacMan.getInstance();
+		Ghost blue = Ghost.getGhostByName('B');
+		Ghost red = Ghost.getGhostByName('R');
+
+		blue.setPosition(new Tuple(19,6));
+		blue.setDirection(Direction.DOWN);
+		
+		red.setPosition(new Tuple(16,11)); //14,5
+		red.setDirection(Direction.LEFT);
+		
+		pacman.setPosition(new Tuple(19,10)); //17,8 -> 15,8
+		pacman.setDirection(Direction.UP);  
+		pacman.setFood(30);//blue will not move unless pacman has eaten at least 30 food items
+		
+		game.moveGhosts();
+		Tuple blueNewPosition = blue.getTuple();
+		Tuple expectedBluePosition = new Tuple(19,7);
+		game.gameOver();
+		assertEquals(expectedBluePosition, blueNewPosition);
+	}
+	
 }
+
+
+

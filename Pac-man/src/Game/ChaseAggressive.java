@@ -4,8 +4,6 @@ public class ChaseAggressive implements GhostAlgorithm {
 
 	@Override
 	public void behave(Ghost g, SearchAlgorithm sa, boolean doReverse) {
-		// TODO Auto-generated method stub
-		
 
 		// The target tile is: pacman's position
 		

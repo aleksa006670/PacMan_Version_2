@@ -84,5 +84,7 @@ public class PacMan extends Moveable {
 		food++;
 	}
 
-
+	public void setFood(int food) {
+		this.food = food;
+	}
 }
