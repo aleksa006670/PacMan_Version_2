@@ -213,7 +213,7 @@ public class Game {
 			}
 			maze.removeObject(PacMan.getInstance().getTuple());
 		}
-		System.out.println("movement successful");
+//		System.out.println("movement successful");
 		return true;
 	}
 	
