@@ -24,6 +24,7 @@ public class Greedy_Search implements SearchAlgorithm{
 		Tuple start = points.get(0);
 		Tuple end = points.get(1);
 		Maze m = Maze.getInstance();
+		
 		//go towards the gate
 		if(m.isInHouse(start)){
 			end = Gate.getInstance().getTuple().sum(Direction.UP.DirectionToTuple());	

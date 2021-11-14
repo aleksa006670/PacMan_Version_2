@@ -103,22 +103,18 @@ public class Maze {
 	
 	public Tuple getBottomLeftCorner() {
 		return new Tuple(0, m-1);
-//		return new Tuple(m, 0);
 	}
 	
 	public Tuple getBottomRightCorner() {
 		return new Tuple(n-1, m-1);
-//		return new Tuple(m, n-1);
 	}
 	
 	public Tuple getTopLeftCorner() {
 		return new Tuple(0, 0);
-//		return new Tuple(-4, 2);
 	}
 	
 	public Tuple getTopRightCorner() {
 		return new Tuple(n-1, 0);
-//		return new Tuple(-4, n-3);
 	}
 	
 	/**
