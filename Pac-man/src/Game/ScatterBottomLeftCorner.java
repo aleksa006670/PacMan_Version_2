@@ -4,7 +4,7 @@ package Game;
 public class ScatterBottomLeftCorner implements GhostAlgorithm {
 
 	@Override
-	public Tuple behave(Ghost g, SearchAlgorithm sa, boolean doReverse) {
+	public Tuple behave(Ghost g) {
 	
 		// Clyde (Orange) algorithm
 		PacMan pacman = PacMan.getInstance();
@@ -14,7 +14,6 @@ public class ScatterBottomLeftCorner implements GhostAlgorithm {
 		}
 		
 		Tuple targetTile = maze.getBottomLeftCorner();
-		g.moveToTarget(sa, targetTile, doReverse);
 		
 		return targetTile;
 	}

@@ -3,11 +3,7 @@ package Game;
 public class ScatterBottomRightCorner implements GhostAlgorithm {
 
 	@Override
-	public Tuple behave(Ghost g, SearchAlgorithm sa, boolean doReverse) {
-		
-		/**
-		 * blue ghost behavior
-		 * */
+	public Tuple behave(Ghost g) {
 		
 		PacMan pacman = PacMan.getInstance();
 		if (pacman.getFood() < 30) {
@@ -16,7 +12,6 @@ public class ScatterBottomRightCorner implements GhostAlgorithm {
 		
 		Maze maze = Maze.getInstance();
 		Tuple targetTile = maze.getBottomRightCorner();
-		g.moveToTarget(sa, targetTile, doReverse);
 		
 		return targetTile;
 	}

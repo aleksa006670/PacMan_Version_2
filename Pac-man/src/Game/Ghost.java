@@ -125,7 +125,4 @@ public class Ghost extends  Moveable {
 			this.move();
 		}
 	}
-
-	
-
 }

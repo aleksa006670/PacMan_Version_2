@@ -4,7 +4,7 @@ package Game;
 public class ChasePatrol implements GhostAlgorithm {
 
 	@Override
-	public Tuple behave(Ghost g, SearchAlgorithm sa, boolean doReverse) {
+	public Tuple behave(Ghost g) {
 		// Pacman position + 2 next tiles
 		// draw a vector from red's position to this tile
 		// and then doubling the length of the vector
@@ -32,9 +32,6 @@ public class ChasePatrol implements GhostAlgorithm {
 		Ghost red = Ghost.getGhostByName('R');
 		Tuple redPosition = red.getTuple();
 		Tuple targetTile = twoTilesAHead.sum(twoTilesAHead.difference(redPosition));
-
-
-		g.moveToTarget(sa, targetTile, doReverse);
 
 		return targetTile;
 	}

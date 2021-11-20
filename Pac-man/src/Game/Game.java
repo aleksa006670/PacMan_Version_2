@@ -238,7 +238,9 @@ public class Game {
 		ArrayList<Ghost> ghosts=Ghost.getGhosts();
 		ArrayList<GhostAlgorithm> algs = mode.getAlgorithms();
 		for(int i=0;i<ghosts.size();i++) {
-			algs.get(i).behave(ghosts.get(i), mode.getSearchAlgorithm(), difficulty.doReverse());
+			// After
+			Tuple targetTile = algs.get(i).behave(ghosts.get(i));
+			ghosts.get(i).moveToTarget(mode.getSearchAlgorithm(), targetTile, difficulty.doReverse());
 		}
 	}
 	
