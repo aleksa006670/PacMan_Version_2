@@ -40,7 +40,14 @@ public int compareTo(Node other) {
 	Double arg1 = this.getValue();
 	Double arg2 = other.getValue();
 	return arg1.compareTo(arg2);
-	}
+}
+
+@Override 
+public boolean equals(Object n){
+	Node node = (Node)n;
+	return this.id.equals(node.id);
+	
+}
 
 
 }
