@@ -9,13 +9,14 @@ public class Ghost extends  Moveable {
 	/**
 	 * get ghost data from txt file
 	 * @param filepath the path to the ghostStartData file
-	 * @return void
+	 * @return boolean whether the initialization is successful
 	 */
 	public static boolean initGhosts(String filepath) {
-
+		File file = null;
+		Scanner scanner = null;
 		try {
-			File file = new File(filepath);
-			Scanner scanner = new Scanner(file);
+			file = new File(filepath);
+			scanner = new Scanner(file);
 
 			int numGhosts = Integer.parseInt(scanner.nextLine());
 
@@ -32,6 +33,10 @@ public class Ghost extends  Moveable {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
+		} finally {
+			if (scanner != null) {
+				scanner.close();
+			}
 		}
 	}
 	
@@ -42,7 +47,7 @@ public class Ghost extends  Moveable {
 	
 	/**
 	 * This returns the ArrayList<Ghost> in the Ghost static field
-	 * @return
+	 * @return ArrayList<Ghost>
 	 */
 	public static ArrayList<Ghost> getGhosts() {
 		return ghosts;
@@ -111,6 +116,8 @@ public class Ghost extends  Moveable {
 			}
 		}
 		else{
+			// if not in reverse mode, the ghosts will never go to the opposite direction of the current direction
+			// i.e. when the Direction dir is equal to the opposite current direction, we exclude it 
 			for(Direction dir: allDirections){
 				if(!dir.equals(getDirection().opposite())){
 					accessibleDirections.add(dir);

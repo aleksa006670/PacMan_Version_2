@@ -101,4 +101,71 @@ class PacManTest {
 		assertEquals(1, PacMan.getInstance().getLives());
 		assertEquals(0, PacMan.getInstance().getScore());
 	}
+	
+	// Test PacMan.changeScore() and PacMan.getScore()
+	@Test
+	void test05() {
+		String pacManInitFile = "pacManTestInitData.txt";
+		String [] contents  = new String[] {"10", "10", "1"};
+		
+		WriteFile.DoWriting(pacManInitFile, contents);
+		
+		PacMan.initPacMan(pacManInitFile);
+		
+		boolean result  = PacMan.getInstance().changeScore(1);
+		WriteFile.DeleteFile(pacManInitFile);		
+		assertTrue(result);
+		assertEquals(1, PacMan.getInstance().getScore());
+	}
+	
+	// Test PacMan.changeLives() and PacMan.getLives()
+	@Test
+	void test06() {
+		String pacManInitFile = "pacManTestInitData.txt";
+		String [] contents  = new String[] {"10", "10", "1"};
+		
+		WriteFile.DoWriting(pacManInitFile, contents);
+		
+		PacMan.initPacMan(pacManInitFile);
+		
+		boolean result  = PacMan.getInstance().changeLives(-1);
+		WriteFile.DeleteFile(pacManInitFile);
+		
+		assertTrue(result);
+		assertEquals(0, PacMan.getInstance().getLives());
+	}
+	
+	// Test PacMan.incrementFood()
+	@Test
+	void test07() {
+		String pacManInitFile = "pacManTestInitData.txt";
+		String [] contents  = new String[] {"10", "10", "1"};
+		
+		WriteFile.DoWriting(pacManInitFile, contents);
+		
+		PacMan.initPacMan(pacManInitFile);
+		
+		boolean result  = PacMan.getInstance().incrementFood();
+		WriteFile.DeleteFile(pacManInitFile);
+
+		assertTrue(result);
+		assertEquals(1, PacMan.getInstance().getFood());
+	}
+	
+	//Test PacMan.setFood()
+	
+	@Test
+	void test08() {
+		String pacManInitFile = "pacManTestInitData.txt";
+		String [] contents  = new String[] {"10", "10", "1"};
+		
+		WriteFile.DoWriting(pacManInitFile, contents);
+		
+		PacMan.initPacMan(pacManInitFile);
+		
+		PacMan.getInstance().setFood(3);
+		WriteFile.DeleteFile(pacManInitFile);
+		assertEquals(3, PacMan.getInstance().getFood());
+	}
+	
 }

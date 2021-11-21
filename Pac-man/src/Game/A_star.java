@@ -143,7 +143,11 @@ public Tuple BFS(Tuple t, ArrayList<Direction> possibleDirections){
 
 public Tuple findClosestGoal(Tuple t, ArrayList<Direction> possibleDirections){
 	Maze maze = Maze.getInstance();
-	t.clip(maze.getTopLeftCorner(), maze.getBottomRightCorner());
+	/* if the Tuple t falls into the ghost house
+	 * offset the Tuple t to points to either the TopLeft corner or the Bottom Right corner.
+	 */
+	t.clip(maze.getTopLeftCorner(), maze.getBottomRightCorner());  
+	
 	char symbol = maze.getSymbol(t.getSecond(), t.getFirst());
 	if(symbol =='W' || symbol=='N'){
 		return BFS(t, possibleDirections);
@@ -167,7 +171,7 @@ public Direction getNextDirection(ArrayList<Tuple> points, ArrayList<Direction> 
 	else{
 		nextTuple = start;
 	} 
-
+	// TRAVERSE all possible directions until we find a direction that can lead to the specified tuple
 	for(Direction dir: possibleDirections){
 		if(start.sum(dir.DirectionToTuple()).equals(nextTuple)){
 			return dir;
