@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 
 public class UnitDifficulty {
 	
-	//Test for doReverse
+	//Test for doReverse (Easy, Medium, Hard)
 	@Test
 	public void test_doReverse01() {
 		Difficulty e = Easy.getInstance() ;
@@ -33,7 +33,7 @@ public class UnitDifficulty {
 		assertEquals(true, result);
 	}
 	
-	//Test for getGhostFile
+	//Test for getGhostFile (Easy, Medium, Hard)
 	@Test
 	public void test_getGhostFile01() {
 		Difficulty e = Easy.getInstance() ;
@@ -55,7 +55,7 @@ public class UnitDifficulty {
 		assertEquals("src/Resource/hardGhostData.txt", result);
 	}
 	
-	//Test for getPacman
+	//Test for getPacman (Easy, Medium, Hard)
 	@Test
 	public void test_getPacman01() {
 		Difficulty e = Easy.getInstance() ;
@@ -77,7 +77,7 @@ public class UnitDifficulty {
 		assertEquals("src/Resource/hardPacMandata.txt", result);
 	}
 	
-	//Test for getAlgorithm
+	//Test for getAlgorithm (Easy, Medium, Hard)
 	@Test
 	public void test_getAlgorithm01() {
 		assertEquals("src/Resource/easyAlgorithmData.txt", Easy.getInstance().getAlgorithm());
@@ -93,7 +93,7 @@ public class UnitDifficulty {
 		assertEquals("src/Resource/hardAlgorithmData.txt", Hard.getInstance().getAlgorithm());
 	}
 	
-	//Test for getMaze
+	//Test for getMaze (Easy, Medium, Hard)
 	@Test
 	public void test_getMaze01() {
 		assertEquals("src/Resource/easyMaze.txt", Easy.getInstance().getMaze());
