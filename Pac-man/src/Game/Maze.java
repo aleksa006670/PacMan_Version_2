@@ -73,7 +73,6 @@ public class Maze {
 	}
 	
 	public char getSymbol(int i,int j) {
-		//symbol for null is n
 		if(matrix[i][j]==null) {
 			return ' ';
 		}

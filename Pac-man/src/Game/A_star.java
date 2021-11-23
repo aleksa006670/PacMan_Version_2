@@ -126,7 +126,7 @@ public ArrayList<Tuple> getPath(Tuple start, Tuple end, ArrayList<Direction> pos
 	
 	return path;
 }
-
+//test 3 included the coverage of Maze
 
 
 //purpose: find a closest tile to the starting tile which is a wall or an empty tile to be a goal for
@@ -145,7 +145,10 @@ public Tuple BFS(Tuple t, ArrayList<Direction> possibleDirections){
 	//test5: T-, FF
 	//test6: FF, T-, FT
 	//test7: T-, FF (exists to "cover" Tuple coverage)
-	while(indicator == 'W' || indicator==' '){
+	
+	
+	while(indicator == 'W' || indicator=='n'){
+		
 		//all possible directions
 		for(Direction dir:possibleDirections){
 			Tuple child = current.sum(dir.DirectionToTuple());
@@ -162,6 +165,7 @@ public Tuple BFS(Tuple t, ArrayList<Direction> possibleDirections){
 		current = tupleQueue.remove(0);
 		indicator = maze.getSymbol(current.getSecond(), current.getFirst());
 	}
+	
 		return current;
 
 }

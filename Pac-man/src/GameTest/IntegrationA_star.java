@@ -33,8 +33,9 @@ public void test0a() {
 	boolean result = A_star.setA_star();
 	assertEquals(result, true);
 }
-@Order(2)
+
 @Test
+@Order(2)
 public void test0b() {
 	boolean result = A_star.setA_star();
 	result = A_star.setA_star();
@@ -42,10 +43,11 @@ public void test0b() {
 }
 @Test
 @Order(3)
-public void testc() {
+public void test0c() {
 	boolean result = A_star.getInstance().destroySearch();
 	assertEquals(result, true);
 }
+
 
 @Test
 @Order(4)
@@ -75,6 +77,7 @@ public void test2() {
 }
 
 
+//testing ArrayList<Tuple> getPath(Tuple, Tuple, ArrayList<Direction>)
 @Test
 @Order(6)
 public void test3() {
@@ -191,10 +194,6 @@ public void test3() {
 	
 	solution.add(end);
 	
-	for(Tuple t:path) {
-		System.out.println(t.getFirst() + " "+ t.getSecond());
-	}
-	
 	assertEquals(solution, path);
 }
 
@@ -214,9 +213,9 @@ public void test4() {
 @Order(8)
 public void test5() {
 	A_star.setA_star();
-	Tuple t = new Tuple(25,22);
+	Tuple t = new Tuple(14,19);
 	Tuple result = A_star.getInstance().BFS(t, possibleDirections);
-	assertEquals(result, new Tuple(25, 21));
+	assertEquals(result, new Tuple(14, 18));
 }
 
 
@@ -241,6 +240,8 @@ public void test7() {
 	assertEquals(result, new Tuple(1,1));
 	
 }
+
+
 
 //Tuple findClosestGoal(Tuple t, ArrayList<Direction> possibleDirections)
 @Test
@@ -271,10 +272,20 @@ public void test10() {
 	assertEquals(result, new Tuple(1,1));
 }
 
-//Direction getNextDirection(ArrayList<Tuple>, ArrayList<Direction>)
 @Test
 @Order(14)
 public void test11() {
+	A_star.setA_star();
+	Tuple t= new Tuple (14, 19);
+	Tuple result = A_star.getInstance().findClosestGoal(t, possibleDirections);
+	assertEquals(result, new Tuple(14,18));
+}
+
+
+//Direction getNextDirection(ArrayList<Tuple>, ArrayList<Direction>)
+@Test
+@Order(15)
+public void test12() {
 	A_star.setA_star();
 	ArrayList<Tuple> points = new ArrayList<Tuple>();
 	points.add(new Tuple(1,1));
@@ -286,8 +297,8 @@ public void test11() {
 
 //Direction getNextDirection(ArrayList<Tuple>, ArrayList<Direction>)
 @Test
-@Order(15)
-public void test12() {
+@Order(16)
+public void test13() {
 	A_star.setA_star();
 	ArrayList<Tuple> points = new ArrayList<Tuple>();
 	points.add(new Tuple(1,2));
@@ -298,8 +309,8 @@ public void test12() {
 
 //Direction getNextDirection(ArrayList<Tuple>, ArrayList<Direction>)
 @Test
-@Order(16)
-public void test13() {
+@Order(17)
+public void test14() {
 	A_star.setA_star();
 	ArrayList<Tuple> points = new ArrayList<Tuple>();
 	points.add(new Tuple(1,1));
