@@ -99,12 +99,17 @@ public abstract class Mode {
 	public SearchAlgorithm getSearchAlgorithm() {
 		return sa;
 	}
-		
-	public boolean destroyAlgorithms() {
-		algorithms = null;
-		if(sa != null)
-			sa.destroySearch();			
 	
-	return (algorithms==null && sa==null);
+	//void
+	public SearchAlgorithm destroySearch() {
+		sa.destroySearch();
+		sa=null;
+		return sa;
+	}
+		
+	//void
+	public ArrayList<GhostAlgorithm> destroyGA() {
+		algorithms = null;
+		return  algorithms;
 	}
 }

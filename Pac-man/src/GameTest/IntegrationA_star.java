@@ -47,7 +47,7 @@ public void test0c() {
 	 A_star result =(A_star) A_star.getInstance().destroySearch();
 	assertEquals(result, null);
 }
-
+/*
 
 @Test
 @Order(4)
@@ -281,7 +281,7 @@ public void test11() {
 	assertEquals(result, new Tuple(14,18));
 }
 
-
+*/
 //Direction getNextDirection(ArrayList<Tuple>, ArrayList<Direction>)
 @Test
 @Order(15)

@@ -5,12 +5,13 @@ public class Gate extends GameObject{
 		super(x_coordinate, y_coordinate, 'G');
 	}
 	private static Gate instance;
-	public static void setGate(int x_coordinate, int y_coordinate){
+	public static boolean setGate(int x_coordinate, int y_coordinate){
 		if(instance==null){
 			instance = new Gate(x_coordinate, y_coordinate);
+			return true;
 		}
 		else{
-			System.out.println("The gate has been initialized!");
+			return false;
 		}
 	}
 
@@ -18,8 +19,8 @@ public class Gate extends GameObject{
 		return instance;
 	}
 
-	public static boolean deleteGate(){
+	public static Gate deleteGate(){
 		instance = null;
-		return instance == null;
+		return instance;
 	}
 }

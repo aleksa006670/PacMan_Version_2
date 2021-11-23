@@ -81,9 +81,10 @@ public class Maze {
 		}
 	}
 	
-	public static boolean destroyMaze() {
+	public static Maze destroyMaze() {
 		instance = null;
-		return Gate.deleteGate() && (instance==null);
+		Gate.deleteGate();
+		return instance;
 		
 	}
 	

@@ -35,9 +35,9 @@ public class Ghost extends  Moveable {
 		}
 	}
 	
-	public static boolean destroyGhosts() {
+	public static int destroyGhosts() {
 		ghosts.clear();
-		return ghosts.size()==0;
+		return ghosts.size();
 	}
 	
 	
@@ -98,6 +98,9 @@ public class Ghost extends  Moveable {
 		return true;
 	}
 
+	
+	//logic: If ghost actually moves away from tile, return true
+	//if the ghost stays at the same tile, return false
 	public boolean moveToTarget(SearchAlgorithm sa, Tuple targetTile, boolean doReverse){
 		ArrayList<Tuple> points = new ArrayList<Tuple>();
 		points.add(this.getTuple());
