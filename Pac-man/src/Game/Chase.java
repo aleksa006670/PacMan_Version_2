@@ -11,13 +11,15 @@ public class Chase extends Mode {
 		super(sa);
 	}
 
-	public static void setChase(SearchAlgorithm sa) {
+	public static Chase setChase(SearchAlgorithm sa) {
 		if(instance==null){
 		instance = new Chase(sa);
 		}
 		else{
 			System.out.println("Chase has already been set");
 		}
+		
+		return instance;
 	}
 	
 	
