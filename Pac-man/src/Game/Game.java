@@ -263,14 +263,14 @@ public class Game {
 	}
 	
 	
-	
+	//void
 	public boolean gameOver() {
 		//Score system should be called from here
-		boolean outcomePac = PacMan.destroyPacman();
-		boolean outcomeG = Ghost.destroyGhosts();
-		boolean outcomeMode = ModeDestructor.getInstance().destroyAllModes();
-		boolean outcomeMaze = Maze.destroyMaze();
-		return outcomePac && outcomeG && outcomeMode && outcomeMaze;
+		PacMan.destroyPacman();
+		Ghost.destroyGhosts();
+		ModeDestructor.getInstance().destroyAllModes();
+		Maze.destroyMaze();
+		return true;
 	
 	}
 	

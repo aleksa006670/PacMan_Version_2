@@ -43,9 +43,9 @@ public class PacMan extends Moveable {
 		
 	}
 	
-	public static boolean destroyPacman() {
+	public static PacMan destroyPacman() {
 		instance = null;
-		return instance==null;
+		return instance;
 	}
 	
 	public boolean resetPacMan() {

@@ -62,7 +62,7 @@ public class Chase extends Mode {
 	@Override
 	public Mode deleteMode(){
 		instance =null;
-		return null;
+		return instance;
 	}
 
 }

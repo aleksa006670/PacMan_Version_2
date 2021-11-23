@@ -48,7 +48,15 @@ public class IntegrationNode {
 	
 	//testing boolean equals()
 	@Test
-	public void test4() {
+	public void test4a() {
+		Node t = new Node(new Tuple(20, 80),null, 34.789);
+		boolean result = t.equals(n);
+		assertEquals(result, false);
+	}
+	
+	//testing boolean equals()
+	@Test
+	public void test4b() {
 		Node t = new Node(new Tuple(30, 80),null, 34.789);
 		boolean result = t.equals(n);
 		assertEquals(result, false);
@@ -71,21 +79,21 @@ public class IntegrationNode {
 	//testing void setParent()
 	@Test
 	public void test6a() {
-		n.setParent(k);
-		assertEquals(n.getParent(), k);
+		Node p = n.setParent(k);
+		assertEquals(p, k);
 	}
 	
 	//testing setParent() null version
 	@Test
 	public void test6b() {
-		k.setParent(null);
-		assertEquals(k.getParent(), null);
+		Node p = k.setParent(null);
+		assertEquals(p, null);
 	}
 	//testing void setValue()
 	@Test
 	public void test7() {
-		n.setValue(98.765);
-		assertEquals(n.getValue(), 98.765, 0.000);
+		double v = n.setValue(98.765);
+		assertEquals(v, 98.765, 0.000);
 	}
 	
 	//testing int compare()
