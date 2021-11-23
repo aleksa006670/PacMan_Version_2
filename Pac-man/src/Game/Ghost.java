@@ -35,8 +35,10 @@ public class Ghost extends  Moveable {
 		}
 	}
 	
-	public static void destroyGhosts() {
+	public static Boolean destroyGhosts() {
 		ghosts.clear();
+		
+		return ghosts.isEmpty();
 	}
 	
 	
