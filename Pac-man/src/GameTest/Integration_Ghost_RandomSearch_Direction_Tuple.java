@@ -7,6 +7,7 @@ import Game.Ghost;
 import Game.Medium;
 import Game.PacMan;
 import Game.RandomSearch;
+import Game.SearchAlgorithm;
 import Game.Tuple;
 
 import org.junit.Test;
@@ -115,7 +116,7 @@ public class Integration_Ghost_RandomSearch_Direction_Tuple {
 	}
 	
 	/**
-	 * test 05, 06, etc. are to cover Tuple.toClip()
+	 * test 05 and 06 are to cover Tuple.toClip()
 	 * */
 	@Test
 	public void TestRandomSearch05() {
@@ -153,5 +154,19 @@ public class Integration_Ghost_RandomSearch_Direction_Tuple {
 		Boolean isNewPositionValid = redNewPosition.equals(new Tuple(21,14));
 		game.gameOver();
 		assertEquals(true, isNewPositionValid);
+	}
+	
+	/**
+	 * test destroy search 
+	 * */
+	@Test
+	public void TestRandomSearch07() {
+		Game game = Game.getInstance();
+		game.gameInit("Easy", "Frightened");
+		
+		RandomSearch randomSearch = RandomSearch.getInstance();
+		SearchAlgorithm searchAlgo = randomSearch.destroySearch();
+		game.gameOver();
+		assertEquals(null, searchAlgo);
 	}
 }
