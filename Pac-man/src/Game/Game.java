@@ -23,7 +23,7 @@ public class Game {
 		
 	}
 	
-	public static void GameConstructor() {
+	public static void GameConstructor() { // Test
 		instance = new Game();
 	}
 
