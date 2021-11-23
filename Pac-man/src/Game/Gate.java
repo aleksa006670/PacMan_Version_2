@@ -22,7 +22,9 @@ public class Gate extends GameObject{
 		return instance;
 	}
 
-	public static void deleteGate(){
+	public static Gate deleteGate(){
 		instance = null;
+		
+		return instance;
 	}
 }
