@@ -13,13 +13,14 @@ public class Frightened extends Mode {
 		return instance;
 	}
 	
-	public static void setFrightened(SearchAlgorithm sa) {
+	public static Frightened setFrightened(SearchAlgorithm sa) {
 		if (instance==null){
 		instance = new Frightened(sa);}
 		else{
 			System.out.println("Frightened has already been initialized");
 		}
 		
+		return instance;
 	}
 
 	@Override
