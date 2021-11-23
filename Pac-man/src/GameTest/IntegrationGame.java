@@ -8,7 +8,7 @@ import org.junit.After;
 
 import Game.Game;
 
-public class IntegrationGame {
+public class IntegrationGame { // push
 	
 	Game game;
 	
