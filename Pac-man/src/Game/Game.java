@@ -234,14 +234,20 @@ public class Game {
 	
 	
 	
-	public void moveGhosts() {
+	public Boolean moveGhosts() {
 		ArrayList<Ghost> ghosts=Ghost.getGhosts();
+		if (ghosts.isEmpty()) return false;
+		
 		ArrayList<GhostAlgorithm> algs = mode.getAlgorithms();
+		if (algs.isEmpty()) return false;
+		
 		for(int i=0;i<ghosts.size();i++) {
 			// After
 			Tuple targetTile = algs.get(i).behave(ghosts.get(i));
 			ghosts.get(i).moveToTarget(mode.getSearchAlgorithm(), targetTile, difficulty.doReverse());
 		}
+		
+		return true;
 	}
 	
 	public char movePacMan(Direction pacPotDir) {
