@@ -13,7 +13,3 @@ ScatterBottomRightCorner
 ScatterBottomLeftCorner
 Frightened
 RandomSearch
-FrightenedWandering
-FrightenedWandering
-FrightenedWandering
-FrightenedWandering

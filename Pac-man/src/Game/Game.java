@@ -233,19 +233,32 @@ public class Game {
 	
 	
 	
-	//How to test: compare the number of ghosts which actually moved to a different tile
-	public int moveGhosts() {
-		int numberMoved = 0;
+	//Testing Logic: Does the mode have any algorithms currently - e.g. Frightened mode does not, the others do
+	public boolean moveGhosts() {
 		ArrayList<Ghost> ghosts=Ghost.getGhosts();
 		ArrayList<GhostAlgorithm> algs = mode.getAlgorithms();
-		for(int i=0;i<ghosts.size();i++) {
-			// After
-			Tuple targetTile = algs.get(i).behave(ghosts.get(i));
-			if(ghosts.get(i).moveToTarget(mode.getSearchAlgorithm(), targetTile, difficulty.doReverse()))
-				numberMoved++;
-		}
-		return numberMoved;
+		
+		if (algs.size()!=0) {
+			for(int i=0;i<ghosts.size();i++) {
+				// After
+				Tuple targetTile = algs.get(i).behave(ghosts.get(i));
+				ghosts.get(i).moveToTarget(mode.getSearchAlgorithm(), targetTile, difficulty.doReverse());
+					
+			}
+			return true;
 	}
+		
+		else {
+			for(int i=0;i<ghosts.size();i++) {
+				// After
+				ghosts.get(i).moveToTarget(mode.getSearchAlgorithm(), null, difficulty.doReverse());
+			}
+			return false;
+		
+		}
+	}
+	
+
 	
 	public char movePacMan(Direction pacPotDir) {
 		PacMan pac = PacMan.getInstance();

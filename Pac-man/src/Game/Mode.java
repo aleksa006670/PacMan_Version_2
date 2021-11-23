@@ -81,8 +81,12 @@ public abstract class Mode {
 						return false;
 				}
 				
-				for (int j = 0; j < numGhosts; j++) {
-					tempMode.addAlgorithm(scanner.nextLine());
+				//False in case of Frightened mode
+				//True in case of orher modes
+				if(scanner.hasNext()) {
+					for (int j = 0; j < numGhosts; j++) {
+						tempMode.addAlgorithm(scanner.nextLine());
+					}
 				}
 			}
 

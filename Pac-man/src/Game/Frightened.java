@@ -22,16 +22,11 @@ public class Frightened extends Mode {
 		}
 		
 	}
-
+	
+	//no algorithm to add here
 	@Override
 	public boolean addAlgorithm(String algorithmName) {
-		switch (algorithmName) {
-		case "FrightenedWandering":
-			algorithms.add(new FrightenedWandering());
-			return true;
-		default:
-			return false;
-		}
+		return false;
 	}
 
 	@Override

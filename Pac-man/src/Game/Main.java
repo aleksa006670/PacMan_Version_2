@@ -17,7 +17,7 @@ public class Main {
 			System.out.println("Please specify the difficulty (Easy, Medium, Hard):");
 			String difficulty = s.next();
 			
-			int res = game.gameInit(difficulty, "Scatter");
+			int res = game.gameInit(difficulty, "Frightened");
 			while(res != 0) {
 				if(res == 1) { // Handling Difficulty error
 					System.out.println("Please specify the difficulty properly (Easy, Medium, Hard):");
