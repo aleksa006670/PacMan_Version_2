@@ -10,8 +10,12 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import Game.A_star;
 import Game.Direction;
+import Game.Game;
 import Game.Ghost;
+import Game.PacMan;
+import Game.Tuple;
 import GameTest.WriteFile;
 
 class GhostTest {
@@ -171,11 +175,56 @@ class GhostTest {
 				assertTrue(result);
 			}
 			
-			// Test Ghost.moveToTarget()
+			// Test Ghost.moveToTarget() with sa=A_Star, doReverse=true and the game is in Hard mode
 			@Test
 			void test11() {
-			/**@TODO 
-			 * Write a test case such that the Ghost.moveToTarget() is tested with statement coverage 100%
-			 */
+				Game game = Game.getInstance();
+				game.gameInit("Hard", "Chase");
+				PacMan pacman = PacMan.getInstance();
+				Ghost red = Ghost.getGhostByName('R');
+				
+				pacman.setPosition(new Tuple(9, 16));
+				pacman.setDirection(Direction.UP);
+				red.setPosition(new Tuple(9, 13));
+				red.setDirection(Direction.UP);
+				
+				red.moveToTarget(A_star.getInstance(), new Tuple(9, 16), true);
+				assertEquals(Direction.DOWN, red.getDirection());
+			}
+			
+			// Test Ghost.moveToTarget() with sa=A_Star, doReverse=false and the game is in Hard mode
+			@Test
+			void test12() {
+				Game game = Game.getInstance();
+				game.gameInit("Hard", "Chase");
+				PacMan pacman = PacMan.getInstance();
+				Ghost red = Ghost.getGhostByName('R');
+				
+				pacman.setPosition(new Tuple(9, 16));
+				pacman.setDirection(Direction.UP);
+				red.setPosition(new Tuple(9, 13));
+				red.setDirection(Direction.UP);
+				
+				red.moveToTarget(A_star.getInstance(), new Tuple(9, 16), false);
+				assertEquals(Direction.UP, red.getDirection());
+			}
+			
+			// Test Ghost.moveToTarget() with sa=A_Star, doReverse=false and sa.getNextDirection() returns null
+			@Test
+			void test13() {
+				Game game = Game.getInstance();
+				game.gameInit("Hard", "Chase");
+				PacMan pacman = PacMan.getInstance();
+				Ghost red = Ghost.getGhostByName('R');
+				
+				pacman.setPosition(new Tuple(12, 13));
+				pacman.setDirection(Direction.UP);
+				red.setPosition(new Tuple(9, 13));
+				red.setDirection(Direction.UP);
+				
+				// sa.getNextDirection() returns null(??), the Red ghost shouldn't move
+				red.moveToTarget(A_star.getInstance(), new Tuple(28, 12), false);
+				assertEquals(Direction.UP, red.getDirection());
+				assertTrue(red.getTuple().equals(new Tuple(9, 13)));
 			}
 }

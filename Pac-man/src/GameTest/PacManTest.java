@@ -15,6 +15,7 @@ import Game.Direction;
 import Game.PacMan;
 import Game.Tuple;
 import GameTest.WriteFile;
+import GameTest.OSType;
 
 class PacManTest {
 	/***************************************
@@ -61,13 +62,14 @@ class PacManTest {
 		ps = new PrintStream(baos);
 		System.setOut(ps);
 		
-		String pacManInitFile = "pacManTestInitData.txt";
+		String pacManInitFile = "src/Resource/pacManTestInitData.txt";
 		String [] contents  = new String[] {"10", "10", "1"};
 		
 		WriteFile.DoWriting(pacManInitFile, contents);
 		PacMan.initPacMan(pacManInitFile);
+		WriteFile.DeleteFile(pacManInitFile);
 		
-		String pacManInitFile2 = "pacManTestInitData2.txt";
+		String pacManInitFile2 = "src/Resource/pacManTestInitData2.txt";
 		contents  = new String[] {"21", "14", "2"};
 		
 		WriteFile.DoWriting(pacManInitFile, contents);
@@ -75,13 +77,18 @@ class PacManTest {
 		WriteFile.DeleteFile(pacManInitFile2);
 		
 		assertTrue(result);
-		assertEquals("PacMan has already been initiliazed\r\n", baos.toString());
+		if (OSType.isWindows())
+			assertEquals("PacMan has already been initiliazed\r\n", baos.toString());
+		else if (OSType.isMac())
+			assertEquals("PacMan has already been initiliazed\r", baos.toString());
+		else if (OSType.isLinux())
+			assertEquals("PacMan has already been initiliazed\n", baos.toString());
 	}
 	
 	// 	Test PacMan.resetPacMan()
 	@Test
 	void test04() {
-		String pacManInitFile = "pacManTestInitData.txt";
+		String pacManInitFile = "src/Resource/pacManTestInitData.txt";
 		String [] contents  = new String[] {"10", "10", "1"};
 		
 		WriteFile.DoWriting(pacManInitFile, contents);
@@ -105,7 +112,7 @@ class PacManTest {
 	// Test PacMan.changeScore() and PacMan.getScore()
 	@Test
 	void test05() {
-		String pacManInitFile = "pacManTestInitData.txt";
+		String pacManInitFile = "src/Resource/pacManTestInitData.txt";
 		String [] contents  = new String[] {"10", "10", "1"};
 		
 		WriteFile.DoWriting(pacManInitFile, contents);
@@ -121,7 +128,7 @@ class PacManTest {
 	// Test PacMan.changeLives() and PacMan.getLives()
 	@Test
 	void test06() {
-		String pacManInitFile = "pacManTestInitData.txt";
+		String pacManInitFile = "src/Resource/pacManTestInitData.txt";
 		String [] contents  = new String[] {"10", "10", "1"};
 		
 		WriteFile.DoWriting(pacManInitFile, contents);
@@ -138,7 +145,7 @@ class PacManTest {
 	// Test PacMan.incrementFood()
 	@Test
 	void test07() {
-		String pacManInitFile = "pacManTestInitData.txt";
+		String pacManInitFile = "src/Resource/pacManTestInitData.txt";
 		String [] contents  = new String[] {"10", "10", "1"};
 		
 		WriteFile.DoWriting(pacManInitFile, contents);
@@ -156,7 +163,7 @@ class PacManTest {
 	
 	@Test
 	void test08() {
-		String pacManInitFile = "pacManTestInitData.txt";
+		String pacManInitFile = "src/Resource/pacManTestInitData.txt";
 		String [] contents  = new String[] {"10", "10", "1"};
 		
 		WriteFile.DoWriting(pacManInitFile, contents);
