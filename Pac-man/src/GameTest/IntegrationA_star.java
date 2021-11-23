@@ -44,8 +44,8 @@ public void test0b() {
 @Test
 @Order(3)
 public void test0c() {
-	boolean result = A_star.getInstance().destroySearch();
-	assertEquals(result, true);
+	 A_star result =(A_star) A_star.getInstance().destroySearch();
+	assertEquals(result, null);
 }
 
 

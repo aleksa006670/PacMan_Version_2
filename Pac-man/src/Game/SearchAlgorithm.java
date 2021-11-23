@@ -4,5 +4,5 @@ import java.util.ArrayList;
 
 interface SearchAlgorithm {
 	public Direction getNextDirection(ArrayList<Tuple> points, ArrayList<Direction> accebileDirections);
-	public boolean destroySearch();
+	public SearchAlgorithm destroySearch();
 }

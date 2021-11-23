@@ -40,8 +40,8 @@ public class RandomSearch implements SearchAlgorithm{
 	}
 	
 	@Override
-	public boolean destroySearch() {
+	public SearchAlgorithm destroySearch() {
 		instance=null;
-		return true;
+		return instance;
 	}
 }

@@ -73,9 +73,9 @@ public class Greedy_Search implements SearchAlgorithm{
 		
 	}
 	@Override
-	public boolean destroySearch() {
+	public SearchAlgorithm destroySearch() {
 		instance=null;
-		return true;
+		return instance;
 	}
 
 

@@ -207,10 +207,10 @@ public Direction getNextDirection(ArrayList<Tuple> points, ArrayList<Direction> 
 }
 
 @Override
-public boolean destroySearch() {
+public SearchAlgorithm destroySearch() {
 	instance=null;
-	return true
-			;
+	return instance;
+			
 }
 
 }

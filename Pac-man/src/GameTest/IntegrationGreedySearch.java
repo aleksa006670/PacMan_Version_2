@@ -203,8 +203,8 @@ public void test12() {
 @Test
 @Order(13)
 public void test13() {
-	boolean result = Greedy_Search.getInstance().destroySearch();
-	assertEquals(result,true);
+	Greedy_Search result = (Greedy_Search)Greedy_Search.getInstance().destroySearch();
+	assertEquals(result,null);
 }
 
 }
