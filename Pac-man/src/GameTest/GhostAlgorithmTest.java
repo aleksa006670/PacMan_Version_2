@@ -54,7 +54,7 @@ public class GhostAlgorithmTest {
 	@Test
 	public void TestChaseAggressive01() {
 		Game game = Game.getInstance();
-		int res = game.gameInit("Easy", "Chase");
+		game.gameInit("Easy", "Chase");
 		PacMan pacman = PacMan.getInstance();
 		Ghost red = Ghost.getGhostByName('R');
 		
@@ -131,7 +131,7 @@ public class GhostAlgorithmTest {
 	@Test
 	public void TestChaseAmbush01() {
 		Game game = Game.getInstance();
-		int res = game.gameInit("Medium", "Chase");
+		game.gameInit("Medium", "Chase");
 		PacMan pacman = PacMan.getInstance();
 		Ghost pink = Ghost.getGhostByName('P');
 		
@@ -156,7 +156,7 @@ public class GhostAlgorithmTest {
 	@Test
 	public void TestChaseAmbush02() {
 		Game game = Game.getInstance();
-		int res = game.gameInit("Medium", "Chase");
+		game.gameInit("Medium", "Chase");
 		PacMan pacman = PacMan.getInstance();
 		Ghost pink = Ghost.getGhostByName('P');
 		
@@ -230,7 +230,7 @@ public class GhostAlgorithmTest {
 	@Test
 	public void TestChasePatrol01() {
 		Game game = Game.getInstance();
-		int res = game.gameInit("Easy", "Chase");
+		game.gameInit("Easy", "Chase");
 		PacMan pacman = PacMan.getInstance();
 		Ghost blue = Ghost.getGhostByName('B');
 		Ghost red = Ghost.getGhostByName('R');
@@ -261,7 +261,7 @@ public class GhostAlgorithmTest {
 	@Test
 	public void TestChasePatrol02() {
 		Game game = Game.getInstance();
-		int res = game.gameInit("Easy", "Chase");
+		game.gameInit("Easy", "Chase");
 		PacMan pacman = PacMan.getInstance();
 		Ghost blue = Ghost.getGhostByName('B');
 		Ghost red = Ghost.getGhostByName('R');
@@ -293,7 +293,7 @@ public class GhostAlgorithmTest {
 	@Test
 	public void TestChasePatrol03() {
 		Game game = Game.getInstance();
-		int res = game.gameInit("Hard", "Chase");
+		game.gameInit("Hard", "Chase");
 		PacMan pacman = PacMan.getInstance();
 		Ghost blue = Ghost.getGhostByName('B');
 		Ghost red = Ghost.getGhostByName('R');
@@ -355,7 +355,7 @@ public class GhostAlgorithmTest {
 	@Test
 	public void TestChaseRandom01() {
 		Game game = Game.getInstance();
-		int res = game.gameInit("Medium", "Chase");
+		game.gameInit("Medium", "Chase");
 		PacMan pacman = PacMan.getInstance();
 		Ghost orange = Ghost.getGhostByName('O');
 		
@@ -378,7 +378,7 @@ public class GhostAlgorithmTest {
 	@Test
 	public void TestChaseRandom02() {
 		Game game = Game.getInstance();
-		int res = game.gameInit("Medium", "Chase");
+		game.gameInit("Medium", "Chase");
 		PacMan pacman = PacMan.getInstance();
 		Ghost orange = Ghost.getGhostByName('O');
 		
@@ -406,7 +406,7 @@ public class GhostAlgorithmTest {
 	@Test
 	public void TestChaseRandom03() {
 		Game game = Game.getInstance();
-		int res = game.gameInit("Medium", "Chase");
+		game.gameInit("Medium", "Chase");
 		PacMan pacman = PacMan.getInstance();
 		Ghost orange = Ghost.getGhostByName('O');
 		
@@ -435,7 +435,7 @@ public class GhostAlgorithmTest {
 	@Test
 	public void TestFrightenedWandering01() {
 		Game game = Game.getInstance();
-		int res = game.gameInit("Easy", "Frightened");
+		game.gameInit("Easy", "Frightened");
 		Ghost orange = Ghost.getGhostByName('O');
 		
 		orange.setPosition(new Tuple(20,8)); 
@@ -456,7 +456,7 @@ public class GhostAlgorithmTest {
 	@Test
 	public void TestScatterBottomLeft01() {
 		Game game = Game.getInstance();
-		int res = game.gameInit("Easy", "Scatter");
+		game.gameInit("Easy", "Scatter");
 		Ghost orange = Ghost.getGhostByName('O');
 		
 		orange.setPosition(new Tuple(19,8)); 
@@ -475,7 +475,7 @@ public class GhostAlgorithmTest {
 	@Test
 	public void TestScatterBottomLeft02() {
 		Game game = Game.getInstance();
-		int res = game.gameInit("Easy", "Scatter");
+		game.gameInit("Easy", "Scatter");
 		Ghost orange = Ghost.getGhostByName('O');
 		PacMan pacman = PacMan.getInstance();
 		
@@ -500,7 +500,7 @@ public class GhostAlgorithmTest {
 	@Test
 	public void TestScatterBottomRight01() {
 		Game game = Game.getInstance();
-		int res = game.gameInit("Hard", "Scatter");
+		game.gameInit("Hard", "Scatter");
 		Ghost blue = Ghost.getGhostByName('B');
 		
 		blue.setPosition(new Tuple(17,8)); 
@@ -519,7 +519,7 @@ public class GhostAlgorithmTest {
 	@Test
 	public void TestScatterBottomRight02() {
 		Game game = Game.getInstance();
-		int res = game.gameInit("Hard", "Scatter");
+		game.gameInit("Hard", "Scatter");
 		Ghost blue = Ghost.getGhostByName('B');
 		PacMan pacman = PacMan.getInstance();
 		
@@ -540,7 +540,7 @@ public class GhostAlgorithmTest {
 	@Test
 	public void TestScatterTopLeft01() {
 		Game game = Game.getInstance();
-		int res = game.gameInit("Medium", "Scatter");
+		game.gameInit("Medium", "Scatter");
 		Ghost pink = Ghost.getGhostByName('P');
 		
 		pink.setPosition(new Tuple(11,23)); 
@@ -558,7 +558,7 @@ public class GhostAlgorithmTest {
 	@Test
 	public void TestScatterTopRight01() {
 		Game game = Game.getInstance();
-		int res = game.gameInit("Medium", "Scatter");
+		game.gameInit("Medium", "Scatter");
 		Ghost red = Ghost.getGhostByName('P');
 		
 		red.setPosition(new Tuple(11,23)); 
