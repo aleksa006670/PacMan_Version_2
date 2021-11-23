@@ -35,5 +35,6 @@ public class ChasePatrol implements GhostAlgorithm {
 
 		return targetTile;
 	}
-
+	
+	
 }

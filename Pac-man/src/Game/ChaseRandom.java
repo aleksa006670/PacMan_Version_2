@@ -34,5 +34,7 @@ public class ChaseRandom implements GhostAlgorithm {
 		
 		return targetTile;
 	}
+	
+	
 
 }

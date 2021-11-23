@@ -18,7 +18,8 @@ public class Gate extends GameObject{
 		return instance;
 	}
 
-	public static void deleteGate(){
+	public static boolean deleteGate(){
 		instance = null;
+		return instance == null;
 	}
 }
