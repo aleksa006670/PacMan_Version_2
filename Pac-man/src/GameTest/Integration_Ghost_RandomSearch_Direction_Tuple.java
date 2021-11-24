@@ -4,13 +4,16 @@ import Game.Direction;
 import Game.Easy;
 import Game.Game;
 import Game.Ghost;
+import Game.Maze;
 import Game.Medium;
 import Game.PacMan;
 import Game.RandomSearch;
 import Game.SearchAlgorithm;
 import Game.Tuple;
 
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.*;
 
@@ -28,11 +31,25 @@ public class Integration_Ghost_RandomSearch_Direction_Tuple {
 	 * we cannot test 0 and 1 (loop)
 	 * */
 	
+	@BeforeEach
+	public void init() {
+		Ghost.initGhosts("src/Resource/easyGhostData.txt");
+		PacMan.initPacMan("src/Resource/easyPacmanData.txt");
+	}
+	
+	@AfterEach
+	public void destroySingletons() {
+		PacMan.destroyPacman();
+		Ghost.destroyGhosts();
+		Maze.destroyMaze();
+	}
+	
 	
 	@Test
 	public void TestRandomSearch01() {
-		Game game = Game.getInstance();
-		game.gameInit("Easy", "Frightened");
+//		Game game = Game.getInstance();
+//		game.gameInit("Easy", "Frightened");
+		Maze.initMaze("src/Resource/easyMaze.txt");
 		
 		//any ghost will do
 		Ghost red = Ghost.getGhostByName('R');
@@ -44,11 +61,15 @@ public class Integration_Ghost_RandomSearch_Direction_Tuple {
 		//testing
 		Tuple redNewPosition = red.getTuple();
 		Boolean isNewPositionValid = !redNewPosition.equals(new Tuple(8,8))&&!redNewPosition.equals(new Tuple(9,8));
-		game.gameOver();
+//		game.gameOver();
 		assertEquals(true, isNewPositionValid);
 	}
 	
-	
+//	@Test
+//	public void omar() {
+//		Game game = Game.getInstance();
+//		assertEquals(game, null);
+//	}
 	/**
 	 * ghost is passing by the house
 	 * */
@@ -62,6 +83,8 @@ public class Integration_Ghost_RandomSearch_Direction_Tuple {
 		red.setPosition(new Tuple(14,11));
 		red.setDirection(Direction.LEFT);
 		
+//		RandomSearch instance = RandomSearch.getInstance();
+//		if (instance==null) System.out.println("instance of random is null");
 		red.moveToTarget(RandomSearch.getInstance(), null, Medium.getInstance().doReverse());
 		
 		//testing

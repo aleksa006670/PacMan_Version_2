@@ -106,7 +106,7 @@ public abstract class Mode {
 	
 	//void
 	public SearchAlgorithm destroySearch() {
-		sa.destroySearch();
+		if (sa!=null) sa.destroySearch();
 		sa=null;
 		return sa;
 	}

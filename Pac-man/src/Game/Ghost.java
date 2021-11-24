@@ -138,6 +138,7 @@ public class Ghost extends  Moveable {
 			}
 			
 		}
+		
 
 		nextDirection = sa.getNextDirection(points, accessibleDirections);
 		if(nextDirection!=null){

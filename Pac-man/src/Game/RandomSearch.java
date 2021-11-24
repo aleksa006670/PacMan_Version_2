@@ -12,6 +12,10 @@ public class RandomSearch implements SearchAlgorithm{
 	}
 	
 	public static RandomSearch getInstance() {
+		if (instance == null) 
+		{
+			instance=new RandomSearch();
+		}
 		return instance;
 	}
 	
