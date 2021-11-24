@@ -15,8 +15,3 @@ ScatterBottomLeftCorner
 ScatterTopRightCorner
 Frightened
 RandomSearch
-FrightenedWandering
-FrightenedWandering
-FrightenedWandering
-FrightenedWandering
-FrightenedWandering

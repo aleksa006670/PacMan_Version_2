@@ -17,29 +17,13 @@ public class Main {
 			System.out.println("Please specify the difficulty (Easy, Medium, Hard):");
 			String difficulty = s.next();
 			
-			int res = game.gameInit(difficulty, "Scatter");
+			int res = game.gameInit(difficulty, "Frightened");
 			while(res != 0) {
 				if(res == 1) { // Handling Difficulty error
 					System.out.println("Please specify the difficulty properly (Easy, Medium, Hard):");
 					difficulty = s.next();
 					res = game.gameInit(difficulty, "Scatter");
-				} else if(res == 2) { // Handling Ghost init error
-					System.out.println("Ghost init failed! Ghost file not found or cannot be opened!");
-					s.close();
-					return;
-				} else if(res == 3) { // Handling Pacman init error
-					System.out.println("Pacman init failed! Pacman file not found or cannot be opened!");
-					s.close();
-					return;
-				} else if(res == 4) { // Handling Maze init error
-					System.out.println("Maze init failed!");
-					s.close();
-					return;
-				} else if(res == 5) { // Handling Algorithm init error
-					System.out.println("Ghost algorithms init failed!");
-					s.close();
-					return;
-				} else if(res == 6) {
+				} else if(res == 2) {
 					System.out.println("Game mode init failed!");
 					s.close();
 					return;	
@@ -65,10 +49,6 @@ public class Main {
 					return;
 				} else if(val == 3) { // Problem with Setting mode to Chase after Frightened
 					System.out.println("A problem has occurred with setting mode to Chase after Frightened");
-					s.close();
-					return;
-				} else if(val == 4) {
-					System.out.println("A problem has occurred with alternating Chase and Scatter modes");
 					s.close();
 					return;
 				}

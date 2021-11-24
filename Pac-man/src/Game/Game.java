@@ -22,31 +22,25 @@ public class Game {
 	private Game() {
 		
 	}
+	
+	public static void GameConstructor() { // Test
+		instance = new Game();
+	}
 
 	public int gameInit(String difficultyStr, String mode) {
 		boolean state = setDifficulty(difficultyStr);
 		if(!state) {
 			return 1; // Difficulty Init failed
 		}
-		state = Ghost.initGhosts(difficulty.getGhostFile());
-		if(!state) {
-			return 2; // Ghost Init failed
-		}
-		state = PacMan.initPacMan(difficulty.getPacMan());
-		if(!state) {
-			return 3; // Pacman Init failed
-		}
-		state = Maze.initMaze(difficulty.getMaze());
-		if(!state) {
-			return 4; // Maze Init failed
-		}
-		state = Mode.initModes(difficulty.getAlgorithm());
-		if(!state) {
-			return 5; // Algorithm Init failed
-		}
+		
+		Ghost.initGhosts(difficulty.getGhostFile());
+		PacMan.initPacMan(difficulty.getPacMan());
+		Maze.initMaze(difficulty.getMaze());
+		Mode.initModes(difficulty.getAlgorithm());
+		
 		state = setMode(mode);
 		if(!state) {
-			return 6; // Game mode Init failed
+			return 2; // Game mode Init failed
 		}
 		return 0; // Success
 	}
@@ -72,34 +66,35 @@ public class Game {
 			pacPotDir = Direction.RIGHT;
 			break;
 		case "Reset":
-			if(!resetGame()) // Return after this
-				return 1; // Problem with Game Reset
-			break;
+			resetGame(); // Return after this
+			return 1;
 		default:
 			pacPotDir = PacMan.getInstance().getDirection();
 			break;
 		}
 		
-		if(!handleMovements(pacPotDir)) // Check return of this
-			return 2; // Problem with the regular movement handling
+		handleMovements(pacPotDir); // Check return of this
 		
 		if(mode.getModeName().equals("Frightened")) {
 			totalFrightenedTicks++;
-			if(totalFrightenedTicks % 10 == 0)
-				if(!setMode("Chase"))
-					return 3; // Problem with Setting mode to Chase after Frightened
+			if(totalFrightenedTicks % 10 == 0) {
+				setMode("Chase");
+				return 4;
+			}
+			return 3;
 		} else {
 			totalTicks++;
-			if(totalTicks % 10 == 0 && totalModeChanges < 7) {
-				boolean s;
-				if(mode.getModeName().equals("Scatter"))
-					s = setMode("Chase");
-				else
-					s = setMode("Scatter");
-				if(s)
+			if(totalTicks % 10 == 0 && totalModeChanges < 9) {
+				if(mode.getModeName().equals("Scatter")) {
+					setMode("Chase");
 					totalModeChanges++;
-				if(!s)
-					return 4; // Problem with alternating Chase and Scatter modes
+					return 5;
+				}
+				else {
+					setMode("Scatter");
+					totalModeChanges++;
+					return 6;
+				}
 			}
 		}
 		return 0;
@@ -135,7 +130,7 @@ public class Game {
 		return false;
 	}
 	
-	public boolean setDifficulty(String difficultyStr) {
+	private boolean setDifficulty(String difficultyStr) {
 		if(difficultyStr == null) {
 			return false;
 		} else if(difficultyStr.equals("Easy")) {
@@ -169,13 +164,7 @@ public class Game {
 		ArrayList<Ghost> ghosts = Ghost.getGhosts();
 		PacMan pac = PacMan.getInstance();
 		Maze maze = Maze.getInstance();
-		
-		if(ghosts == null || pac == null || maze == null) {
-//			System.out.println("Instances are empty");
-			return false;
-		}
 			
-		
 		boolean pacmanNoLose = true;
 		
 		for(int i=0;i<ghosts.size();i++) {
@@ -233,23 +222,32 @@ public class Game {
 	
 	
 	
-	public Boolean moveGhosts() {
 
-	//How to test: compare the number of ghosts which actually moved to a different tile
+	//Testing Logic: Does the mode have any algorithms currently - e.g. Frightened mode does not, the others do
+	public boolean moveGhosts() {
 		ArrayList<Ghost> ghosts=Ghost.getGhosts();
-		if (ghosts.isEmpty()) return false;
-		
 		ArrayList<GhostAlgorithm> algs = mode.getAlgorithms();
-		if (algs.isEmpty()) return false;
 		
-		for(int i=0;i<ghosts.size();i++) {
-			// After
-			Tuple targetTile = algs.get(i).behave(ghosts.get(i));
-			ghosts.get(i).moveToTarget(mode.getSearchAlgorithm(), targetTile, difficulty.doReverse());
+		if (algs.size()!=0) {
+			for(int i=0;i<ghosts.size();i++) {
+				// After
+				Tuple targetTile = algs.get(i).behave(ghosts.get(i));
+				ghosts.get(i).moveToTarget(mode.getSearchAlgorithm(), targetTile, difficulty.doReverse());
+					
+			}
+			return true;
 		}
 		
-		return true;
+		else {
+			for(int i=0;i<ghosts.size();i++) {
+				// After
+				ghosts.get(i).moveToTarget(mode.getSearchAlgorithm(), null, difficulty.doReverse());
+			}
+			return false;
+		}
 	}
+	
+
 	
 	public char movePacMan(Direction pacPotDir) {
 		PacMan pac = PacMan.getInstance();
@@ -267,14 +265,14 @@ public class Game {
 	}
 	
 	
-	
+	//void
 	public boolean gameOver() {
 		//Score system should be called from here
-		boolean outcomePac = PacMan.destroyPacman();
-		boolean outcomeG = Ghost.destroyGhosts();
-		boolean outcomeMode = ModeDestructor.getInstance().destroyAllModes();
-		boolean outcomeMaze = Maze.destroyMaze();
-		return outcomePac && outcomeG && outcomeMode && outcomeMaze;
+		PacMan.destroyPacman();
+		Ghost.destroyGhosts();
+		ModeDestructor.getInstance().destroyAllModes();
+		Maze.destroyMaze();
+		return true;
 	
 	}
 	

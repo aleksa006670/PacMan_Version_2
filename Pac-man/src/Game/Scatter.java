@@ -22,7 +22,7 @@ public class Scatter extends Mode {
 			return false;
 		}
 	}
-
+	//void
 	@Override
 	public boolean addAlgorithm(String algorithmName) {
 		switch (algorithmName) {
@@ -65,6 +65,7 @@ public class Scatter extends Mode {
 		return "Scatter";
 	}
 
+	//void
 	@Override
 	public Mode deleteMode(){
 		instance =null;
