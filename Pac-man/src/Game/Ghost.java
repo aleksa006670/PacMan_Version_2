@@ -61,17 +61,17 @@ public class Ghost extends  Moveable {
 	 * @return Ghost a Ghost object
 	 */
 	public static Ghost getGhost(int index) {
-		if (ghosts == null) {
-			return null;
-		}
+//		if (ghosts == null) {
+//			return null;
+//		}
 
 		return ghosts.get(index);
 	}
 	
 	public static Ghost getGhostByName(char key) {
-		if (ghosts == null) {
-			return null;
-		}
+//		if (ghosts == null) {
+//			return null;
+//		}
 
 		for(Ghost g : ghosts) {
 			if(g.getSymbol() == key) 
@@ -96,10 +96,12 @@ public class Ghost extends  Moveable {
 	
 	
 	public static boolean resetGhosts() { // This is stupid but the requirement is stupid
-		if(ghosts == null)
-			return false;
+//		if(ghosts == null)
+//			return false;
 		for(Ghost g: ghosts) {
-			if(!g.resetPosition() || !g.resetDirection())
+//			if(!g.resetPosition() || !g.resetDirection())
+			    g.resetPosition();
+			    g.resetDirection();
 				return false;
 		}
 		return true;
