@@ -20,7 +20,11 @@ public class Game {
 	}
 
 	private Game() {
-		//Difficulty.setMazeArray();
+		
+	}
+	
+	public static void GameConstructor() { // Test
+		instance = new Game();
 	}
 
 	public int gameInit(String difficultyStr, String mode) {
@@ -28,25 +32,15 @@ public class Game {
 		if(!state) {
 			return 1; // Difficulty Init failed
 		}
-		state = Ghost.initGhosts(difficulty.getGhostFile());
-		if(!state) {
-			return 2; // Ghost Init failed
-		}
-		state = PacMan.initPacMan(difficulty.getPacMan());
-		if(!state) {
-			return 3; // Pacman Init failed
-		}
-		state = Maze.initMaze(difficulty.getMaze());
-		if(!state) {
-			return 4; // Maze Init failed
-		}
-		state = Mode.initModes(difficulty.getAlgorithm());
-		if(!state) {
-			return 5; // Algorithm Init failed
-		}
+		
+		Ghost.initGhosts(difficulty.getGhostFile());
+		PacMan.initPacMan(difficulty.getPacMan());
+		Maze.initMaze(difficulty.getMaze());
+		Mode.initModes(difficulty.getAlgorithm());
+		
 		state = setMode(mode);
 		if(!state) {
-			return 6; // Game mode Init failed
+			return 2; // Game mode Init failed
 		}
 		return 0; // Success
 	}
@@ -72,34 +66,35 @@ public class Game {
 			pacPotDir = Direction.RIGHT;
 			break;
 		case "Reset":
-			if(!resetGame()) // Return after this
-				return 1; // Problem with Game Reset
-			break;
+			resetGame(); // Return after this
+			return 1;
 		default:
 			pacPotDir = PacMan.getInstance().getDirection();
 			break;
 		}
 		
-		if(!handleMovements(pacPotDir)) // Check return of this
-			return 2; // Problem with the regular movement handling
+		handleMovements(pacPotDir); // Check return of this
 		
 		if(mode.getModeName().equals("Frightened")) {
 			totalFrightenedTicks++;
-			if(totalFrightenedTicks % 10 == 0)
-				if(!setMode("Chase"))
-					return 3; // Problem with Setting mode to Chase after Frightened
+			if(totalFrightenedTicks % 10 == 0) {
+				setMode("Chase");
+				return 4;
+			}
+			return 3;
 		} else {
 			totalTicks++;
-			if(totalTicks % 10 == 0 && totalModeChanges < 7) {
-				boolean s;
-				if(mode.getModeName().equals("Scatter"))
-					s = setMode("Chase");
-				else
-					s = setMode("Scatter");
-				if(s)
+			if(totalTicks % 10 == 0 && totalModeChanges < 9) {
+				if(mode.getModeName().equals("Scatter")) {
+					setMode("Chase");
 					totalModeChanges++;
-				if(!s)
-					return 4; // Problem with alternating Chase and Scatter modes
+					return 5;
+				}
+				else {
+					setMode("Scatter");
+					totalModeChanges++;
+					return 6;
+				}
 			}
 		}
 		return 0;
@@ -135,7 +130,7 @@ public class Game {
 		return false;
 	}
 	
-	public boolean setDifficulty(String difficultyStr) {
+	private boolean setDifficulty(String difficultyStr) {
 		if(difficultyStr == null) {
 			return false;
 		} else if(difficultyStr.equals("Easy")) {
@@ -169,13 +164,7 @@ public class Game {
 		ArrayList<Ghost> ghosts = Ghost.getGhosts();
 		PacMan pac = PacMan.getInstance();
 		Maze maze = Maze.getInstance();
-		
-		if(ghosts == null || pac == null || maze == null) {
-//			System.out.println("Instances are empty");
-			return false;
-		}
 			
-		
 		boolean pacmanNoLose = true;
 		
 		for(int i=0;i<ghosts.size();i++) {
@@ -233,16 +222,32 @@ public class Game {
 	
 	
 	
-	
-	public void moveGhosts() {
+
+	//Testing Logic: Does the mode have any algorithms currently - e.g. Frightened mode does not, the others do
+	public boolean moveGhosts() {
 		ArrayList<Ghost> ghosts=Ghost.getGhosts();
 		ArrayList<GhostAlgorithm> algs = mode.getAlgorithms();
-		for(int i=0;i<ghosts.size();i++) {
-			// After
-			Tuple targetTile = algs.get(i).behave(ghosts.get(i));
-			ghosts.get(i).moveToTarget(mode.getSearchAlgorithm(), targetTile, difficulty.doReverse());
+		
+		if (algs.size()!=0) {
+			for(int i=0;i<ghosts.size();i++) {
+				// After
+				Tuple targetTile = algs.get(i).behave(ghosts.get(i));
+				ghosts.get(i).moveToTarget(mode.getSearchAlgorithm(), targetTile, difficulty.doReverse());
+					
+			}
+			return true;
+		}
+		
+		else {
+			for(int i=0;i<ghosts.size();i++) {
+				// After
+				ghosts.get(i).moveToTarget(mode.getSearchAlgorithm(), null, difficulty.doReverse());
+			}
+			return false;
 		}
 	}
+	
+
 	
 	public char movePacMan(Direction pacPotDir) {
 		PacMan pac = PacMan.getInstance();
@@ -260,13 +265,14 @@ public class Game {
 	}
 	
 	
-	
-	public void gameOver() {
+	//void
+	public boolean gameOver() {
 		//Score system should be called from here
 		PacMan.destroyPacman();
 		Ghost.destroyGhosts();
 		ModeDestructor.getInstance().destroyAllModes();
 		Maze.destroyMaze();
+		return true;
 	
 	}
 	
@@ -287,8 +293,9 @@ public class Game {
 		return true;
 	}
 	
-	public void printMaze() {
+	public String printMaze() {
 		//Get pacman's position
+		String mazeText="";
 		int pacmanX =  PacMan.getInstance().getTuple().getFirst();
 		int pacmanY =  PacMan.getInstance().getTuple().getSecond();
 	
@@ -302,7 +309,8 @@ public class Game {
 			    
 				// see if pacman is here
 				if (i == pacmanY && j ==pacmanX) {
-					System.out.print("P ");
+					//System.out.print("P ");
+					mazeText+="P ";
 				}
 				else {
 					// see if any of the four ghosts is here
@@ -315,10 +323,14 @@ public class Game {
 							 * Here is some quick fix. The Pink ghost's symbol is 'P', same as Pacman.
 							 * So to make distinction I use letter 'I' to print the Pink ghost
 							 */
-							if (g.getSymbol() == 'P')	// only for Pink ghost						
-								System.out.print("I"+" ");
-							else						// for other ghosts - print normally
-								System.out.print(g.getSymbol()+" ");
+							if (g.getSymbol() == 'P') {	// only for Pink ghost						
+								//System.out.print("I"+" ");
+								mazeText+="I ";
+							}
+							else {						// for other ghosts - print normally
+								//System.out.print(g.getSymbol()+" ");
+								mazeText+=g.getSymbol() + " ";
+							}
 							
 							isGhostHere = true;
 							break;
@@ -327,15 +339,19 @@ public class Game {
 					if (!isGhostHere) {
 						// Neither Pacman nor ghost is here. We print maze 
 						if (maze.getSymbol(i, j) == 'N') {
-							System.out.print("  ");
+							//System.out.print("n");
+							mazeText+="n";
 						} else {
-							System.out.print(maze.getSymbol(i, j)+" ");
+							//System.out.print(maze.getSymbol(i, j)+" ");
+							mazeText+=maze.getSymbol(i, j)+" ";
 						}
 					}
 				}
 				
 			}
-			System.out.println();
+			//System.out.println();
+			mazeText+='\n';
 		}
+		return mazeText;
 }
 }

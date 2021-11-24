@@ -11,11 +11,11 @@ public abstract class Mode {
 	
 	private SearchAlgorithm sa;
 
-	public abstract void addAlgorithm(String algorithmString);
+	public abstract boolean addAlgorithm(String algorithmString);
 
 	public abstract boolean resolveCollision();
 
-	public abstract void deleteMode();
+	public abstract Mode deleteMode();
 	/**
 	 * Return the ArrayList of algorithms
 	 * @return algorithms
@@ -81,8 +81,12 @@ public abstract class Mode {
 						return false;
 				}
 				
-				for (int j = 0; j < numGhosts; j++) {
-					tempMode.addAlgorithm(scanner.nextLine());
+				//False in case of Frightened mode
+				//True in case of orher modes
+				if(scanner.hasNext()) {
+					for (int j = 0; j < numGhosts; j++) {
+						tempMode.addAlgorithm(scanner.nextLine());
+					}
 				}
 			}
 
@@ -99,10 +103,17 @@ public abstract class Mode {
 	public SearchAlgorithm getSearchAlgorithm() {
 		return sa;
 	}
+	
+	//void
+	public SearchAlgorithm destroySearch() {
+		sa.destroySearch();
+		sa=null;
+		return sa;
+	}
 		
-	public void destroyAlgorithms() {
+	//void
+	public ArrayList<GhostAlgorithm> destroyGA() {
 		algorithms = null;
-		if(sa != null)
-			sa.destroySearch();			
+		return  algorithms;
 	}
 }

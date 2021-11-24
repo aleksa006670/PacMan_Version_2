@@ -74,7 +74,6 @@ public class Maze {
 	}
 	
 	public char getSymbol(int i,int j) {
-		//symbol for null is n
 		if(matrix[i][j]==null) {
 			return ' ';
 		}
@@ -83,9 +82,11 @@ public class Maze {
 		}
 	}
 	
-	public static void destroyMaze() {
-		Gate.deleteGate();
+	public static Maze destroyMaze() {
 		instance = null;
+		Gate.deleteGate();
+		return instance;
+		
 	}
 	
 	public boolean resetMaze() {

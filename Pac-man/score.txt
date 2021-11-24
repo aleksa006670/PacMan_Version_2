@@ -5,3 +5,4 @@ Difficulty:Easy Name:Easy Score:70
 Difficulty:Easy Name:Legenda Score:280 
 Difficulty:Easy Name:omar Score:50 
 Difficulty:Hard Name:BigDaddySugarII Score:100 
+Difficulty:Easy Name:Kowalski Score:50 

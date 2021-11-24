@@ -40,8 +40,11 @@ public class Ghost extends  Moveable {
 		}
 	}
 	
-	public static void destroyGhosts() {
+
+	public static boolean destroyGhosts() {
 		ghosts.clear();
+
+		return ghosts.isEmpty();
 	}
 	
 	
@@ -102,7 +105,10 @@ public class Ghost extends  Moveable {
 		return true;
 	}
 
-	public void moveToTarget(SearchAlgorithm sa, Tuple targetTile, boolean doReverse){
+	
+	//logic: If ghost actually moves away from tile, return true
+	//if the ghost stays at the same tile, return false
+	public boolean moveToTarget(SearchAlgorithm sa, Tuple targetTile, boolean doReverse){
 		ArrayList<Tuple> points = new ArrayList<Tuple>();
 		points.add(this.getTuple());
 		points.add(targetTile);
@@ -130,6 +136,8 @@ public class Ghost extends  Moveable {
 		if(nextDirection!=null){
 			this.setDirection(nextDirection);
 			this.move();
+			return true;
 		}
+		return false;
 	}
 }
