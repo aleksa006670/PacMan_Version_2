@@ -102,7 +102,7 @@ public class Ghost extends  Moveable {
 //			if(!g.resetPosition() || !g.resetDirection())
 			    g.resetPosition();
 			    g.resetDirection();
-				return false;
+//				return false;
 		}
 		return true;
 	}

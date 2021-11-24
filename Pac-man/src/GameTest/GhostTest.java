@@ -14,7 +14,9 @@ import Game.A_star;
 import Game.Direction;
 import Game.Game;
 import Game.Ghost;
+import Game.Maze;
 import Game.PacMan;
+import Game.SearchAlgorithm;
 import Game.Tuple;
 import GameTest.WriteFile;
 
@@ -212,6 +214,18 @@ class GhostTest {
 			// Test Ghost.moveToTarget() with sa=A_Star, doReverse=false and sa.getNextDirection() returns null
 			@Test
 			void test13() {
+				
+				// implement a test stub of search algorithm
+				// it only fakes the getNextDirection() method so that it always return null
+				class stubSearchAlgorithm implements SearchAlgorithm{
+					public SearchAlgorithm destroySearch() {
+						return null;
+					}
+					public Direction getNextDirection(ArrayList<Tuple> points, ArrayList<Direction> accebileDirections) {
+						return null;
+					}
+				}
+				
 				Game game = Game.getInstance();
 				game.gameInit("Hard", "Chase");
 				PacMan pacman = PacMan.getInstance();
@@ -222,8 +236,8 @@ class GhostTest {
 				red.setPosition(new Tuple(9, 13));
 				red.setDirection(Direction.UP);
 				
-				// sa.getNextDirection() returns null(??), the Red ghost shouldn't move
-				red.moveToTarget(A_star.getInstance(), new Tuple(28, 12), false);
+				// stubSearchAlgorithm.getNextDirection() returns null, the Red ghost shouldn't move
+				red.moveToTarget(new stubSearchAlgorithm(), new Tuple(28, 12), false);
 				assertEquals(Direction.UP, red.getDirection());
 				assertTrue(red.getTuple().equals(new Tuple(9, 13)));
 			}
