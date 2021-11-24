@@ -46,7 +46,8 @@ public class Maze {
 	}
 	
 	public boolean isInHouse(Tuple t){
-		return !t.toClip(minCornerHouse, maxCornerHouse);
+		boolean isTupleInHouse = t.toClip(minCornerHouse, maxCornerHouse);
+		return !isTupleInHouse;
 	}
 
 	
@@ -89,8 +90,9 @@ public class Maze {
 	
 	public boolean resetMaze() {
 		//use resetGameObject to reset the maze to its original position
-		if(resetObjectList == null)
-			return false;
+		// Here resetObjectList will never be null, so I comment it out
+//		if(resetObjectList == null)
+//			return false;
 		for(GameObject go : resetObjectList) {
 			Tuple position = go.getTuple(); // Always a success
 			int i = position.getSecond();
@@ -137,13 +139,13 @@ public class Maze {
             fileReader = new Scanner(new File(mapFile));
             String line = null;
             while (fileReader.hasNext()) {
-                try {
-                    line = fileReader.nextLine();
-                } catch (Exception eof) {
+//                try {
+                line = fileReader.nextLine();
+//                } catch (Exception eof) {
                     // throw new A5FatalException("Could not read resource");
-                    System.out.printf("Could not read the file %s further", mapFile);
-                    return false;
-                }
+//                    System.out.printf("Could not read the file %s further", mapFile);
+//                    return false;
+//                }
 
                 if (line.trim().equals(""))
                     continue;    //skip dummy lines
