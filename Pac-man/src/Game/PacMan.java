@@ -43,13 +43,16 @@ public class PacMan extends Moveable {
 		
 	}
 	
-	public static void destroyPacman() {
+	public static PacMan destroyPacman() {
 		instance = null;
+		return instance;
 	}
 	
 	public boolean resetPacMan() {
-		if(!this.resetPosition() || !this.resetDirection())
-			return false;
+		this.resetPosition();
+		this.resetDirection();
+//		if(!this.resetPosition() || !this.resetDirection())
+//			return false;
 		lives = init_lives;
 		food = 0;
 		score = 0;

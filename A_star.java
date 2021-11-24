@@ -126,7 +126,7 @@ public ArrayList<Tuple> getPath(Tuple start, Tuple end, ArrayList<Direction> pos
 	
 	return path;
 }
-//test 3 included the coverage of Maze
+
 
 
 //purpose: find a closest tile to the starting tile which is a wall or an empty tile to be a goal for
@@ -145,10 +145,7 @@ public Tuple BFS(Tuple t, ArrayList<Direction> possibleDirections){
 	//test5: T-, FF
 	//test6: FF, T-, FT
 	//test7: T-, FF (exists to "cover" Tuple coverage)
-	
-	
-	while(indicator == 'W' || indicator=='n'){
-		
+	while(indicator == 'W' || indicator==' '){
 		//all possible directions
 		for(Direction dir:possibleDirections){
 			Tuple child = current.sum(dir.DirectionToTuple());
@@ -165,7 +162,6 @@ public Tuple BFS(Tuple t, ArrayList<Direction> possibleDirections){
 		current = tupleQueue.remove(0);
 		indicator = maze.getSymbol(current.getSecond(), current.getFirst());
 	}
-	
 		return current;
 
 }
@@ -175,6 +171,8 @@ public Tuple findClosestGoal(Tuple t, ArrayList<Direction> possibleDirections){
 	Maze maze = Maze.getInstance();
 	t.clip(maze.getTopLeftCorner(), maze.getBottomRightCorner());
 	return BFS(t, possibleDirections);
+
+
 }
 
 @Override
@@ -193,7 +191,7 @@ public Direction getNextDirection(ArrayList<Tuple> points, ArrayList<Direction> 
 	else{
 		nextTuple = start;
 	} 
-	// TRAVERSE all possible directions until we find a direction that can lead to the specified tuple
+
 	for(Direction dir: possibleDirections){
 		//T test 11,12
 		//F test 13
@@ -205,10 +203,10 @@ public Direction getNextDirection(ArrayList<Tuple> points, ArrayList<Direction> 
 }
 
 @Override
-public SearchAlgorithm destroySearch() {
+public boolean destroySearch() {
 	instance=null;
-	return instance;
-			
+	return true
+			;
 }
 
 }

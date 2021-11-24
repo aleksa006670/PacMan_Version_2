@@ -73,11 +73,12 @@ public class Tuple {
 	}
 	
 	
-	
+	/*
 	public void changeTuple(int x, int y) {
 		this.first=x;
 		this.second=y;
 	}
+	*/
 
 	public boolean tupleBelong(ArrayList<Tuple> tuples){
 		for(Tuple t:tuples){
@@ -92,7 +93,7 @@ public class Tuple {
 		return (first<min.first) || (first>max.first) || (second<min.second) || (second>max.second);
 	}
 
-	public void clip(Tuple min, Tuple max){
+	public Tuple clip(Tuple min, Tuple max){
 		
 		if(first<min.getFirst()){
 			first=min.getFirst();
@@ -109,6 +110,7 @@ public class Tuple {
 		else if(second >max.getSecond()){
 			second = max.getSecond();
 		}
+		return this;
 	
 	}
 

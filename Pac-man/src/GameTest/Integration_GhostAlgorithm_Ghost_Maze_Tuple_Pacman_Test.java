@@ -14,8 +14,11 @@ import Game.ScatterTopRightCorner;
 import Game.Tuple;
 import Game.Maze;
 import Game.Medium;
+import Game.Mode;
 
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.*;
 
@@ -26,9 +29,8 @@ import Game.ChasePatrol;
 import Game.ChaseRandom;
 import Game.Direction;
 import Game.Easy;
-import Game.FrightenedWandering;
 
-public class GhostAlgorithmTest {
+public class Integration_GhostAlgorithm_Ghost_Maze_Tuple_Pacman_Test {
 	/**
 	 * this class tests ghost algorithm only (not testing search algorithm or collision)
 	 * 
@@ -43,6 +45,18 @@ public class GhostAlgorithmTest {
 	 * 
 	 * 
 	 * */
+	@BeforeEach
+	public void init() {
+		Ghost.initGhosts("src/Resource/hardGhostData.txt");
+		PacMan.initPacMan("src/Resource/hardPacmanData.txt");
+	}
+	
+	@AfterEach
+	public void destroySingletons() {
+		PacMan.destroyPacman();
+		Ghost.destroyGhosts();
+		Maze.destroyMaze();
+	}
 	
 //	test chase aggressive----------------------------------------------------------------------------
 	/**
@@ -53,8 +67,7 @@ public class GhostAlgorithmTest {
 	 * */
 	@Test
 	public void TestChaseAggressive01() {
-		Game game = Game.getInstance();
-		int res = game.gameInit("Easy", "Chase");
+		Maze.initMaze("src/Resource/easyMaze.txt");
 		PacMan pacman = PacMan.getInstance();
 		Ghost red = Ghost.getGhostByName('R');
 		
@@ -66,59 +79,10 @@ public class GhostAlgorithmTest {
 		
 		Tuple redTargetTile = new ChaseAggressive().behave(red);
 		Tuple expectedTargetTile = new Tuple(12,4);
-		game.gameOver();
+		
 		assertEquals(expectedTargetTile, redTargetTile);
 	}
 	
-//	/**
-//	 * ghost (10,8) RIGHT (not intersection)
-//	 * pacman (12,4) UP
-//	 * GreedySearch
-//	 * easy - no reverse
-//	 * */
-//	@Test
-//	public void TestChaseAggressive02() {
-//		Game game = Game.getInstance();
-//		int res = game.gameInit("Easy", "Chase");
-//		PacMan pacman = PacMan.getInstance();
-//		Ghost red = Ghost.getGhostByName('R');
-//		
-//		red.setPosition(new Tuple(10,8));
-//		red.setDirection(Direction.RIGHT);
-//		
-//		pacman.setPosition(new Tuple(12,4));
-//		pacman.setDirection(Direction.UP);
-//		
-//		Tuple redTargetTile = new ChaseAggressive().behave(red, Greedy_Search.getInstance(), false);
-//		Tuple expectedTargetTile = new Tuple(12,4);
-//		game.gameOver();
-//		assertEquals(expectedTargetTile, redTargetTile);
-//	}
-//	
-//	/**
-//	 * ghost (15,11) RIGHT (not intersection)
-//	 * pacman (12,8) UP
-//	 * A_star
-//	 * hard - reverse
-//	 * */
-//	@Test
-//	public void TestChaseAggressive03() {
-//		Game game = Game.getInstance();
-//		int res = game.gameInit("Hard", "Chase");
-//		PacMan pacman = PacMan.getInstance();
-//		Ghost red = Ghost.getGhostByName('R');
-//		
-//		red.setPosition(new Tuple(15,11));
-//		red.setDirection(Direction.RIGHT);
-//		
-//		pacman.setPosition(new Tuple(12,8));
-//		pacman.setDirection(Direction.UP);
-//		
-//		Tuple redTargetTile = new ChaseAggressive().behave(red, A_star.getInstance(), true);
-//		Tuple expectedTargetTile = new Tuple(12,8);
-//		game.gameOver();
-//		assertEquals(expectedTargetTile, redTargetTile);
-//	}
 	
 //	test chase ambush---------------------------------------------------------------------------
 	
@@ -130,8 +94,7 @@ public class GhostAlgorithmTest {
 	 * */
 	@Test
 	public void TestChaseAmbush01() {
-		Game game = Game.getInstance();
-		int res = game.gameInit("Medium", "Chase");
+		Maze.initMaze("src/Resource/mediumMaze.txt");
 		PacMan pacman = PacMan.getInstance();
 		Ghost pink = Ghost.getGhostByName('P');
 		
@@ -143,7 +106,7 @@ public class GhostAlgorithmTest {
 		
 		Tuple pinkTargetTile = new ChaseAmbush().behave(pink);
 		Tuple expectedTargetTile = new Tuple(11,11);
-		game.gameOver();
+		
 		assertEquals(expectedTargetTile, pinkTargetTile);
 	}
 	
@@ -155,8 +118,7 @@ public class GhostAlgorithmTest {
 	 * */
 	@Test
 	public void TestChaseAmbush02() {
-		Game game = Game.getInstance();
-		int res = game.gameInit("Medium", "Chase");
+		Maze.initMaze("src/Resource/mediumMaze.txt");
 		PacMan pacman = PacMan.getInstance();
 		Ghost pink = Ghost.getGhostByName('P');
 		
@@ -168,59 +130,11 @@ public class GhostAlgorithmTest {
 		
 		Tuple pinkTargetTile = new ChaseAmbush().behave(pink);
 		Tuple expectedTargetTile = new Tuple(15,7);
-		game.gameOver();
+		
 		assertEquals(expectedTargetTile, pinkTargetTile);
 	}
 	
-//	/**
-//	 * ghost (17,7) RIGHT (not intersection)
-//	 * pacman (15,11) LEFT
-//	 * GreedySearch
-//	 * medium - no reverse
-//	 * */
-//	@Test
-//	public void TestChaseAmbush02() {
-//		Game game = Game.getInstance();
-//		int res = game.gameInit("Medium", "Chase");
-//		PacMan pacman = PacMan.getInstance();
-//		Ghost pink = Ghost.getGhostByName('P');
-//		
-//		pink.setPosition(new Tuple(17,7));
-//		pink.setDirection(Direction.RIGHT);
-//		
-//		pacman.setPosition(new Tuple(15,11));
-//		pacman.setDirection(Direction.LEFT);
-//		
-//		Tuple pinkTargetTile = new ChaseAmbush().behave(pink, Greedy_Search.getInstance(), false);
-//		Tuple expectedTargetTile = new Tuple(11,11);
-//		game.gameOver();
-//		assertEquals(expectedTargetTile, pinkTargetTile);
-//	}
-//	
-//	/**
-//	 * ghost (18,8) LEFT (not intersection)
-//	 * pacman (9,7) DOWN
-//	 * A_star
-//	 * hard - reverse
-//	 * */
-//	@Test
-//	public void TestChaseAmbush03() {
-//		Game game = Game.getInstance();
-//		int res = game.gameInit("Hard", "Chase");
-//		PacMan pacman = PacMan.getInstance();
-//		Ghost pink = Ghost.getGhostByName('P');
-//		
-//		pink.setPosition(new Tuple(18,8));
-//		pink.setDirection(Direction.LEFT);
-//		
-//		pacman.setPosition(new Tuple(9,7));
-//		pacman.setDirection(Direction.DOWN);
-//		
-//		Tuple pinkTargetTile = new ChaseAmbush().behave(pink, A_star.getInstance(), true);
-//		Tuple expectedTargetTile = new Tuple(9,11);
-//		game.gameOver();
-//		assertEquals(expectedTargetTile, pinkTargetTile);
-//	}
+
 	
 //	test chase patrol-------------------------------------------------------------------
 	
@@ -229,8 +143,7 @@ public class GhostAlgorithmTest {
 	 * */
 	@Test
 	public void TestChasePatrol01() {
-		Game game = Game.getInstance();
-		int res = game.gameInit("Easy", "Chase");
+		Maze.initMaze("src/Resource/easyMaze.txt");
 		PacMan pacman = PacMan.getInstance();
 		Ghost blue = Ghost.getGhostByName('B');
 		Ghost red = Ghost.getGhostByName('R');
@@ -246,7 +159,7 @@ public class GhostAlgorithmTest {
 		
 		Tuple blueTargetTile = new ChasePatrol().behave(blue);
 		Tuple expectedTargetTile = new Tuple(17,18);
-		game.gameOver();
+		
 		assertEquals(expectedTargetTile, blueTargetTile);
 	}
 	
@@ -260,8 +173,7 @@ public class GhostAlgorithmTest {
 	 * */
 	@Test
 	public void TestChasePatrol02() {
-		Game game = Game.getInstance();
-		int res = game.gameInit("Easy", "Chase");
+		Maze.initMaze("src/Resource/easyMaze.txt");
 		PacMan pacman = PacMan.getInstance();
 		Ghost blue = Ghost.getGhostByName('B');
 		Ghost red = Ghost.getGhostByName('R');
@@ -278,7 +190,7 @@ public class GhostAlgorithmTest {
 		
 		Tuple blueTargetTile = new ChasePatrol().behave(blue);
 		Tuple expectedTargetTile = new Tuple(24,18);
-		game.gameOver();
+		
 		assertEquals(expectedTargetTile, blueTargetTile);
 	}
 	
@@ -292,8 +204,7 @@ public class GhostAlgorithmTest {
 	 * */
 	@Test
 	public void TestChasePatrol03() {
-		Game game = Game.getInstance();
-		int res = game.gameInit("Hard", "Chase");
+		Maze.initMaze("src/Resource/hardMaze.txt");
 		PacMan pacman = PacMan.getInstance();
 		Ghost blue = Ghost.getGhostByName('B');
 		Ghost red = Ghost.getGhostByName('R');
@@ -310,41 +221,10 @@ public class GhostAlgorithmTest {
 		
 		Tuple blueTargetTile = new ChasePatrol().behave(blue);
 		Tuple expectedTargetTile = new Tuple(18,5);
-		game.gameOver();
+		
+	
 		assertEquals(expectedTargetTile, blueTargetTile);
 	}
-	
-	
-//	/**
-//	 * blue (17,18) RIGHT (intersection)
-//	 * red (16,24) LEFT
-//	 * pacman (18,21) RIGHT
-//	 * GreedySearch
-//	 * easy - no reverse
-//	 * */
-//	@Test
-//	public void TestChasePatrol01() {
-//		Game game = Game.getInstance();
-//		int res = game.gameInit("Easy", "Chase");
-//		PacMan pacman = PacMan.getInstance();
-//		Ghost blue = Ghost.getGhostByName('B');
-//		Ghost red = Ghost.getGhostByName('R');
-//
-//		blue.setPosition(new Tuple(17,18));
-//		blue.setDirection(Direction.RIGHT);
-//		
-//		red.setPosition(new Tuple(16,24)); // -> 24,18
-//		red.setDirection(Direction.LEFT);
-//		
-//		pacman.setPosition(new Tuple(18,21)); // -> 20,21
-//		pacman.setDirection(Direction.RIGHT); 
-//		pacman.setFood(30);//blue will not move unless pacman has eaten at least 30 food items
-//		
-//		Tuple blueTargetTile = new ChasePatrol().behave(blue, Greedy_Search.getInstance(), false);
-//		Tuple expectedTargetTile = new Tuple(24,18);
-//		game.gameOver();
-//		assertEquals(expectedTargetTile, blueTargetTile);
-//	}
 	
 	
 //	test chase random-------------------------------------------------------------------------------------------
@@ -354,8 +234,7 @@ public class GhostAlgorithmTest {
 	 * */
 	@Test
 	public void TestChaseRandom01() {
-		Game game = Game.getInstance();
-		int res = game.gameInit("Medium", "Chase");
+		Maze.initMaze("src/Resource/mediumMaze.txt");
 		PacMan pacman = PacMan.getInstance();
 		Ghost orange = Ghost.getGhostByName('O');
 		
@@ -367,7 +246,7 @@ public class GhostAlgorithmTest {
 		
 		Tuple orangeTargetTile = new ChaseRandom().behave(orange);
 		Tuple expectedTargetTile = new Tuple(19,7);
-		game.gameOver();
+
 		assertEquals(expectedTargetTile, orangeTargetTile);
 	}
 	
@@ -377,8 +256,7 @@ public class GhostAlgorithmTest {
 	 * */
 	@Test
 	public void TestChaseRandom02() {
-		Game game = Game.getInstance();
-		int res = game.gameInit("Medium", "Chase");
+		Maze.initMaze("src/Resource/mediumMaze.txt");
 		PacMan pacman = PacMan.getInstance();
 		Ghost orange = Ghost.getGhostByName('O');
 		
@@ -395,7 +273,7 @@ public class GhostAlgorithmTest {
 		
 		Tuple orangeTargetTile = new ChaseRandom().behave(orange);
 		Tuple expectedTargetTile = new Tuple(9,17);
-		game.gameOver();
+		
 		assertEquals(expectedTargetTile, orangeTargetTile);
 	}
 	
@@ -405,8 +283,7 @@ public class GhostAlgorithmTest {
 	 * */
 	@Test
 	public void TestChaseRandom03() {
-		Game game = Game.getInstance();
-		int res = game.gameInit("Medium", "Chase");
+		Maze.initMaze("src/Resource/mediumMaze.txt");
 		PacMan pacman = PacMan.getInstance();
 		Ghost orange = Ghost.getGhostByName('O');
 		
@@ -423,29 +300,12 @@ public class GhostAlgorithmTest {
 		
 		Tuple orangeTargetTile = new ChaseRandom().behave(orange);
 		Tuple expectedTargetTile = new Tuple(0,31);
-		game.gameOver();
+		
+	
 		assertEquals(expectedTargetTile, orangeTargetTile);
 	}
 	
-//	test frightened wandering-------------------------------------------------------------------------------------------
-	
-	/**
-	 * method .behave() return frightened ghost's new position
-	 * */
-	@Test
-	public void TestFrightenedWandering01() {
-		Game game = Game.getInstance();
-		int res = game.gameInit("Easy", "Frightened");
-		Ghost orange = Ghost.getGhostByName('O');
-		
-		orange.setPosition(new Tuple(20,8)); 
-		orange.setDirection(Direction.RIGHT);
-		
-		Tuple orangeNewPosition = new FrightenedWandering().behave(orange);
 
-		game.gameOver();
-		assertEquals(null, orangeNewPosition);
-	}
 	
 //	test scatter-------------------------------------------------------------------------------------------------------
 	
@@ -455,8 +315,7 @@ public class GhostAlgorithmTest {
 	 * */
 	@Test
 	public void TestScatterBottomLeft01() {
-		Game game = Game.getInstance();
-		int res = game.gameInit("Easy", "Scatter");
+		Maze.initMaze("src/Resource/easyMaze.txt");
 		Ghost orange = Ghost.getGhostByName('O');
 		
 		orange.setPosition(new Tuple(19,8)); 
@@ -464,7 +323,7 @@ public class GhostAlgorithmTest {
 		
 		Tuple orangeTargetTile = new ScatterBottomLeftCorner().behave(orange);
 		Tuple expectedTargetTile = new Tuple(19,8);
-		game.gameOver();
+		
 		assertEquals(expectedTargetTile, orangeTargetTile);
 	}
 	
@@ -474,8 +333,7 @@ public class GhostAlgorithmTest {
 	 * */
 	@Test
 	public void TestScatterBottomLeft02() {
-		Game game = Game.getInstance();
-		int res = game.gameInit("Easy", "Scatter");
+		Maze.initMaze("src/Resource/easyMaze.txt");
 		Ghost orange = Ghost.getGhostByName('O');
 		PacMan pacman = PacMan.getInstance();
 		
@@ -489,7 +347,7 @@ public class GhostAlgorithmTest {
 		
 		Tuple orangeTargetTile = new ScatterBottomLeftCorner().behave(orange);
 		Tuple expectedTargetTile = new Tuple(0,31);
-		game.gameOver();
+		
 		assertEquals(expectedTargetTile, orangeTargetTile);
 	}
 	
@@ -499,8 +357,7 @@ public class GhostAlgorithmTest {
 	 * */
 	@Test
 	public void TestScatterBottomRight01() {
-		Game game = Game.getInstance();
-		int res = game.gameInit("Hard", "Scatter");
+		Maze.initMaze("src/Resource/hardMaze.txt");
 		Ghost blue = Ghost.getGhostByName('B');
 		
 		blue.setPosition(new Tuple(17,8)); 
@@ -508,7 +365,8 @@ public class GhostAlgorithmTest {
 		
 		Tuple blueTargetTile = new ScatterBottomRightCorner().behave(blue);
 		Tuple expectedTargetTile = new Tuple(17,8);
-		game.gameOver();
+
+		
 		assertEquals(expectedTargetTile, blueTargetTile);
 	}
 	
@@ -518,8 +376,7 @@ public class GhostAlgorithmTest {
 	 * */
 	@Test
 	public void TestScatterBottomRight02() {
-		Game game = Game.getInstance();
-		int res = game.gameInit("Hard", "Scatter");
+		Maze.initMaze("src/Resource/hardMaze.txt");
 		Ghost blue = Ghost.getGhostByName('B');
 		PacMan pacman = PacMan.getInstance();
 		
@@ -530,7 +387,9 @@ public class GhostAlgorithmTest {
 		
 		Tuple blueTargetTile = new ScatterBottomRightCorner().behave(blue);
 		Tuple expectedTargetTile = new Tuple(28,31);
-		game.gameOver();
+
+
+	
 		assertEquals(expectedTargetTile, blueTargetTile);
 	}
 	
@@ -539,8 +398,7 @@ public class GhostAlgorithmTest {
 	 * */
 	@Test
 	public void TestScatterTopLeft01() {
-		Game game = Game.getInstance();
-		int res = game.gameInit("Medium", "Scatter");
+		Maze.initMaze("src/Resource/mediumMaze.txt");
 		Ghost pink = Ghost.getGhostByName('P');
 		
 		pink.setPosition(new Tuple(11,23)); 
@@ -548,7 +406,7 @@ public class GhostAlgorithmTest {
 		
 		Tuple pinkTargetTile = new ScatterTopLeftCorner().behave(pink);
 		Tuple expectedTargetTile = new Tuple(0,0);
-		game.gameOver();
+
 		assertEquals(expectedTargetTile, pinkTargetTile);
 	}
 	
@@ -557,8 +415,7 @@ public class GhostAlgorithmTest {
 	 * */
 	@Test
 	public void TestScatterTopRight01() {
-		Game game = Game.getInstance();
-		int res = game.gameInit("Medium", "Scatter");
+		Maze.initMaze("src/Resource/mediumMaze.txt");
 		Ghost red = Ghost.getGhostByName('P');
 		
 		red.setPosition(new Tuple(11,23)); 
@@ -566,7 +423,8 @@ public class GhostAlgorithmTest {
 		
 		Tuple redTargetTile = new ScatterTopRightCorner().behave(red);
 		Tuple expectedTargetTile = new Tuple(28,0);
-		game.gameOver();
+		
+		
 		assertEquals(expectedTargetTile, redTargetTile);
 	}
 }

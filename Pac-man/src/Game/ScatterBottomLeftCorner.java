@@ -17,5 +17,7 @@ public class ScatterBottomLeftCorner implements GhostAlgorithm {
 		
 		return targetTile;
 	}
+	
+	
 
 }

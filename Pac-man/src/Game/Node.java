@@ -23,16 +23,19 @@ public double getValue() {
 	return value;
 }
 
-public void setValue(double value) {
+public double setValue(double value) {
 	this.value=value;
+	return value;
 }
 
 public Node getParent() {
 	return parent;
 }
 
-public void setParent(Node parent) {
+public Node setParent(Node parent) {
 	this.parent=parent;
+	return parent;
+	
 }
 
 @Override

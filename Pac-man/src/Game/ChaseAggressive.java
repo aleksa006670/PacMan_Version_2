@@ -14,4 +14,6 @@ public class ChaseAggressive implements GhostAlgorithm {
 		return targetTile;
 
 	}
+	
+	
 }

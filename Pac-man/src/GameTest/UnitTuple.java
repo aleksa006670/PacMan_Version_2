@@ -137,6 +137,7 @@ public class UnitTuple {
 		assertEquals( 0.0000000, 80.9567785, result);
 	}
 	
+	/*
 	//testing boolean change(int, int)
 	@Test
 	public void test_14() {
@@ -144,7 +145,7 @@ public class UnitTuple {
 		t.changeTuple(-87, 100);
 		boolean result = t.equals(new Tuple(-87, 100));
 		assertEquals(result, true);
-	}
+	}*/
 	
 	//Testing public boolean tupleBelong(ArrayList<Tuple> tuples)
 	//loop coverage: 0
@@ -233,14 +234,14 @@ public class UnitTuple {
 		assertEquals(result, true);
 	}
 	
-	//testing void clip(Tuple, Tuple)
+	//testing Tuple clip(Tuple, Tuple)
 	@Test
 	public void test_23() {
 		Tuple t = new Tuple (15, 20);
 		Tuple min = new Tuple (15, 15);
 		Tuple max = new Tuple (20,20);
-		t.clip(min, max);
-		boolean result = t.equals(new Tuple(15, 20));
+		Tuple a = t.clip(min, max);
+		boolean result = a.equals(new Tuple(15, 20));
 		assertEquals(result, true);
 	}
 	
@@ -250,8 +251,8 @@ public class UnitTuple {
 		Tuple t = new Tuple (14, 20);
 		Tuple min = new Tuple (15, 15);
 		Tuple max = new Tuple (20,20);
-		t.clip(min, max);
-		boolean result = t.equals(new Tuple(15, 20));
+		Tuple a = t.clip(min, max);
+		boolean result = a.equals(new Tuple(15, 20));
 		assertEquals(result, true);
 	}
 	
@@ -262,8 +263,8 @@ public class UnitTuple {
 		Tuple t = new Tuple (21, 20);
 		Tuple min = new Tuple (15, 15);
 		Tuple max = new Tuple (20,20);
-		t.clip(min, max);
-		boolean result = t.equals(new Tuple(20, 20));
+		Tuple a = t.clip(min, max);
+		boolean result = a.equals(new Tuple(20, 20));
 		assertEquals(result, true);
 	}
 		
@@ -274,8 +275,8 @@ public class UnitTuple {
 		Tuple t = new Tuple (17, 13);
 		Tuple min = new Tuple (15, 15);
 		Tuple max = new Tuple (20,20);
-		t.clip(min, max);
-		boolean result = t.equals(new Tuple(17, 15));
+		Tuple a = t.clip(min, max);
+		boolean result = a.equals(new Tuple(17, 15));
 		assertEquals(result, true);
 	}
 		
@@ -285,8 +286,8 @@ public class UnitTuple {
 		Tuple t = new Tuple (17, 28);
 		Tuple min = new Tuple (15, 15);
 		Tuple max = new Tuple (20,20);
-		t.clip(min, max);
-		boolean result = t.equals(new Tuple(17, 20));
+		Tuple a = t.clip(min, max);
+		boolean result = a.equals(new Tuple(17, 20));
 		assertEquals(result, true);
 	}
 	
