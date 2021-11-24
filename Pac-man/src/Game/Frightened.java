@@ -13,24 +13,24 @@ public class Frightened extends Mode {
 		return instance;
 	}
 	
-	public static Frightened setFrightened(SearchAlgorithm sa) {
+
+	public static boolean setFrightened(SearchAlgorithm sa) {
 		if (instance==null){
-		instance = new Frightened(sa);}
+		instance = new Frightened(sa);
+		return true;}
 		else{
-			System.out.println("Frightened has already been initialized");
+			return false;
 		}
-		
-		return instance;
 	}
 
 	@Override
-	public void addAlgorithm(String algorithmName) {
+	public boolean addAlgorithm(String algorithmName) {
 		switch (algorithmName) {
 		case "FrightenedWandering":
 			algorithms.add(new FrightenedWandering());
-			break;
+			return true;
 		default:
-			// throw error
+			return false;
 		}
 	}
 
@@ -46,8 +46,9 @@ public class Frightened extends Mode {
 	}
 
 	@Override
-	public void deleteMode(){
+	public Mode deleteMode(){
 		instance =null;
+		return instance;
 	}
 
 }

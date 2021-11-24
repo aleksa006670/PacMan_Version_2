@@ -11,11 +11,11 @@ public abstract class Mode {
 	
 	private SearchAlgorithm sa;
 
-	public abstract void addAlgorithm(String algorithmString);
+	public abstract boolean addAlgorithm(String algorithmString);
 
 	public abstract boolean resolveCollision();
 
-	public abstract void deleteMode();
+	public abstract Mode deleteMode();
 	/**
 	 * Return the ArrayList of algorithms
 	 * @return algorithms
@@ -100,9 +100,11 @@ public abstract class Mode {
 		return sa;
 	}
 		
-	public void destroyAlgorithms() {
+	public boolean destroyAlgorithms() {
 		algorithms = null;
 		if(sa != null)
 			sa.destroySearch();			
+	
+	return (algorithms==null && sa==null);
 	}
 }

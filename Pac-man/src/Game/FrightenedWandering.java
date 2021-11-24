@@ -10,5 +10,6 @@ public class FrightenedWandering implements GhostAlgorithm {
 		
 		return null;
 	}
+	
 
 }

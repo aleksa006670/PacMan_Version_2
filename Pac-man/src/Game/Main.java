@@ -47,7 +47,7 @@ public class Main {
 			}
 			
 			while (game.isGameOver()==false) {
-				game.printMaze();
+				System.out.println(game.printMaze());
 				System.out.println();
 				System.out.println("\nType in a command (Up, Down, Left, Right, Reset): ");
 				

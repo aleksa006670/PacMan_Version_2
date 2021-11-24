@@ -22,9 +22,9 @@ public class Gate extends GameObject{
 		return instance;
 	}
 
-	public static Gate deleteGate(){
+	public static boolean deleteGate(){
 		instance = null;
 		
-		return instance;
+		return instance == null;
 	}
 }

@@ -20,7 +20,7 @@ public class Game {
 	}
 
 	private Game() {
-		//Difficulty.setMazeArray();
+		
 	}
 
 	public int gameInit(String difficultyStr, String mode) {
@@ -233,8 +233,9 @@ public class Game {
 	
 	
 	
-	
 	public Boolean moveGhosts() {
+
+	//How to test: compare the number of ghosts which actually moved to a different tile
 		ArrayList<Ghost> ghosts=Ghost.getGhosts();
 		if (ghosts.isEmpty()) return false;
 		
@@ -267,12 +268,13 @@ public class Game {
 	
 	
 	
-	public void gameOver() {
+	public boolean gameOver() {
 		//Score system should be called from here
-		PacMan.destroyPacman();
-		Ghost.destroyGhosts();
-		ModeDestructor.getInstance().destroyAllModes();
-		Maze.destroyMaze();
+		boolean outcomePac = PacMan.destroyPacman();
+		boolean outcomeG = Ghost.destroyGhosts();
+		boolean outcomeMode = ModeDestructor.getInstance().destroyAllModes();
+		boolean outcomeMaze = Maze.destroyMaze();
+		return outcomePac && outcomeG && outcomeMode && outcomeMaze;
 	
 	}
 	
@@ -293,8 +295,9 @@ public class Game {
 		return true;
 	}
 	
-	public void printMaze() {
+	public String printMaze() {
 		//Get pacman's position
+		String mazeText="";
 		int pacmanX =  PacMan.getInstance().getTuple().getFirst();
 		int pacmanY =  PacMan.getInstance().getTuple().getSecond();
 	
@@ -308,7 +311,8 @@ public class Game {
 			    
 				// see if pacman is here
 				if (i == pacmanY && j ==pacmanX) {
-					System.out.print("P ");
+					//System.out.print("P ");
+					mazeText+="P ";
 				}
 				else {
 					// see if any of the four ghosts is here
@@ -321,10 +325,14 @@ public class Game {
 							 * Here is some quick fix. The Pink ghost's symbol is 'P', same as Pacman.
 							 * So to make distinction I use letter 'I' to print the Pink ghost
 							 */
-							if (g.getSymbol() == 'P')	// only for Pink ghost						
-								System.out.print("I"+" ");
-							else						// for other ghosts - print normally
-								System.out.print(g.getSymbol()+" ");
+							if (g.getSymbol() == 'P') {	// only for Pink ghost						
+								//System.out.print("I"+" ");
+								mazeText+="I ";
+							}
+							else {						// for other ghosts - print normally
+								//System.out.print(g.getSymbol()+" ");
+								mazeText+=g.getSymbol() + " ";
+							}
 							
 							isGhostHere = true;
 							break;
@@ -333,15 +341,19 @@ public class Game {
 					if (!isGhostHere) {
 						// Neither Pacman nor ghost is here. We print maze 
 						if (maze.getSymbol(i, j) == 'N') {
-							System.out.print("  ");
+							//System.out.print("n");
+							mazeText+="n";
 						} else {
-							System.out.print(maze.getSymbol(i, j)+" ");
+							//System.out.print(maze.getSymbol(i, j)+" ");
+							mazeText+=maze.getSymbol(i, j)+" ";
 						}
 					}
 				}
 				
 			}
-			System.out.println();
+			//System.out.println();
+			mazeText+='\n';
 		}
+		return mazeText;
 }
 }
