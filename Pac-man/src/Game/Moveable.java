@@ -13,8 +13,12 @@ public abstract class Moveable extends GameObject {
 		direction = d;
 	}
 	
-	public void move() {
+	/**
+	 * return new position
+	 * */
+	public Tuple move() {
 			this.setPosition(getTuple().sum(getDirection().DirectionToTuple()));
+			return this.getTuple();
 	}
 	
 	public Direction getDirection() {

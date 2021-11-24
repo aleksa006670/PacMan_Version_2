@@ -81,11 +81,16 @@ public class Ghost extends  Moveable {
 	}
 
 
-	public static void reverseDirectionsOfAllGhosts() {
+	/**
+	 * return false if there's no ghost to reverse
+	 * */
+	public static boolean reverseDirectionsOfAllGhosts() {
 		for (int i = 0; i < ghosts.size(); i++) {
 			Direction opposite = ghosts.get(i).getDirection().opposite();
 			ghosts.get(i).setDirection(opposite);
+			return true;
 		}
+		return false;
 	}
 
 

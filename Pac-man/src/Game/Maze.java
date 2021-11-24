@@ -63,14 +63,18 @@ public class Maze {
 		return m;
 	}
 	
-	
-	public void removeObject(Tuple t) {
+	/**
+	 * return false if matrix[i][j] == null
+	 * */
+	public boolean removeObject(Tuple t) {
 		int i=t.getSecond();
 		int j=t.getFirst();
 		if(matrix[i][j]!=null) {
 			resetObjectList.add(matrix[i][j]);
+			return true;
 		}
 		matrix[i][j]=null;
+		return false;
 	}
 	
 	public char getSymbol(int i,int j) {
