@@ -93,10 +93,10 @@ class MazeTest {
 	void test08() {
 		Maze.initMaze("src/Resource/hardMaze.txt");
 		// remove the Food object at matrix(1, 5) or (x=5, y=1)
-		Maze.getInstance().removeObject(new Tuple(5, 1));
+		boolean result = Maze.getInstance().removeObject(new Tuple(5, 1));
 		// see after removal if this position becomes null
-		char result = Maze.getInstance().getSymbol(1, 5);
-		assertEquals(' ', result);
+//		Maze.getInstance().getSymbol(1, 5);
+		assertTrue(result);
 	}
 	
 	// Test Maze.removeObject() when matrix[i][j] is  null
@@ -106,13 +106,13 @@ class MazeTest {
 		// remove the Food object at matrix(1, 5) or (x=5, y=1)
 		Maze.getInstance().removeObject(new Tuple(5, 1));
 		// now try to remove it again, i.e. to remove a null position
-		Maze.getInstance().removeObject(new Tuple(5, 1));
+		boolean result = Maze.getInstance().removeObject(new Tuple(5, 1));
 		// see after removal if this position is really null
-		char result = Maze.getInstance().getSymbol(1, 5);
-		assertEquals(' ', result);
+//		Maze.getInstance().getSymbol(1, 5);
+		assertFalse(result);
 	}
 	
-	// Test Maze.getSymbol()
+	// Test Maze.getSymbol() when we want to get a NON-null object
 	@Test
 	void test10() {
 		Maze.initMaze("src/Resource/hardMaze.txt");
@@ -120,6 +120,20 @@ class MazeTest {
 		// if everything is OK this position is Food
 		assertEquals('F', result);
 	}
+	
+	// Test Maze.getSymbol() when we want to get a null object
+	@Test
+	void test24() {
+		Maze.initMaze("src/Resource/hardMaze.txt");
+		// pick wherever an object and remove it 
+		// so we get an null at this tile
+		Maze.getInstance().removeObject(new Tuple(5, 1));
+		char result = Maze.getInstance().getSymbol(1, 5);
+		// if everything is OK this position should be null
+		// and getSymbol() should return ' '
+		assertEquals(' ', result);
+	}
+	
 	
 	// Test Maze.destroyMaze()
 	@Test
