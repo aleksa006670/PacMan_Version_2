@@ -153,7 +153,8 @@ public class Game {
 		return true;
 	}
 
-	public boolean handleMovements(Direction pacPotDir) {
+	public int handleMovements(Direction pacPotDir) {
+		int x = 0;
 		moveGhosts();
 		char symbol = movePacMan(pacPotDir);
 		int ghost_eaten_num = 1;
@@ -166,40 +167,34 @@ public class Game {
 		
 		for(int i=0;i<ghosts.size();i++) {
 			if(this.isCollision(ghosts.get(i))) {
+				x += 10;
 				pacmanNoLose  = mode.resolveCollision();
-				if(pacmanNoLose) {
-					if(!this.PacDefeatGhost(ghosts.get(i), ghost_eaten_num)) {
-//						System.out.println("Pac cant defeat Ghosts");
-						return false; 
-					}
+				if(pacmanNoLose) { // Collision in Frightened mode
+					x += 20;
+					this.PacDefeatGhost(ghosts.get(i), ghost_eaten_num);
 					ghost_eaten_num *= 2;
-				} else {
-					if(!this.GhostDefeatPac()) {
-//						System.out.println("Ghosts cant defeat Pac");
-						return false; 
-					}
-					// No score given to Pacman
+				} else { // Collision in Chase or Scatter modes
+					x += 30;
+					this.GhostDefeatPac();
 					break;
 				}
 			}
 		}
 			
-		if(pacmanNoLose && symbol!='W') {
-			if(symbol=='U') {
-				if(!setMode("Frightened") || !pac.changeScore(50)) {
-//					System.out.println("Can't switch the mode");
-					return false;
-				}
-			} else if(symbol=='F') {
-				if(!pac.incrementFood() || !pac.changeScore(10)) {
-//					System.out.println("Can't eat food");
-					return false;
-				}
+		if(pacmanNoLose && symbol!='W') { // Pacman hits wall
+			x++;
+			if(symbol=='U') { // Pacman hits a powerup
+				x++;
+				setMode("Frightened");
+				pac.changeScore(50);
+			} else if(symbol=='F') { // Pacman hits a food
+				x += 2;
+				pac.incrementFood();
+				pac.changeScore(10);
 			}
 			maze.removeObject(PacMan.getInstance().getTuple());
 		}
-//		System.out.println("movement successful");
-		return true;
+		return x;
 	}
 	
 		
@@ -209,7 +204,7 @@ public class Game {
 		Tuple ghostPosition = g.getTuple();
 		Tuple pacDTuple = pac.getDirection().DirectionToTuple();
 		Tuple ghostDTuple = g.getDirection().DirectionToTuple();
-		boolean isTileSwap = pacPosition.sum(ghostDTuple).equals(ghostPosition) && ghostPosition.sum(pacDTuple).equals(pacPosition);
+		boolean isTileSwap =  ghostPosition.sum(pacDTuple).equals(pacPosition) && pacPosition.sum(ghostDTuple).equals(ghostPosition);
 		boolean sameTile = pacPosition.equals(ghostPosition);
 		return isTileSwap || sameTile;
 	}
@@ -231,9 +226,7 @@ public class Game {
 					
 			}
 			return true;
-		}
-		
-		else {
+		} else {
 			for(int i=0;i<ghosts.size();i++) {
 				// After
 				ghosts.get(i).moveToTarget(mode.getSearchAlgorithm(), null, difficulty.doReverse());
@@ -256,7 +249,6 @@ public class Game {
 		}
 		
 		return symbol;
-		
 	}
 	
 	
@@ -276,15 +268,15 @@ public class Game {
 	}
 	
 	public boolean PacDefeatGhost(Ghost g, int ghost_eaten_num) {
-		if(g == null || !g.resetPosition() || !PacMan.getInstance().changeScore(200 * ghost_eaten_num))
-			return false;
+		g.resetPosition();
+		PacMan.getInstance().changeScore(200 * ghost_eaten_num);
 		return true;
 	}
 	
 	public boolean GhostDefeatPac() {
 		PacMan pac = PacMan.getInstance();
-		if(pac == null || !pac.resetPosition() || !pac.changeLives(-1))
-			return false;
+		pac.resetPosition();
+		pac.changeLives(-1);
 		return true;
 	}
 	
@@ -332,14 +324,7 @@ public class Game {
 						}
 					}
 					if (!isGhostHere) {
-						// Neither Pacman nor ghost is here. We print maze 
-						if (maze.getSymbol(i, j) == 'N') {
-							//System.out.print("n");
-							mazeText+="n";
-						} else {
-							//System.out.print(maze.getSymbol(i, j)+" ");
-							mazeText+=maze.getSymbol(i, j)+" ";
-						}
+						mazeText+=maze.getSymbol(i, j)+" ";
 					}
 				}
 				

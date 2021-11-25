@@ -7,6 +7,10 @@ import org.junit.After;
 
 import Game.Direction;
 import Game.Game;
+import Game.Ghost;
+import Game.PacMan;
+import Game.Tuple;
+import Game.Maze;
 
 public class IntegrationGame { // push
 	
@@ -232,12 +236,205 @@ public class IntegrationGame { // push
 		assertEquals(res, true);
 	}
 	
-
 	// <------------------------ handleMovements(Direction pacPotDir) ------------------------>
-	@Test // Reset the game
+	@Test // Pacman stays in position --- Pacman does not collide with Ghosts
 	public void test_31() {
 		game.gameInit("Easy", "Chase");
-		boolean res = game.handleMovements(Direction.DOWN);
+		int res = game.handleMovements(Direction.DOWN);
+		assertEquals(res, 0);
+	}
+	
+	@Test // Pacman hits a Food
+	public void test_32() {
+		game.gameInit("Easy", "Chase");
+		int res = game.handleMovements(Direction.RIGHT);
+		assertEquals(res, 3);
+	}
+	
+	@Test // Pacman hits a powerup
+	public void test_33() {
+		game.gameInit("Easy", "Chase");
+		PacMan.getInstance().setPosition(new Tuple(3, 30));
+		int res = game.handleMovements(Direction.LEFT);
+		assertEquals(res, 2);
+	}
+	
+	@Test // Pacman moves into a null position
+	public void test_34() {
+		game.gameInit("Easy", "Chase");
+		game.handleMovements(Direction.RIGHT);
+		int res = game.handleMovements(Direction.LEFT);
+		assertEquals(res, 1);
+	}
+	
+	@Test // Ghost collides with Pacman during Chase or Scatter --- MC/DC for pacmanNoLose
+	public void test_35() {
+		game.gameInit("Easy", "Chase");
+		Ghost.getGhostByName('R').setPosition(new Tuple(15, 18));
+		int res = game.handleMovements(Direction.RIGHT);
+		assertEquals(res, 40);
+	}
+	
+	@Test // Ghost collides with Pacman during Frightened
+	public void test_36() {
+		game.gameInit("Easy", "Frightened");
+		PacMan.getInstance().setPosition(new Tuple(2, 21));
+		Ghost.getGhostByName('R').setPosition(new Tuple(1, 21));
+		int res = game.handleMovements(Direction.LEFT);
+		assertEquals(res, 33);
+	}
+	
+	// <------------------------ isCollision(Ghost g) ------------------------>
+	@Test // No collision
+	public void test_37() {
+		game.gameInit("Easy", "Chase");
+		int res = game.handleMovements(Direction.RIGHT);
+		assertEquals(res, 3);
+	}
+	
+	@Test // Same tile collision
+	public void test_38() {
+		game.gameInit("Easy", "Chase");
+		Ghost.getGhostByName('R').setPosition(new Tuple(16, 18));
+		int res = game.handleMovements(Direction.RIGHT);
+		assertEquals(res, 40);
+	}
+	
+	@Test // Swap tile collision
+	public void test_39() {
+		game.gameInit("Easy", "Chase");
+		Ghost.getGhostByName('R').setPosition(new Tuple(15, 18));
+		int res = game.handleMovements(Direction.RIGHT);
+		assertEquals(res, 40);
+	}
+	
+	@Test // No collision MC/DC --- following each other
+	public void test_40() {
+		game.gameInit("Easy", "Chase");
+		Ghost.getGhostByName('R').setPosition(new Tuple(13, 18));
+		int res = game.handleMovements(Direction.RIGHT);
+		assertEquals(res, 3);
+	}
+	
+	// <------------------------ moveGhosts() ------------------------>
+	@Test // Move Ghosts in Chase mode
+	public void test_41() {
+		game.gameInit("Easy", "Chase");
+		boolean res = game.moveGhosts();
 		assertEquals(res, true);
 	}
+	
+	@Test // Move Ghosts in Frightened mode
+	public void test_42() {
+		game.gameInit("Easy", "Frightened");
+		boolean res = game.moveGhosts();
+		assertEquals(res, false);
+	}
+	
+	// <------------------------ movePacMan(Direction pacPotDir) ------------------------>
+	@Test // Move Pacman into food
+	public void test_43() {
+		game.gameInit("Easy", "Chase");
+		char res = game.movePacMan(Direction.RIGHT);
+		assertEquals(res, 'F');
+	}
+	
+	@Test // Move Pacman into wall
+	public void test_44() {
+		game.gameInit("Easy", "Chase");
+		char res = game.movePacMan(Direction.DOWN);
+		assertEquals(res, 'W');
+	}
+	
+	// <------------------------ gameOver() ------------------------>
+	@Test // End Game
+	public void test_45() {
+		game.gameInit("Easy", "Chase");
+		boolean res = game.gameOver();
+		assertEquals(res, true);
+	}
+	
+	// <------------------------ isGameOver() ------------------------>
+	@Test // F || F
+	public void test_46() {
+		game.gameInit("Easy", "Chase");
+		boolean res = game.isGameOver();
+		assertEquals(res, false);
+	}
+	
+	@Test // F || T
+	public void test_47() {
+		game.gameInit("Easy", "Chase");
+		PacMan.getInstance().setFood(Maze.getInstance().getTotalNumOfFood());
+		boolean res = game.isGameOver();
+		assertEquals(res, true);
+	}
+	
+	@Test // T || F
+	public void test_48() {
+		game.gameInit("Easy", "Chase");
+		PacMan.getInstance().changeLives(-3);
+		boolean res = game.isGameOver();
+		assertEquals(res, true);
+	}
+	
+//	// <------------------------ PacDefeatGhost() ------------------------>
+	// Check test case number : 36
+	
+//	// <------------------------ GhostDefeatPac() ------------------------>
+	// Check test case number : 35
+	@Test // 
+	public void test_49() {
+		game.gameInit("Easy", "Scatter");
+		String res = game.printMaze();
+		String mze = "W W W W W W W W W W W W W W W W W W W W W W W W W W W W W \n"
+				+ "W U F F F F F F F F F F F F F F F F F F F F F F F F F U W \n"
+				+ "W F W W W W W W W W W W F W W W F W W W W W W W W W W F W \n"
+				+ "W F W W W W W W W W W W F W W W F W W W W W W W W W W F W \n"
+				+ "W F W W W W W W W F F F F W W W F F F F W W W W W W W F W \n"
+				+ "W F F F F F F F W F W W W W W W W W W F W F F F F F F F W \n"
+				+ "W W W W W W W F W F W W W W W W W W W F W F W W W W W W W \n"
+				+ "n n n n n n W F W F W W W W W W W W W F W F W n n n n n n \n"
+				+ "n n n n n n W F F F F F F F F F F F F F F F W n n n n n n \n"
+				+ "n n n n n n W F W F W W W W W W W W W F W F W n n n n n n \n"
+				+ "n n n W W W W F W F W W W W W W W W W F W F W W W W n n n \n"
+				+ "n n n W F F F F W F W W W W W W W W W F W F F F F W n n n \n"
+				+ "n n n W F W W W W F F F F F R F F F F F W W W W F W n n n \n"
+				+ "n W W W F W W W W F W W W W G W W W W F W W W W F W W W n \n"
+				+ "n W F F F F F F F F W n n I B O n n W F F F F F F F F W n \n"
+				+ "n W F W W W F W W F W n n n n n n n W F W W F W W W F W n \n"
+				+ "n W F W W W F W W F W n n n n n n n W F W W F W W W F W n \n"
+				+ "n W F F F W F W W F W W W W W W W W W F W W F W F F F W n \n"
+				+ "n W W W F W F W W F F F F F P F F F F F W W F W F W W W n \n"
+				+ "n n n W F W F W W W W F W W W W W F W W W W F W F W n n n \n"
+				+ "W W W W F W F W W W W F W W W W W F W W W W F W F W W W W \n"
+				+ "W F F F F F F F F F F F W W W W W F F F F F F F F F F F W \n"
+				+ "W W W W F W W W W F W W W W W W W W W F W W W W F W W W W \n"
+				+ "n n n W F W W W W F W W W W W W W W W F W W W W F W n n n \n"
+				+ "n n n W F W F F F F F F F F F F F F F F F F F W F W n n n \n"
+				+ "n n n W F W F W W W W F W W W W W F W W W W F W F W n n n \n"
+				+ "n W W W F W F W W W W F W W W W W F W W W W F W F W W W n \n"
+				+ "n W F F F F F W W F F F W W W W W F F F W W F F F F F W n \n"
+				+ "n W F W W W F W W F W W W W W W W W W F W W F W W W F W n \n"
+				+ "n W F W W W F W W F W W W W W W W W W F W W F W W W F W n \n"
+				+ "n W U F F F F W W F F F F F F F F F F F W W F F F F U W n \n"
+				+ "n W W W W W W W W W W W W W W W W W W W W W W W W W W W n \n";
+		assertEquals(res, mze);
+	}
+//	
+//	@Test // F || T
+//	public void test_50() {
+//		game.gameInit("Easy", "Chase");
+//		PacMan.getInstance().setFood(Maze.getInstance().getTotalNumOfFood());
+//		boolean res = game.isGameOver();
+//		assertEquals(res, true);
+//	}
+//	
+//	@Test // T || F
+//	public void test_51() {
+//		game.gameInit("Easy", "Chase");
+//		PacMan.getInstance().changeLives(-3);
+//		boolean res = game.isGameOver();
+//		assertEquals(res, true);
+//	}
 }
