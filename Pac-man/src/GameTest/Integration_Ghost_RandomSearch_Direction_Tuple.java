@@ -2,7 +2,6 @@ package GameTest;
 
 import Game.Direction;
 import Game.Easy;
-import Game.Game;
 import Game.Ghost;
 import Game.Maze;
 import Game.Medium;
