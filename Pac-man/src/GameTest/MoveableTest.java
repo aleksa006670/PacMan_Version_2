@@ -45,7 +45,7 @@ class MoveableTest {
 		pacman.move();
 		Tuple result = pacman.getTuple();
 		assertEquals(true, result.equals(new Tuple(10, 9)));
-	}; 
+	} 
 	
 	// Test Moveable.getDirection() and Moveable.setDirection()
 	@Test
