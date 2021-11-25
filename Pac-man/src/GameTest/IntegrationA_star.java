@@ -1,7 +1,6 @@
 package GameTest;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 
 import java.util.ArrayList;
 
@@ -28,26 +27,19 @@ public static void execute() {
 	possibleDirections.add(Direction.RIGHT);
 }
 
-@Test
-@Order(1)
-public void test0a() {
-	A_star result = A_star.getInstance();
-	assertNotEquals(result, null);
-}
 
 @Test
-@Order(2)
-public void test0c() {
+@Order(1)
+public void test0b() {
 	 A_star result =(A_star) A_star.getInstance().destroySearch();
 	assertEquals(result, null);
 }
-/*
+
 
 @Test
-@Order(4)
+@Order(2)
 //testing ArrayList<Tuple> getPath(Tuple, Tuple, ArrayList<Direction>)
 public void test1() {
-	A_star.setA_star();
 	Tuple start = new Tuple (1,1);
 	Tuple end = new Tuple(1,1);
 	ArrayList<Tuple> path = A_star.getInstance().getPath(start, end, possibleDirections);
@@ -58,9 +50,8 @@ public void test1() {
 
 //testing ArrayList<Tuple> getPath(Tuple, Tuple, ArrayList<Direction>)
 @Test
-@Order(5)
+@Order(3)
 public void test2() {
-	A_star.setA_star();
 	Tuple start = new Tuple(1,2);
 	Tuple end = new Tuple(1,1);
 	ArrayList<Tuple> path = A_star.getInstance().getPath(start, end, possibleDirections);
@@ -73,9 +64,8 @@ public void test2() {
 
 //testing ArrayList<Tuple> getPath(Tuple, Tuple, ArrayList<Direction>)
 @Test
-@Order(6)
+@Order(4)
 public void test3() {
-	A_star.setA_star();
 	Tuple start = new Tuple(1,1);
 	Tuple end = new Tuple(26, 30);
 	ArrayList<Tuple> path = A_star.getInstance().getPath(start, end, possibleDirections);
@@ -194,9 +184,8 @@ public void test3() {
 
 //testing Tuple BFS(Tuple, ArrayList<Direction>)
 @Test
-@Order(7)
+@Order(5)
 public void test4() {
-		A_star.setA_star();
 		Tuple t = new Tuple(1,1);
 		Tuple result = A_star.getInstance().BFS(t, possibleDirections);
 		assertEquals(result, new Tuple(1,1));
@@ -204,9 +193,8 @@ public void test4() {
 
 //testing Tuple BFS(Tuple, ArrayList<Direction>)
 @Test
-@Order(8)
+@Order(6)
 public void test5() {
-	A_star.setA_star();
 	Tuple t = new Tuple(14,19);
 	Tuple result = A_star.getInstance().BFS(t, possibleDirections);
 	assertEquals(result, new Tuple(14, 18));
@@ -216,72 +204,28 @@ public void test5() {
 //testing Tuple BFS(Tuple, ArrayList<Direction>)
 
 @Test
-@Order(9)
+@Order(7)
 public void test6() {
-	A_star.setA_star();
 	Tuple t= new Tuple(28, 31);
 	Tuple result = A_star.getInstance().BFS(t, possibleDirections);
 	assertEquals(result, new Tuple(26, 30));
 }
  
-//testing Tuple BFS(Tuple, ArrayList<Direction>)
+
+//Tuple findClosestGoal(Tuple t, ArrayList<Direction> possibleDirections)
 @Test
-@Order(10)
+@Order(8)
 public void test7() {
-	A_star.setA_star();
-	Tuple t = new Tuple(0,0);
-	Tuple result = A_star.getInstance().BFS(t, possibleDirections);
-	assertEquals(result, new Tuple(1,1));
-	
-}
-
-
-
-//Tuple findClosestGoal(Tuple t, ArrayList<Direction> possibleDirections)
-@Test
-@Order(11)
-public void test8() {
-	A_star.setA_star();
-	Tuple t = new Tuple(-1, -1);
-	Tuple result = A_star.getInstance().findClosestGoal(t, possibleDirections);
-	assertEquals(result, new Tuple(1,1));
-}
-
-//Tuple findClosestGoal(Tuple t, ArrayList<Direction> possibleDirections)
-@Test
-@Order(12)
-public void test9() {
-	A_star.setA_star();
 	Tuple t = new Tuple(33, 40);
 	Tuple result = A_star.getInstance().findClosestGoal(t, possibleDirections);
 	assertEquals(result, new Tuple(26, 30));
 }
-//Tuple findClosestGoal(Tuple t, ArrayList<Direction> possibleDirections)
-@Test
-@Order(13)
-public void test10() {
-	A_star.setA_star();
-	Tuple t= new Tuple (1,1);
-	Tuple result = A_star.getInstance().findClosestGoal(t, possibleDirections);
-	assertEquals(result, new Tuple(1,1));
-}
 
-@Test
-@Order(14)
-public void test11() {
-	A_star.setA_star();
-	Tuple t= new Tuple (14, 19);
-	Tuple result = A_star.getInstance().findClosestGoal(t, possibleDirections);
-	assertEquals(result, new Tuple(14,18));
-}
-
-*/
 //Direction getNextDirection(ArrayList<Tuple>, ArrayList<Direction>)
-/*
+
 @Test
-@Order(15)
-public void test12() {
-	A_star.setA_star();
+@Order(9)
+public void test8() {
 	ArrayList<Tuple> points = new ArrayList<Tuple>();
 	points.add(new Tuple(1,1));
 	points.add(new Tuple(33, 40));
@@ -292,27 +236,14 @@ public void test12() {
 
 //Direction getNextDirection(ArrayList<Tuple>, ArrayList<Direction>)
 @Test
-@Order(16)
-public void test13() {
-	A_star.setA_star();
-	ArrayList<Tuple> points = new ArrayList<Tuple>();
-	points.add(new Tuple(1,2));
-	points.add(new Tuple(-1, -1));
-	Direction next = A_star.getInstance().getNextDirection(points, possibleDirections);
-	assertEquals(next, Direction.UP);
-}
-
-//Direction getNextDirection(ArrayList<Tuple>, ArrayList<Direction>)
-@Test
-@Order(17)
-public void test14() {
-	A_star.setA_star();
+@Order(10)
+public void test9() {
 	ArrayList<Tuple> points = new ArrayList<Tuple>();
 	points.add(new Tuple(1,1));
 	points.add(new Tuple(1,1));
 	Direction next = A_star.getInstance().getNextDirection(points, possibleDirections);
 	assertEquals(next, null);
 }
-*/
+
 
 }

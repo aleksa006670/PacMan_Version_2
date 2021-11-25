@@ -23,7 +23,6 @@ public class IntegrationNode {
 	}
 	
 	
-	
 	@Test
 	//testing Tuple getID()
 	public void test1() {
@@ -46,73 +45,47 @@ public class IntegrationNode {
 		assertEquals(result, true);
 	}
 	
-	//testing boolean equals()
-	@Test
-	public void test4a() {
-		Node t = new Node(new Tuple(20, 80),null, 34.789);
-		boolean result = t.equals(n);
-		assertEquals(result, false);
-	}
-	
-	//testing boolean equals()
-	@Test
-	public void test4b() {
-		Node t = new Node(new Tuple(30, 80),null, 34.789);
-		boolean result = t.equals(n);
-		assertEquals(result, false);
-	}
 	
 	//testing Node getParent()
 	@Test
-	public void test5a() {
+	public void test4() {
 		Node parent = k.getParent();
 		assertEquals(parent, n);
 	}
 	
-	//testing Node getParent() null version
-	@Test
-	public void test5b() {
-		Node parent = n.getParent();
-		assertEquals(parent, null);
-	}
 	
 	//testing void setParent()
 	@Test
-	public void test6a() {
+	public void test5() {
 		Node p = n.setParent(k);
 		assertEquals(p, k);
 	}
 	
-	//testing setParent() null version
-	@Test
-	public void test6b() {
-		Node p = k.setParent(null);
-		assertEquals(p, null);
-	}
 	//testing void setValue()
 	@Test
-	public void test7() {
+	public void test6() {
 		double v = n.setValue(98.765);
 		assertEquals(v, 98.765, 0.000);
 	}
 	
+	//Compare function should be tested with -1, 0 ,1
 	//testing int compare()
 	@Test
-	public void test8() {
+	public void test7() {
 		int result = n.compareTo(k);
 		assertEquals(result,-1);
 	}
 	
 	//testing int compare()
 	@Test
-	public void test9() {
+	public void test8() {
 		int result = k.compareTo(n);
 		assertEquals(result, 1);
 	}
 	
 	//testing int compare()
 	@Test
-	public void test10() {
+	public void test9() {
 		Node t = new Node(new Tuple(30, 80),null, 4.781);
 		int result = k.compareTo(t);
 		assertEquals(result, 0);

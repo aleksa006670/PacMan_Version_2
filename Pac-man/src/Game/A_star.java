@@ -136,7 +136,6 @@ public Tuple BFS(Tuple t, ArrayList<Direction> possibleDirections){
 	//test4: FF
 	//test5: T-, FF
 	//test6: FF, T-, FT
-	//test7: T-, FF (exists to "cover" Tuple coverage)
 	
 	
 	while(indicator == 'W' || indicator=='n'){
@@ -147,7 +146,6 @@ public Tuple BFS(Tuple t, ArrayList<Direction> possibleDirections){
 			
 			//test5:TTT
 			//test6:TTT, F-, TF-, TTF
-			//test7: TTT, F-, TF-, TTF
 			if(!child.toClip(maze.getTopLeftCorner(), maze.getBottomRightCorner()) && !child.tupleBelong(visited) && !child.tupleBelong(tupleQueue)){
 				tupleQueue.add(child);
 			}
@@ -176,8 +174,8 @@ public Direction getNextDirection(ArrayList<Tuple> points, ArrayList<Direction> 
 	end = findClosestGoal(end, possibleDirections);
 	ArrayList<Tuple> path = getPath(start, end, possibleDirections);
 	Tuple nextTuple = null;
-	//T for test 11,12
-	//F for test 13
+	//T for test t8
+	//F for test 19
 	if(path.size()>1){
 	nextTuple = path.get(1);
 	}
@@ -187,8 +185,8 @@ public Direction getNextDirection(ArrayList<Tuple> points, ArrayList<Direction> 
 	} 
 	// TRAVERSE all possible directions until we find a direction that can lead to the specified tuple
 	for(Direction dir: possibleDirections){
-		//T test 11,12
-		//F test 13
+		//T test t8
+		//F test t9
 		if(start.sum(dir.DirectionToTuple()).equals(nextTuple)){
 			return dir;
 		}
