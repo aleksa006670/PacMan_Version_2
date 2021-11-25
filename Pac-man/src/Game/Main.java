@@ -18,16 +18,10 @@ public class Main {
 			String difficulty = s.next();
 			
 			int res = game.gameInit(difficulty, "Scatter");
-			while(res != 0) {
-				if(res == 1) { // Handling Difficulty error
-					System.out.println("Please specify the difficulty properly (Easy, Medium, Hard):");
-					difficulty = s.next();
-					res = game.gameInit(difficulty, "Scatter");
-				} else if(res == 2) {
-					System.out.println("Game mode init failed!");
-					s.close();
-					return;	
-				}
+			while(res == 1) {
+				System.out.println("Please specify the difficulty properly (Easy, Medium, Hard):");
+				difficulty = s.next();
+				res = game.gameInit(difficulty, "Scatter");
 			}
 			
 			while (game.isGameOver()==false) {

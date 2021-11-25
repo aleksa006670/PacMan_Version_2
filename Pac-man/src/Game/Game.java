@@ -324,7 +324,8 @@ public class Game {
 						}
 					}
 					if (!isGhostHere) {
-						mazeText+=maze.getSymbol(i, j)+" ";
+						if(maze.getSymbol(i, j) == 'F') mazeText += ". ";
+						else mazeText+=maze.getSymbol(i, j)+" ";
 					}
 				}
 				
