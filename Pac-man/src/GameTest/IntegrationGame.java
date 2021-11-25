@@ -378,12 +378,14 @@ public class IntegrationGame { // push
 		assertEquals(res, true);
 	}
 	
-//	// <------------------------ PacDefeatGhost() ------------------------>
+	// <------------------------ PacDefeatGhost() ------------------------>
 	// Check test case number : 36
 	
-//	// <------------------------ GhostDefeatPac() ------------------------>
+	// <------------------------ GhostDefeatPac() ------------------------>
 	// Check test case number : 35
-	@Test // 
+	
+	// <------------------------ printMaze() ------------------------>
+	@Test
 	public void test_49() {
 		game.gameInit("Easy", "Scatter");
 		String res = game.printMaze();
@@ -421,20 +423,4 @@ public class IntegrationGame { // push
 				+ "n W W W W W W W W W W W W W W W W W W W W W W W W W W W n \n";
 		assertEquals(res, mze);
 	}
-//	
-//	@Test // F || T
-//	public void test_50() {
-//		game.gameInit("Easy", "Chase");
-//		PacMan.getInstance().setFood(Maze.getInstance().getTotalNumOfFood());
-//		boolean res = game.isGameOver();
-//		assertEquals(res, true);
-//	}
-//	
-//	@Test // T || F
-//	public void test_51() {
-//		game.gameInit("Easy", "Chase");
-//		PacMan.getInstance().changeLives(-3);
-//		boolean res = game.isGameOver();
-//		assertEquals(res, true);
-//	}
 }
