@@ -18,12 +18,7 @@ import GameTest.WriteFile;
 import GameTest.OSType;
 
 class PacManTest {
-	/***************************************
-	 * Use these to redirect I/O stream    *
-	 ***************************************/
-	PrintStream ps;
-	ByteArrayOutputStream baos;
-	
+
 	@BeforeEach
 	void setUp() throws Exception{
 		
@@ -58,9 +53,6 @@ class PacManTest {
 	// Test duplicate calling initPacMan()
 	@Test 
 	void test03() {
-		baos = new ByteArrayOutputStream();
-		ps = new PrintStream(baos);
-		System.setOut(ps);
 		
 		String pacManInitFile = "src/Resource/pacManTestInitData.txt";
 		String [] contents  = new String[] {"10", "10", "1"};
@@ -77,12 +69,6 @@ class PacManTest {
 		WriteFile.DeleteFile(pacManInitFile2);
 		
 		assertTrue(result);
-		if (OSType.isWindows())
-			assertEquals("PacMan has already been initiliazed\r\n", baos.toString());
-		else if (OSType.isMac())
-			assertEquals("PacMan has already been initiliazed\r", baos.toString());
-		else if (OSType.isLinux())
-			assertEquals("PacMan has already been initiliazed\n", baos.toString());
 	}
 	
 	// 	Test PacMan.resetPacMan()

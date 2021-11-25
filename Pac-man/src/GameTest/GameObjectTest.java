@@ -41,7 +41,7 @@ class GameObjectTest {
 		char result;
 		go = new Tile(10, 10); // new Tile
 		result = go.getSymbol();
-		assertEquals(' ', result);
+		assertEquals('n', result);
 	}
 
 	
