@@ -19,20 +19,12 @@ public class A_star implements SearchAlgorithm{
 	
 	
 	public static A_star getInstance() {
-		return instance;
-	}
-	
-	
-	public static boolean setA_star() {
 		if(instance == null) {
 			instance = new A_star(Maze.getInstance().getN()*Maze.getInstance().getM(), Maze.getInstance().getN());
-			return true;
 			
 		}
 		
-		else {
-			return false;
-		}
+		return instance;
 	}
 	
 /** A_star.getPath() will return every tile that is on the solution path

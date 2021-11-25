@@ -235,7 +235,7 @@ public class IntegrationMode {
 		boolean res = frightened.addAlgorithm("AnyString");
 		assertEquals(res, false);
 	}
-	
+
 	@Test
 	public void TestFrightened06() {
 		Frightened.setFrightened(null);
@@ -334,7 +334,6 @@ public class IntegrationMode {
 
 		cleanUpChase();
 	}
-
 
 	@Test
 	public void TestChase06() {

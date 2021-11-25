@@ -1,6 +1,7 @@
 package GameTest;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import java.util.ArrayList;
 
@@ -30,19 +31,12 @@ public static void execute() {
 @Test
 @Order(1)
 public void test0a() {
-	boolean result = A_star.setA_star();
-	assertEquals(result, true);
+	A_star result = A_star.getInstance();
+	assertNotEquals(result, null);
 }
 
 @Test
 @Order(2)
-public void test0b() {
-	boolean result = A_star.setA_star();
-	result = A_star.setA_star();
-	assertEquals(result, false);
-}
-@Test
-@Order(3)
 public void test0c() {
 	 A_star result =(A_star) A_star.getInstance().destroySearch();
 	assertEquals(result, null);
@@ -283,6 +277,7 @@ public void test11() {
 
 */
 //Direction getNextDirection(ArrayList<Tuple>, ArrayList<Direction>)
+/*
 @Test
 @Order(15)
 public void test12() {
@@ -318,6 +313,6 @@ public void test14() {
 	Direction next = A_star.getInstance().getNextDirection(points, possibleDirections);
 	assertEquals(next, null);
 }
-
+*/
 
 }

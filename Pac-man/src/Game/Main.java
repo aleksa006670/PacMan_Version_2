@@ -17,7 +17,7 @@ public class Main {
 			System.out.println("Please specify the difficulty (Easy, Medium, Hard):");
 			String difficulty = s.next();
 			
-			int res = game.gameInit(difficulty, "Frightened");
+			int res = game.gameInit(difficulty, "Scatter");
 			while(res != 0) {
 				if(res == 1) { // Handling Difficulty error
 					System.out.println("Please specify the difficulty properly (Easy, Medium, Hard):");
@@ -32,26 +32,9 @@ public class Main {
 			
 			while (game.isGameOver()==false) {
 				System.out.println(game.printMaze());
-				System.out.println();
-				System.out.println("\nType in a command (Up, Down, Left, Right, Reset): ");
-				
+				System.out.println("\n\nType in a command (Up, Down, Left, Right, Reset): ");
 				String cmd = s.next();
-				int val = game.gameTick(cmd);
-				if(val == 0) {
-					System.out.println("Move successful");
-				} else if(val == 1) {
-					System.out.println("A problem has occurred with Game reset");
-					s.close();
-					return;
-				} else if(val == 2) {
-					System.out.println("A problem has occurred with Pacman's movement");
-					s.close();
-					return;
-				} else if(val == 3) { // Problem with Setting mode to Chase after Frightened
-					System.out.println("A problem has occurred with setting mode to Chase after Frightened");
-					s.close();
-					return;
-				}
+				game.gameTick(cmd);
 			}
 			printScore("score.txt", PacMan.getInstance().getScore(), name, difficulty);
 			System.out.println("Do you want to play again?");

@@ -15,8 +15,8 @@ public static ModeDestructor getInstance() {
 public boolean destroyAllModes() {
 	for(Mode m: modes) {
 		m.destroyGA();
-		m.deleteMode();
 		m.destroySearch();
+		m.deleteMode();
 	}
 	modes.clear();
 	return true;

@@ -5,12 +5,17 @@ import java.util.ArrayList;
 //Code smell: A* and Greedy Search should inherit the same class
 // Class Game should have a Path finding algorithm as a field, as this can be dictated by the level difficulty
 public class Greedy_Search implements SearchAlgorithm{
-	private static Greedy_Search instance=new Greedy_Search();
+	private static Greedy_Search instance;
 	private Greedy_Search() {
 	}
 	
 	public static Greedy_Search getInstance() {
+		if (instance == null) 
+		{
+			instance=new Greedy_Search();
+		}
 		return instance;
+		
 	}
 	
 	
