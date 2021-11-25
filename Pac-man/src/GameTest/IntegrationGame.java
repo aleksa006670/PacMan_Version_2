@@ -19,7 +19,7 @@ public class IntegrationGame { // push
 	
 	@After
 	public void destroy() {
-//		game.gameOver();
+		game.gameOver();
 		Game.destroyGame();
 	}
 
@@ -234,10 +234,10 @@ public class IntegrationGame { // push
 	
 
 	// <------------------------ handleMovements(Direction pacPotDir) ------------------------>
-//	@Test // Reset the game
-//	public void test_16() {
-//		game.gameInit("Easy", "Chase");
-//		boolean res = game.handleMovements(Direction.DOWN);
-//		assertEquals(res, true);
-//	}
+	@Test // Reset the game
+	public void test_31() {
+		game.gameInit("Easy", "Chase");
+		boolean res = game.handleMovements(Direction.DOWN);
+		assertEquals(res, true);
+	}
 }
