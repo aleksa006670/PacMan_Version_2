@@ -14,12 +14,6 @@ import Game.Tuple;
 
 class GateTest {
 
-	/***************************************
-	 * Use these to redirect I/O stream    *
-	 ***************************************/
-	PrintStream ps;
-	ByteArrayOutputStream baos;
-	
 	@BeforeEach
 	void setUp() throws Exception {
 	}
@@ -32,24 +26,17 @@ class GateTest {
 	// Test Gate.setGate()
 	@Test
 	void test01() {
-		baos = new ByteArrayOutputStream();
-		ps = new PrintStream(baos);
-		System.setOut(ps);
 		
-		Gate.setGate(14, 21);  // the gate is not set before
+		boolean result = Gate.setGate(14, 21);  // the gate is not set before
 							   //  the program should not print anything
-		
-		assertEquals("", baos.toString());
+		assertTrue(result);
 	}
 	
 	@Test 
 	void test02() {
-		baos = new ByteArrayOutputStream();
-		ps = new PrintStream(baos);
-		System.setOut(ps);
 		Gate.setGate(14, 21);
-		Gate.setGate(10, 10);  // the program should output "The gate has been initialized!"
-		assertEquals("The gate has been initialized!\r\n", baos.toString());
+		boolean result = Gate.setGate(10, 10);  // the program should output "The gate has been initialized!"
+		assertFalse(result);
 	}
 
 	// Test Gate.getInstance
@@ -62,14 +49,10 @@ class GateTest {
 	}
 	
 	// Test Gate.deleteGate()
-	@Test
+	@Test 
 	void test04() {
-		baos = new ByteArrayOutputStream();
-		ps = new PrintStream(baos);
-		System.setOut(ps);
 		Gate.setGate(14, 21);
-		Gate.deleteGate();
-		Gate.setGate(10, 10);  // The program should NOT output anything
-		assertEquals("", baos.toString());
+		Gate result = Gate.deleteGate();
+		assertNull(result);
 	}
 }
