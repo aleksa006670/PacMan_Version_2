@@ -33,7 +33,6 @@ public class Main {
 			while (game.isGameOver()==false) {
 				System.out.println(game.printMaze());
 				System.out.println("\n\nType in a command (Up, Down, Left, Right, Reset): ");
-				
 				String cmd = s.next();
 				game.gameTick(cmd);
 			}
