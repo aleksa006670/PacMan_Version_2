@@ -67,14 +67,15 @@ public class Maze {
 	 * return false if matrix[i][j] == null
 	 * */
 	public boolean removeObject(Tuple t) {
+		boolean addedToResetList = false;
 		int i=t.getSecond();
 		int j=t.getFirst();
 		if(matrix[i][j]!=null) {
 			resetObjectList.add(matrix[i][j]);
-			return true;
+			addedToResetList = true;
 		}
 		matrix[i][j]=null;
-		return false;
+		return addedToResetList;
 	}
 	
 	public char getSymbol(int i,int j) {
