@@ -38,7 +38,7 @@ public class IntegrationGreedySearch {
 //Direction getNextDirection(ArrayList<Tuple> , ArrayList<Direction>)
 @Test
 @Order(1)
-public void test1() {
+public void test1a() {
 	ArrayList<Tuple> points = new ArrayList<Tuple>();
 	Tuple start = new Tuple(12,15);
 	Tuple end = new Tuple(11,15);
@@ -51,7 +51,7 @@ public void test1() {
 //Direction getNextDirection(ArrayList<Tuple> , ArrayList<Direction>)
 @Test
 @Order(2)
-public void test2() {
+public void test2a() {
 	ArrayList<Tuple> points = new ArrayList<Tuple>();
 	Tuple start = new Tuple(14,12);
 	Tuple end = new Tuple(14,11);
@@ -61,50 +61,11 @@ public void test2() {
 	assertEquals(result, Direction.LEFT);
 }
 
-//Direction getNextDirection(ArrayList<Tuple> , ArrayList<Direction>)
 
+//Direction getNextDirection(ArrayList<Tuple> , ArrayList<Direction>)
 @Test
 @Order(3)
-public void test3() {
-	ArrayList<Tuple> points = new ArrayList<Tuple>();
-	Tuple start = new Tuple(13,18);
-	Tuple end = new Tuple(15, 18);
-	points.add(start);
-	points.add(end);
-	Direction result = Greedy_Search.getInstance().getNextDirection(points, accessibleDirections);
-	assertEquals(result, Direction.RIGHT);
-}
-
-//Direction getNextDirection(ArrayList<Tuple> , ArrayList<Direction>)
-@Test
-@Order(4)
-public void test4() {
-	ArrayList<Tuple> points = new ArrayList<Tuple>();
-	Tuple start = new Tuple(19,14);
-	Tuple end = new Tuple(28, 15);
-	points.add(start);
-	points.add(end);
-	Direction result = Greedy_Search.getInstance().getNextDirection(points, accessibleDirections);
-	assertEquals(result, Direction.RIGHT);
-}
-
-//Direction getNextDirection(ArrayList<Tuple> , ArrayList<Direction>)
-@Test
-@Order(5)
-public void test5() {
-	ArrayList<Tuple> points = new ArrayList<Tuple>();
-	Tuple start = new Tuple(9,14);
-	Tuple end = new Tuple(14, 18);
-	points.add(start);
-	points.add(end);
-	Direction result = Greedy_Search.getInstance().getNextDirection(points, accessibleDirections);
-	assertEquals(result, Direction.DOWN);
-}
-
-//Direction getNextDirection(ArrayList<Tuple> , ArrayList<Direction>)
-@Test
-@Order(6)
-public void test6() {
+public void test3a() {
 	ArrayList<Tuple> points = new ArrayList<Tuple>();
 	Tuple start = new Tuple(1,1);
 	Tuple end = new Tuple(1,1);
@@ -114,11 +75,12 @@ public void test6() {
 	assertEquals(result, null);
 }
 //////////////////////////////////////////////////////////////////
+
  
 //Direction getNextDirection(ArrayList<Tuple> , ArrayList<Direction>)
 @Test
-@Order(7)
-public void test7() {
+@Order(4)
+public void test1b() {
 	accessibleDirections.remove(Direction.UP);
 	ArrayList<Tuple> points = new ArrayList<Tuple>();
 	Tuple start = new Tuple(12,15);
@@ -131,8 +93,8 @@ public void test7() {
 
 //Direction getNextDirection(ArrayList<Tuple> , ArrayList<Direction>)
 @Test
-@Order(8)
-public void test8() {
+@Order(5)
+public void test2b() {
 	accessibleDirections.remove(Direction.LEFT);
 	ArrayList<Tuple> points = new ArrayList<Tuple>();
 	Tuple start = new Tuple(14,12);
@@ -145,51 +107,8 @@ public void test8() {
 
 //Direction getNextDirection(ArrayList<Tuple> , ArrayList<Direction>)
 @Test
-@Order(9)
-public void test9() {
-	accessibleDirections.remove(Direction.LEFT);
-	ArrayList<Tuple> points = new ArrayList<Tuple>();
-	Tuple start = new Tuple(13,18);
-	Tuple end = new Tuple(11, 18);
-	points.add(start);
-	points.add(end);
-	Direction result = Greedy_Search.getInstance().getNextDirection(points, accessibleDirections);
-	assertEquals(result, Direction.RIGHT);
-}
-
-//Direction getNextDirection(ArrayList<Tuple> , ArrayList<Direction>)
-//the ghosts is in a dead end
-@Test
-@Order(10)
-public void test10() {
-	accessibleDirections.remove(Direction.LEFT);
-	ArrayList<Tuple> points = new ArrayList<Tuple>();
-	Tuple start = new Tuple(27,21);
-	Tuple end = new Tuple(0, 21);
-	points.add(start);
-	points.add(end);
-	Direction result = Greedy_Search.getInstance().getNextDirection(points, accessibleDirections);
-	assertEquals(result, null);
-}
-
-//Direction getNextDirection(ArrayList<Tuple> , ArrayList<Direction>)
-@Test
-@Order(11)
-public void test11() {
-	accessibleDirections.remove(Direction.DOWN);
-	ArrayList<Tuple> points = new ArrayList<Tuple>();
-	Tuple start = new Tuple(9,14);
-	Tuple end = new Tuple(14, 18);
-	points.add(start);
-	points.add(end);
-	Direction result = Greedy_Search.getInstance().getNextDirection(points, accessibleDirections);
-	assertEquals(result, Direction.UP);
-}
-
-//Direction getNextDirection(ArrayList<Tuple> , ArrayList<Direction>)
-@Test
-@Order(12)
-public void test12() {
+@Order(6)
+public void test3b() {
 	accessibleDirections.remove(Direction.UP);
 	ArrayList<Tuple> points = new ArrayList<Tuple>();
 	Tuple start = new Tuple(1,1);
@@ -199,10 +118,10 @@ public void test12() {
 	Direction result = Greedy_Search.getInstance().getNextDirection(points, accessibleDirections);
 	assertEquals(result, null);
 }
-
+//Direction getNextDirection(ArrayList<Tuple> , ArrayList<Direction>)
 @Test
-@Order(13)
-public void test13() {
+@Order(7)
+public void test4() {
 	Greedy_Search result = (Greedy_Search)Greedy_Search.getInstance().destroySearch();
 	assertEquals(result,null);
 }
