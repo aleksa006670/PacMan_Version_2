@@ -74,14 +74,10 @@ public abstract class Mode {
 						tempMode = Frightened.getInstance();
 						ModeDestructor.getInstance().addMode(tempMode);
 						break;
-					default:
-						// throw error
-						System.out.println("Algorithm selected is invalid!");
-						return false;
 				}
 				
 				//False in case of Frightened mode
-				//True in case of orher modes
+				//True in case of other modes
 				if(scanner.hasNext()) {
 					for (int j = 0; j < numGhosts; j++) {
 						tempMode.addAlgorithm(scanner.nextLine());
@@ -93,7 +89,6 @@ public abstract class Mode {
 			return true;
 
 		} catch (Exception e) {
-			e.printStackTrace();
             System.out.printf("Algorithm file %s not found\n", filepath);
             return false;
 		}
@@ -105,7 +100,8 @@ public abstract class Mode {
 	
 	//void
 	public SearchAlgorithm destroySearch() {
-		sa.destroySearch();
+		if(sa != null)
+			sa.destroySearch();
 		sa=null;
 		return sa;
 	}
