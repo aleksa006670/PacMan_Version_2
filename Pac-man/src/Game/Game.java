@@ -9,22 +9,24 @@ public class Game {
 	
 	private Difficulty difficulty;
 
-	private static Game instance = new Game();
+	private static Game instance = null;
 	
 	private int totalTicks = 0;
 	private int totalModeChanges = 0;
 	private int totalFrightenedTicks = 0;
 
 	public static Game getInstance() {
+		if(instance == null) instance = new Game();
 		return instance;
+	}
+	
+	public static boolean destroyGame() {
+		instance = null;
+		return true;
 	}
 
 	private Game() {
 		
-	}
-	
-	public static void GameConstructor() { // Test
-		instance = new Game();
 	}
 
 	public int gameInit(String difficultyStr, String mode) {
@@ -104,10 +106,7 @@ public class Game {
 	public boolean setMode(String mode) {
 		if (mode != null) {
 			// if mode is changed, revere ghosts' direction
-			if (this.mode != null && !this.mode.getModeName().equals(mode) && (
-					mode.equals("Frightened") ||
-					(mode.equals("Chase") && this.mode.getModeName().equals("Scatter")) ||
-					(mode.equals("Scatter") && this.mode.getModeName().equals("Chase")) )) {
+			if (this.mode != null && !this.mode.getModeName().equals(mode) && !this.mode.getModeName().equals("Frightened")) {
 				Ghost.reverseDirectionsOfAllGhosts();
 			}
 			
@@ -148,11 +147,9 @@ public class Game {
 	public boolean resetGame() {
 		PacMan pac = PacMan.getInstance();
 		Maze maze = Maze.getInstance();
-		if(pac == null || maze == null)
-			return false;
-		if(!pac.resetPacMan() || !Ghost.resetGhosts() || !maze.resetMaze())
-			return false;
-		System.out.println("Game is reset");
+		pac.resetPacMan();
+		Ghost.resetGhosts();
+		maze.resetMaze();
 		return true;
 	}
 
@@ -184,7 +181,6 @@ public class Game {
 					// No score given to Pacman
 					break;
 				}
-				return true;
 			}
 		}
 			
@@ -216,7 +212,6 @@ public class Game {
 		boolean isTileSwap = pacPosition.sum(ghostDTuple).equals(ghostPosition) && ghostPosition.sum(pacDTuple).equals(pacPosition);
 		boolean sameTile = pacPosition.equals(ghostPosition);
 		return isTileSwap || sameTile;
-		
 	}
 	
 	

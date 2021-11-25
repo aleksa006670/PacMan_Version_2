@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.After;
 
-
+import Game.Direction;
 import Game.Game;
 
 public class IntegrationGame { // push
@@ -19,8 +19,8 @@ public class IntegrationGame { // push
 	
 	@After
 	public void destroy() {
-		Game.GameConstructor();
-		System.out.println("hey");
+//		game.gameOver();
+		Game.destroyGame();
 	}
 
 	// <------------------------ gameInit() ------------------------>
@@ -95,15 +95,8 @@ public class IntegrationGame { // push
 	@Test // Test Frightened --> Chase
 	public void test_11() {
 		game.gameInit("Easy", "Frightened");
-		game.gameTick("Right");
-		game.gameTick("Right");
-		game.gameTick("Right");
-		game.gameTick("Right");
-		game.gameTick("Right");
-		game.gameTick("Right");
-		game.gameTick("Right");
-		game.gameTick("Right");
-		game.gameTick("Right");
+		for(int i = 0; i < 9; i++)
+			game.gameTick("Right");
 		int res = game.gameTick("Right");
 		assertEquals(res, 4);
 	}
@@ -118,15 +111,8 @@ public class IntegrationGame { // push
 	@Test // Test Scatter --> Chase
 	public void test_13() {
 		game.gameInit("Easy", "Scatter");
-		game.gameTick("Right");
-		game.gameTick("Right");
-		game.gameTick("Right");
-		game.gameTick("Right");
-		game.gameTick("Right");
-		game.gameTick("Right");
-		game.gameTick("Right");
-		game.gameTick("Right");
-		game.gameTick("Right");
+		for(int i = 0; i < 9; i++)
+			game.gameTick("Right");
 		int res = game.gameTick("Right");
 		assertEquals(res, 5);
 	}
@@ -134,15 +120,8 @@ public class IntegrationGame { // push
 	@Test // Test Chase --> Scatter
 	public void test_14() {
 		game.gameInit("Easy", "Chase");
-		game.gameTick("Right");
-		game.gameTick("Right");
-		game.gameTick("Right");
-		game.gameTick("Right");
-		game.gameTick("Right");
-		game.gameTick("Right");
-		game.gameTick("Right");
-		game.gameTick("Right");
-		game.gameTick("Right");
+		for(int i = 0; i < 9; i++)
+			game.gameTick("Right");
 		int res = game.gameTick("Right");
 		assertEquals(res, 6);
 	}
@@ -155,4 +134,110 @@ public class IntegrationGame { // push
 		int res = game.gameTick("Right");
 		assertEquals(res, 0);
 	}
+	
+	// <------------------------ setMode() ------------------------>
+	@Test // Mode set to Chase
+	public void test_16() {
+		int res = game.gameInit("Easy", "Chase"); 
+		assertEquals(res, 0);
+	}
+	
+	@Test // Mode set to Scatter
+	public void test_17() {
+		int res = game.gameInit("Easy", "Scatter"); 
+		assertEquals(res, 0);
+	}
+	
+	@Test // Mode set to Frightened
+	public void test_18() {
+		int res = game.gameInit("Easy", "Frightened"); 
+		assertEquals(res, 0);
+	}
+	
+	@Test // Mode set to null
+	public void test_19() {
+		int res = game.gameInit("Easy", null); 
+		assertEquals(res, 2);
+	}
+	
+	@Test // Mode set to invalid string
+	public void test_20() {
+		int res = game.gameInit("Easy", "Invalid");
+		assertEquals(res, 2);
+	}
+	
+	@Test // this.mode != null (F)
+	public void test_21() {
+		int res = game.gameInit("Easy", "Scatter"); // First mode to be set
+		assertEquals(res, 0);
+	}
+	
+	@Test // this.mode != null (T) --- !this.mode.getModeName().equals(mode) (F)
+	public void test_22() {
+		game.gameInit("Easy", "Scatter");
+		int res = game.gameInit("Easy", "Scatter");
+		assertEquals(res, 0);
+	}
+	
+	@Test // !this.mode.getModeName().equals(mode) (T) --- !this.mode.getModeName().equals("Frightened") (F)
+	public void test_23() {
+		game.gameInit("Easy", "Frightened");
+		int res = game.gameInit("Easy", "Chase");
+		assertEquals(res, 0);
+	}
+	
+	@Test // !this.mode.getModeName().equals("Frightened") (T)
+	public void test_24() {
+		game.gameInit("Easy", "Chase");
+		int res = game.gameInit("Easy", "Frightened");
+		assertEquals(res, 0);
+	}
+	
+	// <------------------------ setDifficulty() ------------------------>
+	@Test // Difficulty set to Easy
+	public void test_25() {
+		int res = game.gameInit("Easy", "Chase"); 
+		assertEquals(res, 0);
+	}
+	
+	@Test // Difficulty set to Medium
+	public void test_26() {
+		int res = game.gameInit("Medium", "Chase"); 
+		assertEquals(res, 0);
+	}
+	
+	@Test // Difficulty set to Hard
+	public void test_27() {
+		int res = game.gameInit("Hard", "Chase"); 
+		assertEquals(res, 0);
+	}
+	
+	@Test // Difficulty set to null
+	public void test_28() {
+		int res = game.gameInit(null, "Chase"); 
+		assertEquals(res, 1);
+	}
+	
+	@Test // Difficulty set to Invalid
+	public void test_29() {
+		int res = game.gameInit("Invalid", "Chase"); 
+		assertEquals(res, 1);
+	}
+	
+	// <------------------------ resetGame() ------------------------>
+	@Test // Reset the game
+	public void test_30() {
+		game.gameInit("Easy", "Chase");
+		boolean res = game.resetGame();
+		assertEquals(res, true);
+	}
+	
+
+	// <------------------------ handleMovements(Direction pacPotDir) ------------------------>
+//	@Test // Reset the game
+//	public void test_16() {
+//		game.gameInit("Easy", "Chase");
+//		boolean res = game.handleMovements(Direction.DOWN);
+//		assertEquals(res, true);
+//	}
 }
