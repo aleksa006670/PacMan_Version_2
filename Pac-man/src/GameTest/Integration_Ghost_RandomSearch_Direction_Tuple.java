@@ -45,10 +45,11 @@ public class Integration_Ghost_RandomSearch_Direction_Tuple {
 	}
 	
 	
+	
 	@Test
 	public void TestRandomSearch01() {
-//		Game game = Game.getInstance();
-//		game.gameInit("Easy", "Frightened");
+		//Game game = Game.getInstance();
+		//game.gameInit("Easy", "Frightened");
 		Maze.initMaze("src/Resource/easyMaze.txt");
 		
 		//any ghost will do
@@ -61,7 +62,7 @@ public class Integration_Ghost_RandomSearch_Direction_Tuple {
 		//testing
 		Tuple redNewPosition = red.getTuple();
 		Boolean isNewPositionValid = !redNewPosition.equals(new Tuple(8,8))&&!redNewPosition.equals(new Tuple(9,8));
-//		game.gameOver();
+		//game.gameOver();
 		assertEquals(true, isNewPositionValid);
 	}
 	
@@ -69,10 +70,11 @@ public class Integration_Ghost_RandomSearch_Direction_Tuple {
 	/**
 	 * ghost is passing by the house
 	 * */
+	
 	@Test
 	public void TestRandomSearch02() {
-//		Game game = Game.getInstance();
-//		game.gameInit("Medium", "Frightened");
+		//Game game = Game.getInstance();
+		//game.gameInit("Medium", "Frightened");
 		Maze.initMaze("src/Resource/mediumMaze.txt");
 		
 		//any ghost will do
@@ -87,17 +89,18 @@ public class Integration_Ghost_RandomSearch_Direction_Tuple {
 		//testing
 		Tuple redNewPosition = red.getTuple();
 		Boolean isNewPositionValid = redNewPosition.equals(new Tuple(13,11));
-//		game.gameOver();
+		//game.gameOver();
 		assertEquals(true, isNewPositionValid);
 	}
 	
 	/**
 	 * ghost is facing a dead end and cannot move
 	 * */
+	
 	@Test
 	public void TestRandomSearch03() {
-//		Game game = Game.getInstance();
-//		game.gameInit("Medium", "Frightened");
+		//Game game = Game.getInstance();
+		//game.gameInit("Medium", "Frightened");
 		Maze.initMaze("src/Resource/mediumMaze.txt");
 		
 		//any ghost will do
@@ -110,13 +113,14 @@ public class Integration_Ghost_RandomSearch_Direction_Tuple {
 		//testing
 		Tuple redNewPosition = red.getTuple();
 		Boolean isNewPositionValid = redNewPosition.equals(new Tuple(1,7));
-//		game.gameOver();
+		//game.gameOver();
 		assertEquals(true, isNewPositionValid);
 	}
 	
 	/**
 	 * ghost is getting out of the house
 	 * */
+	
 	@Test
 	public void TestRandomSearch04() {
 //		Game game = Game.getInstance();
@@ -140,6 +144,7 @@ public class Integration_Ghost_RandomSearch_Direction_Tuple {
 	/**
 	 * test 05 and 06 are to cover Tuple.toClip()
 	 * */
+	
 	@Test
 	public void TestRandomSearch05() {
 //		Game game = Game.getInstance();
@@ -183,6 +188,7 @@ public class Integration_Ghost_RandomSearch_Direction_Tuple {
 	/**
 	 * test destroy search 
 	 * */
+	
 	@Test
 	public void TestRandomSearch07() {
 //		Game game = Game.getInstance();

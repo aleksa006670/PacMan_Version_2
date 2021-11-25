@@ -5,7 +5,7 @@ import java.util.Random;
 
 
 public class RandomSearch implements SearchAlgorithm{
-	public static RandomSearch instance=new RandomSearch();
+	public static RandomSearch instance;
 	private Random random;
 	private RandomSearch() {
 		random = new Random();
@@ -16,6 +16,7 @@ public class RandomSearch implements SearchAlgorithm{
 		{
 			instance=new RandomSearch();
 		}
+		//delete afterwards
 		return instance;
 	}
 	

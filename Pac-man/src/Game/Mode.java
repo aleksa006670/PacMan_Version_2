@@ -51,7 +51,6 @@ public abstract class Mode {
 						tempSearch = Greedy_Search.getInstance();
 						break;
 					case "AStar":
-						A_star.setA_star();
 						tempSearch = A_star.getInstance();
 						break;
 					default:
@@ -106,7 +105,7 @@ public abstract class Mode {
 	
 	//void
 	public SearchAlgorithm destroySearch() {
-		if (sa!=null) sa.destroySearch();
+		sa.destroySearch();
 		sa=null;
 		return sa;
 	}
