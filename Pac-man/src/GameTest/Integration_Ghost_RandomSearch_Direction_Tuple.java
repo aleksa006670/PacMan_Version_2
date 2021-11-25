@@ -65,18 +65,15 @@ public class Integration_Ghost_RandomSearch_Direction_Tuple {
 		assertEquals(true, isNewPositionValid);
 	}
 	
-//	@Test
-//	public void omar() {
-//		Game game = Game.getInstance();
-//		assertEquals(game, null);
-//	}
+
 	/**
 	 * ghost is passing by the house
 	 * */
 	@Test
 	public void TestRandomSearch02() {
-		Game game = Game.getInstance();
-		game.gameInit("Medium", "Frightened");
+//		Game game = Game.getInstance();
+//		game.gameInit("Medium", "Frightened");
+		Maze.initMaze("src/Resource/mediumMaze.txt");
 		
 		//any ghost will do
 		Ghost red = Ghost.getGhostByName('R');
@@ -90,7 +87,7 @@ public class Integration_Ghost_RandomSearch_Direction_Tuple {
 		//testing
 		Tuple redNewPosition = red.getTuple();
 		Boolean isNewPositionValid = redNewPosition.equals(new Tuple(13,11));
-		game.gameOver();
+//		game.gameOver();
 		assertEquals(true, isNewPositionValid);
 	}
 	
@@ -99,8 +96,9 @@ public class Integration_Ghost_RandomSearch_Direction_Tuple {
 	 * */
 	@Test
 	public void TestRandomSearch03() {
-		Game game = Game.getInstance();
-		game.gameInit("Medium", "Frightened");
+//		Game game = Game.getInstance();
+//		game.gameInit("Medium", "Frightened");
+		Maze.initMaze("src/Resource/mediumMaze.txt");
 		
 		//any ghost will do
 		Ghost red = Ghost.getGhostByName('R');
@@ -112,7 +110,7 @@ public class Integration_Ghost_RandomSearch_Direction_Tuple {
 		//testing
 		Tuple redNewPosition = red.getTuple();
 		Boolean isNewPositionValid = redNewPosition.equals(new Tuple(1,7));
-		game.gameOver();
+//		game.gameOver();
 		assertEquals(true, isNewPositionValid);
 	}
 	
@@ -121,8 +119,9 @@ public class Integration_Ghost_RandomSearch_Direction_Tuple {
 	 * */
 	@Test
 	public void TestRandomSearch04() {
-		Game game = Game.getInstance();
-		game.gameInit("Easy", "Frightened");
+//		Game game = Game.getInstance();
+//		game.gameInit("Easy", "Frightened");
+		Maze.initMaze("src/Resource/easyMaze.txt");
 		
 		//any ghost will do
 		Ghost red = Ghost.getGhostByName('R');
@@ -134,7 +133,7 @@ public class Integration_Ghost_RandomSearch_Direction_Tuple {
 		//testing
 		Tuple redNewPosition = red.getTuple();
 		Boolean isNewPositionValid = redNewPosition.equals(new Tuple(14,12));
-		game.gameOver();
+//		game.gameOver();
 		assertEquals(true, isNewPositionValid);
 	}
 	
@@ -143,8 +142,9 @@ public class Integration_Ghost_RandomSearch_Direction_Tuple {
 	 * */
 	@Test
 	public void TestRandomSearch05() {
-		Game game = Game.getInstance();
-		game.gameInit("Easy", "Frightened");
+//		Game game = Game.getInstance();
+//		game.gameInit("Easy", "Frightened");
+		Maze.initMaze("src/Resource/easyMaze.txt");
 		
 		//any ghost will do
 		Ghost red = Ghost.getGhostByName('R');
@@ -156,14 +156,15 @@ public class Integration_Ghost_RandomSearch_Direction_Tuple {
 		//testing
 		Tuple redNewPosition = red.getTuple();
 		Boolean isNewPositionValid = redNewPosition.equals(new Tuple(16,18));
-		game.gameOver();
+//		game.gameOver();
 		assertEquals(true, isNewPositionValid);
 	}
 	
 	@Test
 	public void TestRandomSearch06() {
-		Game game = Game.getInstance();
-		game.gameInit("Easy", "Frightened");
+//		Game game = Game.getInstance();
+//		game.gameInit("Easy", "Frightened");
+		Maze.initMaze("src/Resource/easyMaze.txt");
 		
 		//any ghost will do
 		Ghost red = Ghost.getGhostByName('R');
@@ -175,7 +176,7 @@ public class Integration_Ghost_RandomSearch_Direction_Tuple {
 		//testing
 		Tuple redNewPosition = red.getTuple();
 		Boolean isNewPositionValid = redNewPosition.equals(new Tuple(21,14));
-		game.gameOver();
+//		game.gameOver();
 		assertEquals(true, isNewPositionValid);
 	}
 	
@@ -184,12 +185,13 @@ public class Integration_Ghost_RandomSearch_Direction_Tuple {
 	 * */
 	@Test
 	public void TestRandomSearch07() {
-		Game game = Game.getInstance();
-		game.gameInit("Easy", "Frightened");
+//		Game game = Game.getInstance();
+//		game.gameInit("Easy", "Frightened");
+		Maze.initMaze("src/Resource/easyMaze.txt");
 		
 		RandomSearch randomSearch = RandomSearch.getInstance();
 		SearchAlgorithm searchAlgo = randomSearch.destroySearch();
-		game.gameOver();
+//		game.gameOver();
 		assertEquals(null, searchAlgo);
 	}
 }
