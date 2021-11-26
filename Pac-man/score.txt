@@ -11,3 +11,5 @@ Difficulty:Easy Name:Test01 Score:120
 Difficulty:Medium Name:Test02 Score:3550 
 Difficulty:Easy Name:Test03 Score:3270 
 Difficulty:Easy Name:Test03 Score:3690 
+Difficulty:Hard Name:s Score:950 
+Difficulty:Hard Name:Omar Score:100 

@@ -3,7 +3,6 @@ package Game;
 public abstract class GameObject {
 	private Tuple position;
 	private final char symbol;
-	private Sprite asset;
 
 	public GameObject(int x_coordinate, int y_coordinate, char symbol) {
 		this.symbol = symbol; // objects will not change their symbols during the game
