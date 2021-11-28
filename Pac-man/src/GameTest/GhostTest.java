@@ -14,11 +14,9 @@ import Game.A_star;
 import Game.Direction;
 import Game.Game;
 import Game.Ghost;
-import Game.Maze;
 import Game.PacMan;
 import Game.SearchAlgorithm;
 import Game.Tuple;
-import GameTest.WriteFile;
 
 class GhostTest {
 

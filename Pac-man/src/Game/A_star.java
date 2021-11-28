@@ -194,7 +194,6 @@ public Direction getNextDirection(ArrayList<Tuple> points, ArrayList<Direction> 
 	return null;
 }
 
-@Override
 public SearchAlgorithm destroySearch() {
 	instance=null;
 	return instance;

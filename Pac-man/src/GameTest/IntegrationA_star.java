@@ -3,8 +3,7 @@ package GameTest;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
-
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -16,17 +15,18 @@ import Game.Maze;
 import Game.Tuple;
 @TestMethodOrder(OrderAnnotation.class)
 public class IntegrationA_star {
-	private static ArrayList<Direction> possibleDirections=new ArrayList<Direction>();
-@BeforeAll
-public static void execute() {
+	private static ArrayList<Direction> possibleDirections;
+@BeforeEach
+public void setUp() {
 	//A* does not directly use this method;thus I do not need to test it
+	Maze.destroyMaze();
+	possibleDirections = new ArrayList<Direction>();
 	Maze.initMaze("src/Resource/easyMaze.txt");
 	possibleDirections.add(Direction.UP);
-	possibleDirections.add(Direction.DOWN);
 	possibleDirections.add(Direction.LEFT);
+	possibleDirections.add(Direction.DOWN);
 	possibleDirections.add(Direction.RIGHT);
 }
-
 
 @Test
 @Order(1)
@@ -46,6 +46,7 @@ public void test1() {
 	ArrayList<Tuple> solution = new ArrayList<Tuple>();
 	solution.add(new Tuple(1,1));
 	assertEquals(path, solution);
+	
 }
 
 //testing ArrayList<Tuple> getPath(Tuple, Tuple, ArrayList<Direction>)
@@ -177,6 +178,9 @@ public void test3() {
 	solution.add(new Tuple(26, 29));
 	
 	solution.add(end);
+	for(Tuple t: path) {
+		System.out.println(t.getFirst() + " "+t.getSecond());
+	}
 	
 	assertEquals(solution, path);
 }

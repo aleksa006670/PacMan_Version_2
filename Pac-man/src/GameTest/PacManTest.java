@@ -1,21 +1,13 @@
 package GameTest;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import Game.Direction;
 import Game.PacMan;
 import Game.Tuple;
-import GameTest.WriteFile;
-import GameTest.OSType;
 
 class PacManTest {
 

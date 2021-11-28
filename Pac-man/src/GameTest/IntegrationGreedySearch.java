@@ -3,8 +3,6 @@ package GameTest;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
-
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -19,21 +17,19 @@ import Game.Tuple;
 public class IntegrationGreedySearch {
 	private ArrayList<Direction> accessibleDirections;
 	
-	@BeforeAll
-	public static void execute1() {
-		Maze.initMaze("src/Resource/easyMaze.txt");
-	}
 	
-	@BeforeEach
-	public void setUp() {
-		
-		accessibleDirections = new ArrayList<Direction>();
-		this.accessibleDirections.add(Direction.UP);
-		this.accessibleDirections.add(Direction.LEFT);
-		this.accessibleDirections.add(Direction.RIGHT);
-		this.accessibleDirections.add(Direction.DOWN);
-		
-	}
+@BeforeEach
+public void setUp() {
+	Maze.destroyMaze();
+	Maze.initMaze("src/Resource/easyMaze.txt");
+	accessibleDirections = new ArrayList<Direction>();
+	this.accessibleDirections.add(Direction.UP);
+	this.accessibleDirections.add(Direction.LEFT);
+	this.accessibleDirections.add(Direction.RIGHT);
+	this.accessibleDirections.add(Direction.DOWN);
+	
+}
+
 
 //Direction getNextDirection(ArrayList<Tuple> , ArrayList<Direction>)
 @Test

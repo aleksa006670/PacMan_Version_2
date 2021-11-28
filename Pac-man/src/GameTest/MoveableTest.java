@@ -5,19 +5,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 //import org.junit.After;
 //import org.junit.Before;
-import org.junit.jupiter.api.AfterAll;
+
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 //import org.junit.Test;
 
 import Game.PacMan;
 import Game.Direction;
-import Game.GameObject;
-import Game.Moveable;
 import Game.Tuple;
-import GameTest.WriteFile;
 
 
 class MoveableTest {
@@ -33,20 +29,21 @@ class MoveableTest {
 //    	PacMan.destroyPacman();
 //    }
 
-    @BeforeAll
-	static void setUpBeforeClass() throws Exception {
+    @BeforeEach
+	public void setUpBeforeClass() throws Exception {
 		
 		/*
 		 * Pacman x=10, y=10, lives=1
 		 */
+    	PacMan.destroyPacman();
 		String [] contents = new String[] {"10", "10", "1"};
 		WriteFile.DoWriting(pacManInitFile, contents);
 		PacMan.initPacMan(pacManInitFile);  
 	}
     
-	@AfterAll
-	static void tearDownAfterClass() throws Exception {
-		PacMan.destroyPacman();
+	@AfterEach
+	public void tearDownAfterClass() throws Exception {
+		
 		WriteFile.DeleteFile(pacManInitFile);
 	}
 	
@@ -62,7 +59,7 @@ class MoveableTest {
 		System.out.println(result.getFirst());
 		System.out.println(result.getSecond());
 		PacMan.destroyPacman();
-		assertEquals(true, result.equals(new Tuple(12, 12)));
+		assertEquals(true, result.equals(new Tuple(10, 9)));
 	} 
 	
 	// Test Moveable.getDirection() and Moveable.setDirection()

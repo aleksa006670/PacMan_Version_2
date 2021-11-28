@@ -1,20 +1,14 @@
 package GameTest;
 
-import Game.Game;
 
 import Game.Ghost;
-import Game.Greedy_Search;
-import Game.Hard;
 import Game.PacMan;
-import Game.RandomSearch;
 import Game.ScatterBottomLeftCorner;
 import Game.ScatterBottomRightCorner;
 import Game.ScatterTopLeftCorner;
 import Game.ScatterTopRightCorner;
 import Game.Tuple;
 import Game.Maze;
-import Game.Medium;
-import Game.Mode;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,13 +16,11 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.*;
 
-import Game.A_star;
 import Game.ChaseAggressive;
 import Game.ChaseAmbush;
 import Game.ChasePatrol;
 import Game.ChaseRandom;
 import Game.Direction;
-import Game.Easy;
 
 public class Integration_GhostAlgorithm_Ghost_Maze_Tuple_Pacman_Test {
 	/**
